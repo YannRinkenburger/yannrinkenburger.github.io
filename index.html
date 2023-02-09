@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="mainMenu">
+        <h2>75 HARD</h2>
+        <div id="daysMenu" class="flex-container">
+        </div>
+
+        <p style="  text-align: center; font-size: 15px; margin: 40px;">Tap any day to show details</p>
+
+        <div id="viewRules">
+            <h3>DAILY RULES</h3>
+        </div>
+    </div>
+    
+    <div id="viewDay" style="display: none;">
+        <div id="dayText"></div>
+    </div>
+
+    <div id="alertDiv" style="display: none">
+        <img src="alert.jpg" width="300px">
+        <h2 style="color: white;">WHAT HAPPEND?</h2>
+        <p>You havent checked in.</p>
+        <p>That means either you did the work and forgot to check everything off, or you let your inner bitch beat you.</p>
+        <p><b>Which is it?</b></p>
+
+        <center><button id="alertButton">I'm Still On Track</button></center>
+        <center><button id="failedButton">I Failed</button></center>
+    </div>
+
+    <div id="failDiv" style="display: none;">
+        <h2 style="color: white;">I'M DISAPPOINTET BY YOU</h2>
+        <p>I'm disappointet by you and you should be too. I'm giving you one last chance. But this time don't cheat on yourself! And stick to the rules!</p>
+
+        <center><button id="retryButton">RETRY</button></center>
+    </div>
+
+    <div id="fileDisplayArea" style="display: none;">
+
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

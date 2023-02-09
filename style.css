@@ -1,0 +1,168 @@
+html{
+    background-color: #252525;
+    color: white;
+    font-family: Arial;
+}
+
+h2{
+    text-align: center;
+    margin: 30px;
+    color: red;
+}
+
+h3{
+    text-align: center;
+    padding: 4px;
+    color: red;
+}
+
+#viewRules{
+    background-color: #222222;
+    position: fixed;
+    left: 0;
+    right: 0;
+}
+
+.flex-container{
+    margin-left: 10px;
+    display: flex;
+    flex-wrap: wrap;
+}
+  
+.flex-container > button{
+    margin: 10px;
+    width: 30px;
+    font-size: 15px;
+    background-color: transparent;
+    border: none;
+    color: white;
+}
+
+.flex-container > button:hover{
+    cursor: pointer;
+}
+
+.flex-container > p{
+    margin: 7px;
+    width: 175px;
+    font-size: 15px;
+    background-color: transparent;
+    border: none;
+    color: white;
+}
+
+.goalRow{
+    margin-left: 10px;
+    margin-top: 20px;
+    margin-bottom: 15px;
+}
+
+.goalRow hr{
+    margin-left: -10px;
+    margin-top: 10px;
+}
+
+.checkButton{
+    width: 30px;
+    height: 30px;
+    margin-right: 20px;
+    border: 1px solid white;
+    border-radius: 10px;
+    background-color: transparent;
+    color: transparent;
+}
+
+.checkButton:hover{
+    cursor: pointer;
+}
+
+.saveButton{
+    display: block;
+    background-color: transparent;
+    color: red;
+    width: 250px;
+    height: 40px;
+    font-size: 18px;
+    border: 1px solid red;
+    border-radius: 30px;
+    margin: auto;
+    margin-top: 50px;
+}
+
+.saveButton:hover{
+    background-color: red;
+    color: #252525;
+    cursor: pointer;
+}
+
+#dayText{
+    color: red;
+    font-size: 30px;
+    text-align: center;
+    margin: 50px;
+    font-weight: bold;
+}
+
+.cameraLable{
+    position: fixed;
+    left: 8px;
+    top: 244px;
+}
+
+.cameraLable:hover{
+    cursor: pointer;
+}
+
+.cameraLable img{
+    width: 50px;
+}
+
+#alertDiv{
+    margin: 36px;
+}
+
+#alertButton{
+    margin-top: 20px;
+    background-color: red;
+    border: none;
+    padding: 10px;
+    font-size: large;
+    width: 300px;
+    color: white;
+    border-radius: 5px;
+}
+
+#alertDiv button:hover{
+    cursor: pointer;
+}
+
+#failedButton{
+    margin-top: 10px;
+    background-color: #252525;
+    border: none;
+    padding: 10px;
+    font-size: large;
+    width: 300px;
+    color: white;
+    border-radius: 10px;
+}
+
+#failDiv{
+    margin: 36px;
+    margin-top: 200px;
+}
+
+#retryButton{
+    margin-top: 20px;
+    background-color: red;
+    border: none;
+    padding: 10px;
+    font-size: large;
+    width: 300px;
+    color: white;
+    border-radius: 5px;
+}
+
+#retryButton:hover{
+    cursor: pointer;
+}
