@@ -78,20 +78,21 @@ h3{
 
 .saveButton{
     display: block;
-    background-color: transparent;
-    color: red;
+    background-color: red;
+    color: white;
+    border: none;
     width: 250px;
     height: 40px;
     font-size: 18px;
-    border: 1px solid red;
     border-radius: 30px;
     margin: auto;
     margin-top: 50px;
 }
 
 .saveButton:hover{
-    background-color: red;
-    color: #252525;
+    background-color: #252525;
+    border: 1px solid red;
+    color: red;
     cursor: pointer;
 }
 
