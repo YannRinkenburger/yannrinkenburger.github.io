@@ -166,3 +166,17 @@ h3{
 #retryButton:hover{
     cursor: pointer;
 }
+
+#showImgButton{
+    background-color: red;
+    border: none;
+    padding: 10px;
+    font-size: large;
+    width: 300px;
+    color: white;
+    border-radius: 5px;
+}
+
+#showImgButton:hover{
+    cursor: pointer;
+}

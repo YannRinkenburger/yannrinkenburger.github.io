@@ -15,25 +15,6 @@ class goal{
 
 loadDays()
 
-createRules()
-
-function createRules()
-{
-    var div = document.createElement("div")
-    div.className = "flex-container"
-    div.style.paddingBottom = "20px"
-
-    for(var i = 0; i < goalsText.length; i++)
-    {
-        var p = document.createElement("p")
-        p.innerHTML = goalsText[i]
-
-        div.append(p)
-    }
-
-    document.getElementById("viewRules").append(div)
-}
-
 if(localStorage.getItem("day") != null)
 {
     var oldDay = localStorage.getItem("day")
@@ -173,7 +154,7 @@ function loadSpecificDay(index)
         row.append(checkButton)
         row.append(goalText)
 
-        if(i == 2)
+        if(i == 2 && array[2].bool == false)
         {
             var cameraLabel = document.createElement("label")
             cameraLabel.htmlFor = "cameraInput"
@@ -219,6 +200,11 @@ function loadSpecificDay(index)
 
     saveButton.onclick = function()
     {
+        if(document.getElementById("cameraInput") != null)
+        {
+            camera(document.getElementById("cameraInput"), array)
+        }
+
         var trueBoxes = 0
 
         for(var i = 0; i < document.getElementsByClassName("goalRow").length; i++)
@@ -248,8 +234,6 @@ function loadSpecificDay(index)
 
         dayArray.splice((index-1), 1, array)
         saveArray()
-
-        camera(document.getElementById("cameraInput"))
 
         document.getElementById("viewDayDiv").remove()
         document.getElementById("mainMenu").style.display = ""
@@ -299,30 +283,52 @@ function saveArray()
     localStorage.setItem("dayArray", JSON.stringify(dayArray))
 }
 
-function camera(fileInput)
+function camera(fileInput, array)
 {
     var fileDisplayArea = document.getElementById("fileDisplayArea")
                 
     var file = fileInput.files[0]
     var imageType = /image.*/
 
-    if(file.type.match(imageType)) 
+    if(file != undefined)
     {
-        var reader = new FileReader()
-
-        reader.onload = function()
+        if(file.type.match(imageType)) 
         {
-            fileDisplayArea.innerHTML = ""
+            var reader = new FileReader()
 
-            var img = new Image()
-            img.src = reader.result
+            reader.onload = function()
+            {
+                fileDisplayArea.innerHTML = ""
 
-            fileDisplayArea.appendChild(img)
+                var img = new Image()
+                img.src = reader.result
+
+                fileDisplayArea.appendChild(img)
+            }
+
+            reader.readAsDataURL(file)
+
+            var goalBool = array[2].bool
+
+            var goalText = document.getElementsByClassName("goalText")[2]
+            var checkButton = document.getElementsByClassName("checkButton")[2]
+
+            goalBool = true
+            array[2].bool = true
+
+            checkButton.style.backgroundColor = "red"
+            checkButton.style.border = "1px solid red"
+            checkButton.style.color = "white"
+            checkButton.style.fontSize = "15px"
+            checkButton.innerHTML = "&check;"
+
+            goalText.style.textDecoration = "line-through"
+            goalText.style.color = "grey"
+
+            document.getElementsByClassName("cameraLable")[0].remove()
+        }else
+        {
+            alert("File not supported!")
         }
-
-        reader.readAsDataURL(file); 
-    }else
-    {
-        fileDisplayArea.innerHTML = "File not supported!"
     }
 }
