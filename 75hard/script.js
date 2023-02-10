@@ -46,6 +46,11 @@ if(localStorage.getItem("day") != null)
     localStorage.setItem("day", day)
 }
 
+if(localStorage.getItem("images") != null)
+{
+    images = JSON.parse(localStorage.getItem("images"))
+}
+
 function createAlert()
 {
     document.getElementById("mainMenu").style.display = "none"
@@ -317,6 +322,8 @@ function camera(fileInput, array, day)
                 images.push(image)
 
                 fileDisplayArea.appendChild(img)
+                
+                saveImages()
             }
 
             reader.readAsDataURL(file)
@@ -362,4 +369,9 @@ function showImages()
 
         document.getElementById("viewImages").append(div)
     }
+}
+
+function saveImages()
+{
+    localStorage.setItem("images", JSON.stringify(images))
 }
