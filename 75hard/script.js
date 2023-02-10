@@ -2,6 +2,8 @@ var goalsText = ["First Workout", "Second Workout", "Take Progress Picture", "10
 
 var dayArray = []
 
+var images = []
+
 const d = new Date();
 var day = d.getDay()
 
@@ -10,6 +12,14 @@ class goal{
     {
         this.text = text
         this.bool = false
+    }
+}
+
+class imageSave{
+    constructor(day, image)
+    {
+        this.day = day
+        this.image = image
     }
 }
 
@@ -283,7 +293,7 @@ function saveArray()
     localStorage.setItem("dayArray", JSON.stringify(dayArray))
 }
 
-function camera(fileInput, array)
+function camera(fileInput, array, day)
 {
     var fileDisplayArea = document.getElementById("fileDisplayArea")
                 
@@ -303,17 +313,17 @@ function camera(fileInput, array)
                 var img = new Image()
                 img.src = reader.result
 
+                var image = new imageSave(day, img.src)
+                images.push(image)
+
                 fileDisplayArea.appendChild(img)
             }
 
             reader.readAsDataURL(file)
 
-            var goalBool = array[2].bool
-
             var goalText = document.getElementsByClassName("goalText")[2]
             var checkButton = document.getElementsByClassName("checkButton")[2]
 
-            goalBool = true
             array[2].bool = true
 
             checkButton.style.backgroundColor = "red"
@@ -330,5 +340,26 @@ function camera(fileInput, array)
         {
             alert("File not supported!")
         }
+    }
+}
+
+function showImages()
+{
+    document.getElementById("mainMenu").style.display = "none"
+    document.getElementById("viewImages").style.display = ""
+
+    for(var i = 0; i < images.length; i++)
+    {
+        var element = images[i]
+
+        var div = document.createElement("div")
+        div.className = "imageDiv"
+        
+        var image = document.createElement("img")
+        image.src = element.image
+
+        div.append(image)
+
+        document.getElementById("viewImages").append(div)
     }
 }

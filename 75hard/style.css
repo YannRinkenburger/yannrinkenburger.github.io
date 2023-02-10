@@ -90,9 +90,6 @@ h3{
 }
 
 .saveButton:hover{
-    background-color: #252525;
-    border: 1px solid red;
-    color: red;
     cursor: pointer;
 }
 
@@ -180,4 +177,9 @@ h3{
 
 #showImgButton:hover{
     cursor: pointer;
+}
+
+.imageDiv img{
+    width: 100%;
+    height: 100%;
 }
