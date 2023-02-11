@@ -194,7 +194,7 @@ function loadSpecificDay(index)
         {
             checkButton.style.backgroundColor = "red"
             checkButton.style.border = "1px solid red"
-            checkButton.style.color = "white"
+            checkButton.style.color = "red"
             checkButton.style.fontSize = "15px"
             checkButton.innerHTML = "&check;"
 
@@ -288,7 +288,7 @@ function clickOnGoal(index, array, checkButton)
 
         checkButton.style.backgroundColor = "red"
         checkButton.style.border = "1px solid red"
-        checkButton.style.color = "white"
+        checkButton.style.color = "red"
         checkButton.style.fontSize = "15px"
         checkButton.innerHTML = "&check;"
 
