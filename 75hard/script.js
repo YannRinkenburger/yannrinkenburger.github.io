@@ -276,7 +276,7 @@ function clickOnGoal(index, array, checkButton)
 
         checkButton.style.backgroundColor = "transparent"
         checkButton.style.color = "transparent"
-        checkButton.style.border = "1px solid white"
+        checkButton.style.border = "1px solid red"
         checkButton.innerHTML = "f"
 
         goalText.style.textDecoration = "none"
@@ -288,7 +288,7 @@ function clickOnGoal(index, array, checkButton)
 
         checkButton.style.backgroundColor = "red"
         checkButton.style.border = "1px solid red"
-        checkButton.style.color = "red"
+        checkButton.style.color = "white"
         checkButton.style.fontSize = "15px"
         checkButton.innerHTML = "&check;"
 
