@@ -179,10 +179,35 @@ h3{
     cursor: pointer;
 }
 
-.imageDiv img{
-    width: 100%;
-    height: 100%;
+.imageDiv{
     position: fixed;
     left: 0;
     top: 0;
+}
+
+.imageDiv img{
+    width: 100%;
+    height: 100%;
+}
+
+#imgMenu{
+    margin-top: 165%;
+    font-size: 30px;
+    text-align: center;
+}
+
+#imgMenu a{
+    padding-left: 80px;
+    padding-right: 80px;
+}
+
+#imgMenu button{
+    background-color: transparent;
+    color: white;
+    border: none;
+    font-size: 30px;
+}
+
+#imgMenu button:hover{
+    cursor: pointer;
 }

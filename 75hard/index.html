@@ -17,7 +17,17 @@
         <center><button onclick="showImages()" id="showImgButton">Show Images</button></center>
     </div>
 
-    <div id="viewImages" style="display: none;"></div>
+    <div id="viewImages" style="display: none;">
+        <div class="imageDiv">
+            <img src="" id="imgPlaceholder">
+        </div>
+
+        <div id="imgMenu">
+            <button onclick="imgDown()"><</button>
+            <a id="imgDayText"></a>
+            <button onclick="imgUp()">></button>  
+        </div>
+    </div>
     
     <div id="viewDay" style="display: none;">
         <div id="dayText"></div>
@@ -25,7 +35,7 @@
 
     <div id="alertDiv" style="display: none">
         <img src="alert.jpg" width="300px">
-        <h2 style="color: white;">WHAT HAPPEND?</h2>
+        <h2 style="color: white; margin-top: -60px;">WHAT HAPPEND?</h2>
         <p>You havent checked in.</p>
         <p>That means either you did the work and forgot to check everything off, or you let your inner bitch beat you.</p>
         <p><b>Which is it?</b></p>

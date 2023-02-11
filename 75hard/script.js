@@ -3,6 +3,7 @@ var goalsText = ["First Workout", "Second Workout", "Take Progress Picture", "10
 var dayArray = []
 
 var images = []
+var imgIndex = 0
 
 const d = new Date();
 var day = d.getDay()
@@ -29,18 +30,16 @@ if(localStorage.getItem("day") != null)
 {
     var oldDay = localStorage.getItem("day")
 
-    if(oldDay == 6 )
+    if(oldDay == 6)
     {
-        if(oldDay - 6 != day)
+        if(day != 0 && day != 6)
         {
-            //create alert
             createAlert()
         }
-    }else if(oldDay > day + 1)
+    }else if(day > oldDay + 1)
     {
-        //create alert
         createAlert()
-    }
+    }   
 }else
 {
     localStorage.setItem("day", day)
@@ -58,7 +57,8 @@ function createAlert()
 
     document.getElementById("alertButton").onclick = function()
     {
-
+        document.getElementById("alertDiv").style.display = "none"
+        document.getElementById("mainMenu").style.display = ""
     }
 
     document.getElementById("failedButton").onclick = function()
@@ -66,13 +66,12 @@ function createAlert()
         document.getElementById("alertDiv").style.display = "none"
         document.getElementById("failDiv").style.display = ""
 
-        document.getElementById("retryButton").onclick = reset()
+        document.getElementById("retryButton").onclick = function()
+        {
+            localStorage.clear()
+            location.reload()
+        }
     }
-}
-
-function reset()
-{
-    //reset the challenge
 }
 
 if(localStorage.getItem("dayArray") != null)
@@ -207,6 +206,11 @@ function loadSpecificDay(index)
         {
             clickOnGoal(this.id, array, this)
         }
+
+        if(i == 2 && array[2].bool == true)
+        {
+            checkButton.onclick = ""
+        }
     }
 
     var saveButton = document.createElement("button")
@@ -217,7 +221,7 @@ function loadSpecificDay(index)
     {
         if(document.getElementById("cameraInput") != null)
         {
-            camera(document.getElementById("cameraInput"), array)
+            camera(document.getElementById("cameraInput"), array, index)
         }
 
         var trueBoxes = 0
@@ -319,7 +323,7 @@ function camera(fileInput, array, day)
                 img.src = reader.result
 
                 var image = new imageSave(day, img.src)
-                images.push(image)
+                images.unshift(image)
 
                 fileDisplayArea.appendChild(img)
                 
@@ -352,23 +356,44 @@ function camera(fileInput, array, day)
 
 function showImages()
 {
-    document.getElementById("mainMenu").style.display = "none"
-    document.getElementById("viewImages").style.display = ""
-
-    for(var i = 0; i < images.length; i++)
+    if(images.length != 0)
     {
-        var element = images[i]
+        document.getElementById("mainMenu").style.display = "none"
+        document.getElementById("viewImages").style.display = ""
 
-        var div = document.createElement("div")
-        div.className = "imageDiv"
+        var element = images[imgIndex]
         
-        var image = document.createElement("img")
-        image.src = element.image
+        document.getElementById("imgPlaceholder").src = element.image
 
-        div.append(image)
-
-        document.getElementById("viewImages").append(div)
+        document.getElementById("imgDayText").innerHTML = "Tag " + images.length
     }
+}
+
+function imgUp()
+{
+    if(imgIndex + 1 != images.length)
+    {
+        imgIndex += 1
+        var element = images[imgIndex]
+        
+        document.getElementById("imgPlaceholder").src = element.image
+
+        document.getElementById("imgDayText").innerHTML = "Tag " + element.day
+    }
+}
+
+function imgDown()
+{
+    if(imgIndex != 0)
+    {
+        imgIndex -= 1
+        var element = images[imgIndex]
+        
+        document.getElementById("imgPlaceholder").src = element.image
+
+        document.getElementById("imgDayText").innerHTML = "Tag " + element.day
+    }
+    
 }
 
 function saveImages()
