@@ -8,7 +8,30 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div id="mainMenu">
+    <div id="startMenu">
+        <p class="startHeadline" style="margin-top: 100px;">75</p>
+        <p class="startHeadline" style="margin-top: -30px;">HARD</p>
+
+        <p style="margin-top: 50px;">
+            If you're looking for a new fitness program or challenge, this is not it.
+        </p>
+
+        <p>
+            This is a program that can change your life ... starting from the inside.
+        </p>
+
+        <p>
+            Are there physical changes? Yes! But trust me when I say the physical changes you see on the outside are a FRACTION of the results you can earn by completing 75 HARD.
+        </p>
+
+        <p>
+            75 HARD is the only program that can permanently change your life ... from your way of thinking, to the level of discipline you approach every single task in front of you with.
+        </p>
+
+        <button id="retryButton" onclick="startChallenge()">START NOW</button>
+    </div>
+
+    <div id="mainMenu" style="display: none;">
         <h2>75 HARD</h2>
         <div id="daysMenu" class="flex-container"></div>
 
@@ -51,8 +74,11 @@
         <center><button id="retryButton">RETRY</button></center>
     </div>
 
-    <div id="fileDisplayArea" style="display: none;">
-
+    <div id="modal">
+        <div id="imgAlert">
+            <span class="close">&times;</span>
+            <p>You haven't taken a picture yet.</p>
+        </div> 
     </div>
 
     <script src="script.js"></script>

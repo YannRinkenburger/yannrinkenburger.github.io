@@ -24,7 +24,63 @@ class imageSave{
     }
 }
 
-loadDays()
+if(localStorage.getItem("dayArray") != null)
+{
+    loadChallenge()
+}
+
+function loadChallenge()
+{
+    document.getElementById("startMenu").style.display = "none"
+    document.getElementById("mainMenu").style.display = ""
+
+    loadDays()
+
+    dayArray = JSON.parse(localStorage.getItem("dayArray"))
+
+    for(var i = 0; i < 75; i++)
+    {
+        var array = dayArray[i]
+
+        var trueBoxes = 0
+
+        for(var index = 0; index < goalsText.length; index++)
+        {
+            if(array[index].bool == true)
+            {
+                trueBoxes += 1
+            }
+        }
+
+        if(trueBoxes == goalsText.length)
+        {
+            document.getElementsByClassName("dayButtons")[i].style.color = "red"
+        }
+    }
+}
+
+function startChallenge()
+{
+    document.getElementById("startMenu").style.display = "none"
+    document.getElementById("mainMenu").style.display = ""
+
+    loadDays()
+
+    for(var i = 0; i < 75; i++)
+    {
+        var goalArray = new Array()
+
+        for(var index = 0; index < goalsText.length; index++)
+        {
+            var newGoal = new goal(goalsText[index])
+            goalArray[index] = newGoal
+        }
+
+        dayArray.push(goalArray)
+    }
+
+    saveArray()
+}
 
 if(localStorage.getItem("day") != null)
 {
@@ -72,47 +128,6 @@ function createAlert()
             location.reload()
         }
     }
-}
-
-if(localStorage.getItem("dayArray") != null)
-{
-    dayArray = JSON.parse(localStorage.getItem("dayArray"))
-
-    for(var i = 0; i < 75; i++)
-    {
-        var array = dayArray[i]
-
-        var trueBoxes = 0
-
-        for(var index = 0; index < goalsText.length; index++)
-        {
-            if(array[index].bool == true)
-            {
-                trueBoxes += 1
-            }
-        }
-
-        if(trueBoxes == goalsText.length)
-        {
-            document.getElementsByClassName("dayButtons")[i].style.color = "red"
-        }
-    }
-}else
-{
-    for(var i = 0; i < 75; i++)
-    {
-        var goalArray = new Array()
-
-        for(var index = 0; index < goalsText.length; index++)
-        {
-            var newGoal = new goal(goalsText[index])
-            goalArray[index] = newGoal
-        }
-
-        dayArray.push(goalArray)
-    }
-
-    saveArray()
 }
 
 function loadDays()
@@ -304,8 +319,6 @@ function saveArray()
 
 function camera(fileInput, array, day)
 {
-    var fileDisplayArea = document.getElementById("fileDisplayArea")
-                
     var file = fileInput.files[0]
     var imageType = /image.*/
 
@@ -317,15 +330,11 @@ function camera(fileInput, array, day)
 
             reader.onload = function()
             {
-                fileDisplayArea.innerHTML = ""
-
                 var img = new Image()
                 img.src = reader.result
 
                 var image = new imageSave(day, img.src)
                 images.unshift(image)
-
-                fileDisplayArea.appendChild(img)
                 
                 saveImages()
             }
@@ -366,6 +375,26 @@ function showImages()
         document.getElementById("imgPlaceholder").src = element.image
 
         document.getElementById("imgDayText").innerHTML = "Tag " + images.length
+    }else
+    {
+        var modal = document.getElementById("modal")
+
+        var closeBtn = document.getElementsByClassName("close")[0]
+
+        modal.style.display = "block"
+
+        closeBtn.onclick = function() 
+        {
+            modal.style.display = "none"
+        }
+
+        window.onclick = function(event) 
+        {
+            if(event.target == modal) 
+            {
+                modal.style.display = "none";
+            }
+        } 
     }
 }
 
