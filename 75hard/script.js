@@ -16,6 +16,13 @@ class goal{
     }
 }
 
+class textarea{
+    constructor(value)
+    {
+        this.value = value
+    }
+}
+
 class imageSave{
     constructor(day, image)
     {
@@ -76,6 +83,9 @@ function startChallenge()
             goalArray[index] = newGoal
         }
 
+        var newTextarea = new textarea("")
+        goalArray[index] = newTextarea
+
         dayArray.push(goalArray)
     }
 
@@ -124,10 +134,15 @@ function createAlert()
 
         document.getElementById("retryButton").onclick = function()
         {
-            localStorage.clear()
-            location.reload()
+            reset()
         }
     }
+}
+
+function reset()
+{
+    localStorage.clear()
+    location.reload()
 }
 
 function loadDays()
@@ -164,7 +179,7 @@ function loadSpecificDay(index)
     var div = document.createElement("div")
     div.id = "viewDayDiv"
 
-    for(var i = 0; i < array.length; i++)
+    for(var i = 0; i < array.length - 1; i++)
     {
         var row = document.createElement("div")
         row.className = "goalRow"
@@ -263,6 +278,14 @@ function loadSpecificDay(index)
             document.getElementsByClassName("dayButtons")[index-1].style.color = "white"
         }
 
+        if(textarea.value != "")
+        {
+            array[i].value = textarea.value
+        }else
+        {
+            array[i].value = ""
+        }
+
         console.log(array)
         console.log(index)
 
@@ -274,7 +297,16 @@ function loadSpecificDay(index)
         document.getElementById("viewDay").style.display = "none"
     }
 
+    var textarea = document.createElement("textarea")
+    textarea.placeholder = "Take notes here..."
+
+    if(array[i].value != "")
+    {
+        textarea.innerHTML = array[i].value
+    }
+
     div.append(saveButton)
+    div.append(textarea)
     area.append(div)
 }
 

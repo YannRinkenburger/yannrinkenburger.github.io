@@ -16,6 +16,19 @@ h3{
     color: red;
 }
 
+textarea{
+    width: 345px;
+    height: 60px;
+    margin-top: 25px;
+    margin-left: 10px;
+    resize: none;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+textarea:focus{
+    outline: none;
+}
+
 #startMenu{
     margin: 36px;
 }
@@ -97,7 +110,7 @@ h3{
     font-size: 18px;
     border-radius: 30px;
     margin: auto;
-    margin-top: 50px;
+    margin-top: 25px;
 }
 
 .saveButton:hover{
@@ -108,14 +121,14 @@ h3{
     color: red;
     font-size: 30px;
     text-align: center;
-    margin: 50px;
+    margin: 30px;
     font-weight: bold;
 }
 
 .cameraLable{
     position: fixed;
     left: 8px;
-    top: 244px;
+    top: 204px;
 }
 
 .cameraLable:hover{
@@ -254,5 +267,18 @@ h3{
 }
 
 .close:hover{
+    cursor: pointer;
+}
+
+#resetButton{
+    position: fixed;
+    left: 5px;
+    top: 5px;
+    background-color: transparent;
+    color: grey;
+    border: none;
+}
+
+#resetButton:hover{
     cursor: pointer;
 }
