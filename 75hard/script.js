@@ -399,6 +399,16 @@ function showImages()
 {
     if(images.length != 0)
     {
+        if(images.length == 1)
+        {
+            document.getElementById("imgUp").style.color = "#252525"
+            document.getElementById("imgDown").style.color = "#252525"
+        }else
+        {
+            document.getElementById("imgUp").style.color = "white"
+            document.getElementById("imgDown").style.color = "#252525"
+        }
+
         document.getElementById("mainMenu").style.display = "none"
         document.getElementById("viewImages").style.display = ""
 
@@ -435,6 +445,17 @@ function imgUp()
     if(imgIndex + 1 != images.length)
     {
         imgIndex += 1
+        
+        if(imgIndex == images.length - 1)
+        {
+            document.getElementById("imgUp").style.color = "#252525"
+            document.getElementById("imgDown").style.color = "white"
+        }else
+        {
+            document.getElementById("imgUp").style.color = "white"
+            document.getElementById("imgDown").style.color = "white"
+        }
+
         var element = images[imgIndex]
         
         document.getElementById("imgPlaceholder").src = element.image
@@ -448,6 +469,17 @@ function imgDown()
     if(imgIndex != 0)
     {
         imgIndex -= 1
+
+        if(imgIndex == 0)
+        {
+            document.getElementById("imgDown").style.color = "#252525"
+            document.getElementById("imgUp").style.color = "white"
+        }else
+        {
+            document.getElementById("imgUp").style.color = "white"
+            document.getElementById("imgDown").style.color = "white"
+        }
+
         var element = images[imgIndex]
         
         document.getElementById("imgPlaceholder").src = element.image
