@@ -5,7 +5,7 @@ var dayArray = []
 var images = []
 var imgIndex = 0
 
-const d = new Date();
+const d = new Date()
 var day = d.getDay()
 
 class goal{
@@ -460,4 +460,16 @@ function imgDown()
 function saveImages()
 {
     localStorage.setItem("images", JSON.stringify(images))
+}
+
+function backToMenu()
+{
+    document.getElementById("viewImages").style.display = "none"
+    document.getElementById("viewDay").style.display = "none"
+    document.getElementById("startMenu").style.display = "none"
+    document.getElementById("alertDiv").style.display = "none"
+    document.getElementById("modal").style.display = "none"
+    document.getElementById("failDiv").style.display = "none"
+    
+    document.getElementById("mainMenu").style.display = ""
 }

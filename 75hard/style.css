@@ -282,3 +282,14 @@ textarea:focus{
 #resetButton:hover{
     cursor: pointer;
 }
+
+#backButton{
+    position: fixed;
+    left: 15px;
+    top: -20px;
+    font-size: 30px;
+}
+
+#backButton{
+    cursor: pointer;
+}
