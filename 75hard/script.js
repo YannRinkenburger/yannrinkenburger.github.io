@@ -5,6 +5,10 @@ var dayArray = []
 var images = []
 var imgIndex = 0
 
+var createGoalButtonIndex = 0
+
+var cameraIndex = 2
+
 const d = new Date()
 var day = d.getDay()
 
@@ -34,6 +38,13 @@ class imageSave{
 if(localStorage.getItem("dayArray") != null)
 {
     loadChallenge()
+}
+
+if(localStorage.getItem("goalArray") != null)
+{
+    goalsText = JSON.parse(localStorage.getItem("goalArray"))
+}else{
+    localStorage.setItem("goalArray", JSON.stringify(goalsText))
 }
 
 function loadChallenge()
@@ -198,8 +209,10 @@ function loadSpecificDay(index)
         row.append(checkButton)
         row.append(goalText)
 
-        if(i == 2 && array[2].bool == false)
+        if(array[i].text == "Take Progress Picture" && array[i].bool == false)
         {
+            cameraIndex = i
+
             var cameraLabel = document.createElement("label")
             cameraLabel.htmlFor = "cameraInput"
             cameraLabel.innerHTML = "<img src='camera.png' alt='camera'>"
@@ -215,6 +228,8 @@ function loadSpecificDay(index)
 
             row.append(cameraLabel)
             row.append(cameraInput)
+
+            checkPosition(i, cameraLabel)
         }
 
         row.append(hr)
@@ -237,7 +252,7 @@ function loadSpecificDay(index)
             clickOnGoal(this.id, array, this)
         }
 
-        if(i == 2 && array[2].bool == true)
+        if(array[i].text == "Take Progress Picture" && array[i].bool == true)
         {
             checkButton.onclick = ""
         }
@@ -299,6 +314,7 @@ function loadSpecificDay(index)
 
     var textarea = document.createElement("textarea")
     textarea.placeholder = "Take notes here..."
+    textarea.maxLength = "120"
 
     if(array[i].value != "")
     {
@@ -308,6 +324,32 @@ function loadSpecificDay(index)
     div.append(saveButton)
     div.append(textarea)
     area.append(div)
+}
+
+function checkPosition(index, element)
+{
+    if(index == 0)
+    {
+        element.style.top = "80px"
+    }else if(index == 1)
+    {
+        element.style.top = "142px"
+    }else if(index == 2)
+    {
+        element.style.top = "204px"
+    }else if(index == 3)
+    {
+        element.style.top = "266px" 
+    }else if(index == 4)
+    {
+        element.style.top = "328px"
+    }else if(index == 5)
+    {
+        element.style.top = "390px"
+    }else if(index == 6)
+    {
+        element.style.top = "452px"
+    }
 }
 
 function clickOnGoal(index, array, checkButton)
@@ -373,10 +415,10 @@ function camera(fileInput, array, day)
 
             reader.readAsDataURL(file)
 
-            var goalText = document.getElementsByClassName("goalText")[2]
-            var checkButton = document.getElementsByClassName("checkButton")[2]
+            var goalText = document.getElementsByClassName("goalText")[cameraIndex]
+            var checkButton = document.getElementsByClassName("checkButton")[cameraIndex]
 
-            array[2].bool = true
+            array[cameraIndex].bool = true
 
             checkButton.style.backgroundColor = "red"
             checkButton.style.border = "1px solid red"
@@ -419,24 +461,7 @@ function showImages()
         document.getElementById("imgDayText").innerHTML = "Tag " + images.length
     }else
     {
-        var modal = document.getElementById("modal")
-
-        var closeBtn = document.getElementsByClassName("close")[0]
-
-        modal.style.display = "block"
-
-        closeBtn.onclick = function() 
-        {
-            modal.style.display = "none"
-        }
-
-        window.onclick = function(event) 
-        {
-            if(event.target == modal) 
-            {
-                modal.style.display = "none";
-            }
-        } 
+        showAlert("You haven't taken a picture yet.")
     }
 }
 
@@ -502,6 +527,190 @@ function backToMenu()
     document.getElementById("alertDiv").style.display = "none"
     document.getElementById("modal").style.display = "none"
     document.getElementById("failDiv").style.display = "none"
+    document.getElementById("viewGoals").style.display = "none"
     
     document.getElementById("mainMenu").style.display = ""
+}
+
+function editGoals()
+{
+    document.getElementById("startMenu").style.display = "none"
+    document.getElementById("viewGoals").style.display = ""
+
+    var goalsDiv = document.createElement("div")
+    goalsDiv.id = "goalsDiv"
+
+    for(var i = 0; i < goalsText.length; i++)
+    {
+        var div = document.createElement("div")
+        div.className = "goalDiv"
+        div.id = "div" + i
+
+        var deleteButton = document.createElement("button")
+        deleteButton.className = "deleteButton"
+        deleteButton.innerHTML = "&#x2716;"
+        deleteButton.id = i
+
+        var goalText = document.createElement("a")
+        goalText.innerHTML = goalsText[i]
+        goalText.className = "editGoalText"
+
+        var hr = document.createElement("hr")
+
+        div.append(deleteButton)
+        div.append(goalText)
+        div.append(hr)
+
+        goalsDiv.append(div)
+
+        deleteButton.onclick = function()
+        {
+            document.getElementById("div" + this.id).remove()
+
+            createNewGoalButton()
+        }
+        
+        if(goalsText[i] == "Take Progress Picture")      //the goal "take progres picture" shouldn´t be clickable
+        {
+            deleteButton.onclick = ""
+            deleteButton.style.color = "transparent"
+            deleteButton.style.cursor = "default"
+        }
+    }
+
+    document.getElementById("goalsArea").append(goalsDiv)
+}
+
+function createNewGoalButton()
+{
+    createGoalButtonIndex += 1
+
+    if(createGoalButtonIndex == 1)
+    {
+        var button = document.createElement("button")
+        button.innerHTML = "Create New Goal"
+        button.id = "createNewGoalButton"
+        button.onclick = function()
+        {
+            if(createGoalButtonIndex > 0)
+            {
+                var div = document.createElement("div")
+                div.className = "goalDiv"
+
+                var checkButton = document.createElement("button")
+                checkButton.className = "checkGoalButton"
+                checkButton.innerHTML = "&check;"
+
+                var goalTextInput = document.createElement("input")
+                goalTextInput.placeholder = "Goal text..."
+
+                var hr = document.createElement("hr")
+
+                div.append(checkButton)
+                div.append(goalTextInput)
+                div.append(hr)
+
+                document.getElementById("goalsDiv").append(div)
+
+                checkButton.onclick = function()
+                {
+                    if(goalTextInput.value != "" && goalsText.includes(goalTextInput.value) == false)
+                    {
+                        hr.remove()
+
+                        var deleteButton = document.createElement("button")
+                        deleteButton.className = "deleteButton"
+                        deleteButton.innerHTML = "&#x2716;"
+
+                        var goalText = document.createElement("a")
+                        goalText.innerHTML = goalTextInput.value
+                        goalText.className = "editGoalText"
+
+                        var newhr = document.createElement("hr")
+
+                        div.append(deleteButton)
+                        div.append(goalText)
+                        div.append(newhr)
+
+                        checkButton.remove()
+                        goalTextInput.remove()
+
+                        deleteButton.onclick = function()
+                        {
+                            div.remove()
+
+                            createNewGoalButton()
+                        }
+
+                        goalsText.push(goalTextInput.value)
+                    }
+                }
+
+                createGoalButtonIndex -= 1
+            }
+
+            if(createGoalButtonIndex > 1)
+            {
+                document.getElementById("createNewGoalButton").innerHTML = "Create New Goal [" + createGoalButtonIndex + "]"
+            }else if(createGoalButtonIndex == 0)
+            {
+                document.getElementById("createNewGoalButton").remove()
+            }else
+            {
+                document.getElementById("createNewGoalButton").innerHTML = "Create New Goal"
+            }
+        }
+
+        document.getElementById("goalsArea").append(button)
+    }else
+    {
+        document.getElementById("createNewGoalButton").innerHTML = "Create New Goal [" + createGoalButtonIndex + "]"
+    }
+}
+
+function saveGoals()
+{
+    if(document.getElementsByClassName("goalDiv").length == 7 && document.getElementsByClassName("deleteButton").length == 7)
+    {
+        document.getElementById("startMenu").style.display = ""
+        document.getElementById("viewGoals").style.display = "none"
+
+        goalsText = []
+
+        for(var i = 0; i < 7; i++)
+        {
+            goalsText.push(document.getElementsByClassName("editGoalText")[i].innerHTML)
+        }
+
+        localStorage.setItem("goalArray", JSON.stringify(goalsText))
+
+        document.getElementById("goalsDiv").remove()
+    }else
+    {
+        showAlert("You have to set 7 goals to continue.")
+    }
+}
+
+function showAlert(text)
+{
+    document.getElementById("alertText").innerHTML = text
+
+    var modal = document.getElementById("modal")
+
+    var closeBtn = document.getElementsByClassName("close")[0]
+
+    modal.style.display = "block"
+
+    closeBtn.onclick = function() 
+    {
+        modal.style.display = "none"
+    }
+
+    window.onclick = function(event) 
+    {
+        if(event.target == modal) 
+        {
+            modal.style.display = "none";
+        }
+    } 
 }

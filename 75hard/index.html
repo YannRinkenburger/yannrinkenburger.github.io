@@ -30,6 +30,7 @@
         </p>
 
         <button id="retryButton" onclick="startChallenge()">START NOW</button>
+        <button id="editGoals" onclick="editGoals()">edit goals</button>
     </div>
 
     <div id="mainMenu" style="display: none;">
@@ -41,6 +42,16 @@
         <p style="text-align: center; font-size: 15px; margin: 40px;">Tap any day to show details</p>
 
         <center><button onclick="showImages()" id="showImgButton">Show Images</button></center>
+    </div>
+
+    <div id="viewGoals" style="display: none; margin: 36px;">
+        <h2>Goals</h2>
+        <p>To start the challenge you have to choose 7 goals. These can be created individually by you. But you can also use the default goals.</p>
+        <p style="font-weight: bold;">Here you can see the current goals:</p>
+
+        <div id="goalsArea"></div>
+
+        <button class="saveButton" onclick="saveGoals()">Save Changes</button>
     </div>
 
     <div id="viewImages" style="display: none;">
@@ -80,9 +91,10 @@
     </div>
 
     <div id="modal">
-        <div id="imgAlert">
+        <div id="alert">
             <span class="close">&times;</span>
-            <p>You haven't taken a picture yet.</p>
+            <p id="modalHeadline">Ups something went wrong:</p>
+            <p id="alertText"></p>
         </div> 
     </div>
 

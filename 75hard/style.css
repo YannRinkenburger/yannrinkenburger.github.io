@@ -16,6 +16,18 @@ h3{
     color: red;
 }
 
+input{
+    outline: none;
+    background-color: transparent;
+    color: white;
+    border: none;
+    font-size: 17px;
+}
+
+button{
+    cursor: pointer;
+}
+
 textarea{
     width: 345px;
     height: 60px;
@@ -23,9 +35,6 @@ textarea{
     margin-left: 10px;
     resize: none;
     font-family: Arial, Helvetica, sans-serif;
-}
-
-textarea:focus{
     outline: none;
 }
 
@@ -62,10 +71,6 @@ textarea:focus{
     color: white;
 }
 
-.flex-container > button:hover{
-    cursor: pointer;
-}
-
 .flex-container > p{
     margin: 7px;
     width: 175px;
@@ -96,10 +101,6 @@ textarea:focus{
     color: transparent;
 }
 
-.checkButton:hover{
-    cursor: pointer;
-}
-
 .saveButton{
     display: block;
     background-color: red;
@@ -111,10 +112,6 @@ textarea:focus{
     border-radius: 30px;
     margin: auto;
     margin-top: 25px;
-}
-
-.saveButton:hover{
-    cursor: pointer;
 }
 
 #dayText{
@@ -154,10 +151,6 @@ textarea:focus{
     border-radius: 5px;
 }
 
-#alertDiv button:hover{
-    cursor: pointer;
-}
-
 #failedButton{
     margin-top: 10px;
     background-color: #252525;
@@ -185,10 +178,6 @@ textarea:focus{
     border-radius: 5px;
 }
 
-#retryButton:hover{
-    cursor: pointer;
-}
-
 #showImgButton{
     background-color: red;
     border: none;
@@ -197,10 +186,6 @@ textarea:focus{
     width: 300px;
     color: white;
     border-radius: 5px;
-}
-
-#showImgButton:hover{
-    cursor: pointer;
 }
 
 .imageDiv{
@@ -232,10 +217,6 @@ textarea:focus{
     font-size: 30px;
 }
 
-#imgMenu button:hover{
-    cursor: pointer;
-}
-
 #modal{
     display: none;
     position: fixed; 
@@ -250,10 +231,11 @@ textarea:focus{
     background-color: rgba(0,0,0,0.4);
 }
 
-#imgAlert{
+#alert{
     background-color: red;
     margin: auto;
     padding: 16px;
+    padding-bottom: 5px;
     border: 1px solid red;
     width: 70%;
 }
@@ -279,17 +261,54 @@ textarea:focus{
     border: none;
 }
 
-#resetButton:hover{
-    cursor: pointer;
-}
-
 #backButton{
+    cursor: pointer;
     position: fixed;
     left: 15px;
     top: -20px;
     font-size: 30px;
 }
 
-#backButton{
-    cursor: pointer;
+#editGoals{
+    color: grey;
+    background-color: transparent;
+    margin: auto;
+    font-size: 18px;
+    border: none;
+    width: 300px;
+    margin-top: 10px;
+}
+
+.deleteButton{
+    margin-right: 10px;
+    border: none;
+    background-color: transparent;
+    color: red;
+    font-size: 25px;
+}
+
+.checkGoalButton{
+    margin-right: 10px;
+    border: none;
+    background-color: transparent;
+    color: green;
+    font-size: 25px;
+}
+
+#createNewGoalButton{
+    display: block;
+    margin: auto;
+    border: 1px solid white;
+    background-color: transparent;
+    color: white;
+    font-size: 17px;
+    border-radius: 10px;
+    width: 200px;
+    padding: 5px;
+    margin-top: 10px;
+}
+
+#modalHeadline{
+    margin-top: -3px;
+    font-weight: bolder;
 }
