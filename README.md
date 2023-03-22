@@ -1,3 +1,4 @@
 # yannrinkenburger.github.io
 Hello dear user,
-this is an app to track your progress in the 75 hard challenge. Im still working on it, so if there are any bugs feel free to call it out.
+here you can see my coding projects I created in the last couple of years.
+Explore them and have fun using it.
