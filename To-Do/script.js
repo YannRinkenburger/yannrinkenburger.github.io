@@ -8,17 +8,27 @@ var sortMenu = false
 var resetBool = false
 var tagIsNew = false
 
+var changeTagMenu = false
+
+var changeElement 
+var changeID
+var changeImportance = false
+
 var toDos = []
 var tags = []
 var importantArray = []
 
+var editMode = false
+
 class toDo {
-    constructor(text, tag, table, important, id)
+    constructor(text, tag, table, important, miliseconds, time, id)
     {
         this.text = text
         this.tag = tag
         this.table = table
         this.important = important
+        this.miliseconds = miliseconds
+        this.time = time
         this.checked = false
         this.id = id
     }
@@ -80,6 +90,8 @@ function loadData(array)
         var tag = array[i].tag
         var table = array[i].table
         var important = array[i].important
+        var miliseconds = array[i].miliseconds
+        var time = array[i].time
         var ownID = array[i].id
 
         var newTableRow = document.createElement("tr")
@@ -105,6 +117,9 @@ function loadData(array)
         secondCell.append(text)
         secondCell.append(editButton)
 
+        newTableRow.append(firstCell)
+        newTableRow.append(secondCell)
+
         if(table == "allToDoTable")
         {
             var importantCell = document.createElement("td")
@@ -119,6 +134,16 @@ function loadData(array)
             
             importantCell.innerHTML = "!"
             importantCell.id = ownID + "importance"
+
+            var dateCell = document.createElement("td")
+            dateCell.innerHTML = time
+            dateCell.id = miliseconds
+            dateCell.className = "dateCell"
+
+            var voidCell2 = document.createElement("td")
+
+            newTableRow.append(dateCell)
+            newTableRow.append(voidCell2)
         }else
         {
             var importantCell = document.createElement("td")
@@ -137,9 +162,8 @@ function loadData(array)
         tagCell.style.backgroundColor = tag.bgColor
         tagCell.style.color = tag.color
         tagCell.className = "tag"
+        tagCell.id = ownID + "tag"
 
-        newTableRow.append(firstCell)
-        newTableRow.append(secondCell)
         newTableRow.append(importantCell)
         newTableRow.append(voidCell)
         newTableRow.append(tagCell)
@@ -157,6 +181,13 @@ function loadData(array)
             var id = this.id.replace("edit", "")
 
             editFunction(document.getElementById(this.id), id)
+        }
+
+        document.getElementById(ownID + "tag").onclick = function()
+        {
+            var id = this.id.replace("tag", "")
+
+            changeTag(document.getElementById(this.id), id, important)
         }
 
         if(table == "allToDoTable")
@@ -192,6 +223,22 @@ function loadData(array)
 
                 localStorage.setItem("array", JSON.stringify(toDos))
                 localStorage.setItem("importantArray", JSON.stringify(importantArray))
+            }
+
+            document.getElementsByClassName(ownID + "Tag")[0].onmouseenter = function()
+            {
+                if(editMode == false)
+                {
+                    var id = this.className.replace("Tag tagRow", "")
+                    
+                    document.getElementById(id + "edit").style.display = ""
+                }
+                
+            }
+
+            document.getElementsByClassName(ownID + "Tag")[0].onmouseleave = function()
+            {
+                editHover()
             }
 
             document.getElementById(ownID + "importance").onclick = function()
@@ -250,6 +297,8 @@ function loadData(array)
             }
         }
     }
+
+    editHover()
 }
 
 function loadTags()
@@ -291,6 +340,8 @@ function menuNav(menuIndex)
         document.getElementById("allToDoTable").style.display = "table"
         document.getElementById("dailyToDoTable").style.display = "none"
 
+        document.getElementById("sortButton").style.color = "#a8a8a8"
+
         allToDoTable = true
     }else                           //show daily to do´s
     {
@@ -299,6 +350,8 @@ function menuNav(menuIndex)
 
         document.getElementById("allToDoTable").style.display = "none"
         document.getElementById("dailyToDoTable").style.display = "table"
+
+        document.getElementById("sortButton").style.color = "#1b1c1b"
 
         allToDoTable = false
     }
@@ -315,11 +368,59 @@ function sort()
 
         document.getElementById("sortMenu").style.display = "none"
 
+        document.getElementById("sortTags").style.display = "none"
+        document.getElementsByClassName("sortMenuDiv")[0].style.display = ""
+        document.getElementsByClassName("sortMenuDiv")[1].style.display = ""
+
         sortMenu = false
-    }else if(!sortMenu){
+    }else if(!sortMenu && allToDoTable){
         document.getElementById("sortMenu").style.display = "inline"
 
         sortMenu = true
+    }
+}
+
+function sortChoose(index)
+{
+    if(index == 0)
+    {
+        document.getElementById("sortTags").style.display = ""
+        document.getElementsByClassName("sortMenuDiv")[0].style.display = "none"
+        document.getElementsByClassName("sortMenuDiv")[1].style.display = "none"
+    }else if(index == 1)
+    {
+        var length = document.getElementsByClassName("dateCell").length
+
+        var counter = 0
+
+        for(var i = 0; i < length; i++)
+        {
+            var time = document.getElementById("allToDoTable").getElementsByClassName("dateCell")[i].id 
+            console.log(time)
+
+            var element = document.getElementById("allToDoTable").getElementsByClassName("dateCell")[i]
+
+            var table = document.getElementById("allToDoTable")
+
+            if(counter == 0)
+            {
+                table.append(element)
+            }else
+            {
+                for(var ii = length - 1; ii < counter; ii++)
+                {
+                    if(document.getElementById("allToDoTable").getElementsByClassName("dateCell")[ii].id > time)
+                    {
+                        table.prepend(element)
+                    }else
+                    {
+                        table.append(element)
+                    }
+                }
+            }
+
+            counter += 1
+        }
     }
 }
 
@@ -356,6 +457,10 @@ function sortNow(text, bgColor, color)
 
     document.getElementById("resetButton").style.color = "#a8a8a8"
     resetBool = true
+
+    document.getElementById("sortTags").style.display = "none"
+    document.getElementsByClassName("sortMenuDiv")[0].style.display = ""
+    document.getElementsByClassName("sortMenuDiv")[1].style.display = ""
 }
 
 function reset()
@@ -408,6 +513,9 @@ function newTask()
     secondCell.append(text)
     secondCell.append(editButton)
 
+    newTableRow.append(firstCell)
+    newTableRow.append(secondCell)
+
     if(allToDoTable)
     {
         var importantCell = document.createElement("td")
@@ -419,6 +527,24 @@ function newTask()
         {
             importanceFunction(importantCell, ownID)
         }
+
+        const d = new Date()
+        var miliseconds = d.getTime()
+        var day = d.getDate()
+        var month = d.getMonth() + 1
+        var year = d.getFullYear()
+
+        var date = day + ". " + month + ". " + year
+
+        var dateCell = document.createElement("td")
+        dateCell.innerHTML = date
+        dateCell.id = miliseconds
+        dateCell.className = "dateCell"
+
+        var voidCell2 = document.createElement("td")
+
+        newTableRow.append(dateCell)
+        newTableRow.append(voidCell2)
     }else
     {
         var importantCell = document.createElement("td")
@@ -447,12 +573,28 @@ function newTask()
     tagCell.style.backgroundColor = document.getElementById("chooseTagButton").style.backgroundColor
     tagCell.style.color = document.getElementById("chooseTagButton").style.color
     tagCell.className = "tag"
+    tagCell.id = ownID + "tag"
 
     editButton.onclick = function()
     {
         var id = this.id.replace("edit", "")
 
         editFunction(document.getElementById(this.id), id)
+    }
+
+    tagCell.onclick = function()
+    {
+        var id = this.id.replace("tag", "")
+
+        if(importantCell.backgroundColor == "red")
+        {
+            var important = true
+        }else
+        {
+            var important = false
+        }
+
+        changeTag(document.getElementById(this.id), id, important)
     }
 
     checkbox.onclick = function()
@@ -476,8 +618,6 @@ function newTask()
         localStorage.setItem("array", JSON.stringify(toDos))
     }
 
-    newTableRow.append(firstCell)
-    newTableRow.append(secondCell)
     newTableRow.append(importantCell)
     newTableRow.append(voidCell)
     newTableRow.append(tagCell)
@@ -485,7 +625,7 @@ function newTask()
     if(allToDoTable)
     {
         document.getElementById("allToDoTable").append(newTableRow)
-        saveTask(taskText, "allToDoTable", ownID, tagText)
+        saveTask(taskText, "allToDoTable", ownID, tagText, date, miliseconds)
     }else if(allToDoTable == false)
     {
         document.getElementById("dailyToDoTable").append(newTableRow)
@@ -535,11 +675,11 @@ function newTask()
     document.getElementById("taskTextInput").value = ""
 }
 
-function saveTask(taskText, table, id, tagText)
+function saveTask(taskText, table, id, tagText, date, miliseconds)
 {
     const newTag = new tag(tagText, document.getElementById("chooseTagButton").style.backgroundColor, document.getElementById("chooseTagButton").style.color)
 
-    const newTask = new toDo(taskText, newTag, table, false, id)
+    const newTask = new toDo(taskText, newTag, table, false, miliseconds, date, id)
     toDos.push(newTask)
 
     localStorage.setItem("array", JSON.stringify(toDos))
@@ -583,7 +723,14 @@ function createSortTag(text, bgColor, color)
         sortNow(this.innerHTML, this.style.backgroundColor, this.style.color)
     }
 
-    document.getElementById("sortMenu").append(tag)
+    var tagClone = tag.cloneNode(true)
+    tagClone.onclick = function()
+    {
+        changeTagElementNow(this.innerHTML, this.style.backgroundColor, this.style.color)
+    }
+
+    document.getElementById("sortTags").append(tag)
+    document.getElementById("changeTags").append(tagClone)
 }
 
 function chooseTag(tagBGColor, tagColor, tagText)
@@ -676,9 +823,12 @@ function importanceFunction(importantCell, id)
 
 function editFunction(element, id)
 {
+    editMode = true 
+
     element.remove()
 
     var area = document.getElementById(id + "text")
+    var oldText = area.getElementsByTagName("a")[0].innerHTML
     area.innerHTML = ""
 
     var input = document.createElement("input")
@@ -686,6 +836,7 @@ function editFunction(element, id)
     input.type = "text"
     input.maxLength = "40"
     input.size = "35"
+    input.value = oldText
 
     var button = document.createElement("button")
     button.className = "sendButton"
@@ -730,6 +881,8 @@ function editFunction(element, id)
 
         area.append(text)
         area.append(editButton)
+        
+        editMode = false
 
         editButton.onclick = function()
         {
@@ -737,6 +890,75 @@ function editFunction(element, id)
 
             editFunction(document.getElementById(this.id), id)
         }
+    }
+}
+
+function changeTag(element, id, important)
+{
+    if(changeTagMenu == false)
+    {
+        changeTagMenu = true
+
+        var top = element.getBoundingClientRect().top
+
+        document.getElementById("changeMenu").style.top = top + 40 + "px"
+        document.getElementById("changeMenu").style.display = ""
+
+        changeElement = element
+        changeID = id
+        
+        if(important == true)
+        {
+            changeImportance = true
+        }else
+        {
+            changeImportance = false
+        }
+    }
+}
+
+function changeTagElementNow(newText, newBackgroundColor, newColor)
+{
+    changeElement.innerHTML = newText
+    changeElement.style.backgroundColor = newBackgroundColor
+    changeElement.style.color = newColor
+
+    if(changeImportance == true)
+    {
+        for(var i = 0; i < importantArray.length; i++)
+        {
+            if(importantArray[i].id == changeID)
+            {
+                var indexInArray = i
+            }
+        }
+
+        importantArray[indexInArray].tag.text = newText
+        importantArray[indexInArray].tag.bgColor = newBackgroundColor
+        importantArray[indexInArray].tag.color = newColor
+            
+        localStorage.setItem("importantArray", JSON.stringify(importantArray))
+    }else
+    {
+        var index = getIndex(changeID)
+
+        toDos[index].tag.text = newText
+        toDos[index].tag.bgColor = newBackgroundColor
+        toDos[index].tag.color = newColor
+
+        localStorage.setItem("array", JSON.stringify(toDos))
+    }
+
+    document.getElementById("changeMenu").style.display = "none"
+
+    changeTagMenu = false
+}
+
+function editHover()
+{
+    for(var i = 0; i < document.getElementsByClassName("editButton").length; i++)
+    {
+        document.getElementsByClassName("editButton")[i].style.display = "none" 
     }
 }
 
