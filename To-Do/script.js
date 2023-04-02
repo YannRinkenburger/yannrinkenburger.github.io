@@ -100,7 +100,7 @@ function loadData(array)
         var checkbox = document.createElement("button")
         checkbox.id = ownID
         checkbox.className = "checkboxButton hover"
-        checkbox.innerText = "+"
+        checkbox.innerText = "&#10006;"
         firstCell.append(checkbox)
 
         var secondCell = document.createElement("td")           //Task name/text
@@ -196,8 +196,9 @@ function loadData(array)
             {
                 var className = this.id
 
-                this.style.backgroundColor = "#2a72de"
-                this.style.color = "#2a72de"
+                this.style.border = "1px solid red"
+                this.style.color = "red"
+                this.innerHTML = "&#10006;"
                 setTimeout(function()
                 {
                     document.getElementsByClassName(className + "Tag " + "tagRow")[0].remove();
@@ -496,7 +497,7 @@ function newTask()
     var checkbox = document.createElement("button")
     checkbox.id = ownID
     checkbox.className = "checkboxButton hover"
-    checkbox.innerText = "+"
+    checkbox.innerText = "&#10006;"
     firstCell.append(checkbox)
 
     var secondCell = document.createElement("td")           //Task name/text
@@ -599,8 +600,10 @@ function newTask()
 
     checkbox.onclick = function()
     {
-        checkbox.style.backgroundColor = "#2a72de"
-        checkbox.style.color = "#2a72de"
+        checkbox.style.border = "1px solid red"
+        checkbox.style.color = "red"
+        checkbox.innerHTML = "&#10006;"
+
         setTimeout(function()
         {
             newTableRow.remove();
@@ -914,6 +917,11 @@ function changeTag(element, id, important)
         {
             changeImportance = false
         }
+    }else
+    {
+        document.getElementById("changeMenu").style.display = "none"
+
+        changeTagMenu = false
     }
 }
 
@@ -954,6 +962,12 @@ function changeTagElementNow(newText, newBackgroundColor, newColor)
     changeTagMenu = false
 }
 
+function closeChangeMenu()
+{
+    document.getElementById("changeMenu").style.display = "none"
+    changeTagMenu = false
+}
+
 function editHover()
 {
     for(var i = 0; i < document.getElementsByClassName("editButton").length; i++)
@@ -979,6 +993,10 @@ function openNewTaskMenu()
     {
         document.getElementById("createNewTaskMenu").style.display = ""
         document.getElementById("taskTextInput").focus()
+
+        document.getElementById("changeMenu").style.display = "none"
+
+        changeTagMenu = false
     }else{
         document.getElementById("createNewTaskMenu").style.display = "none"
         document.getElementById("chooseTagMenu").style.display = "none"
