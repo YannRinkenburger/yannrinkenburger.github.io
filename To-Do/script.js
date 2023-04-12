@@ -53,7 +53,7 @@ if(localStorage.getItem("importantArray") != null)
 const d = new Date()
 var day = d.getDay()
 
-if(localStorage.getItem("day") != null)
+if(localStorage.getItem("day") != null && localStorage.getItem("array") != null)
 {
     var array = JSON.parse(localStorage.getItem("array"))
     toDos = array
