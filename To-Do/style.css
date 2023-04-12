@@ -408,3 +408,29 @@ table{
     padding-left: 5px;
     padding-right: 5px;
 }
+
+#miniPopUp{
+    width: 400px;
+    position: absolute;
+    left: 40%;
+    top: 650px;
+    background-color: #1b1c1b;
+    font-size: x-large;
+    padding: 10px;
+    border-radius: 20px;
+    border: 2px solid green;
+}
+
+@keyframes fadeIn{
+    0% { opacity: 0; }
+    100% { opacity: 1; }
+}
+
+@keyframes fadeOut{
+    0% { opacity: 1; }
+    100% { opacity: 0; }
+}
+
+.check{
+    color: green;
+}

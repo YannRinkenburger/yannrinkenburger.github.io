@@ -100,7 +100,7 @@ function loadData(array)
         var checkbox = document.createElement("button")
         checkbox.id = ownID
         checkbox.className = "checkboxButton hover"
-        checkbox.innerText = "&#10006;"
+        checkbox.innerText = "X"
         firstCell.append(checkbox)
 
         var secondCell = document.createElement("td")           //Task name/text
@@ -390,38 +390,7 @@ function sortChoose(index)
         document.getElementsByClassName("sortMenuDiv")[1].style.display = "none"
     }else if(index == 1)
     {
-        var length = document.getElementsByClassName("dateCell").length
-
-        var counter = 0
-
-        for(var i = 0; i < length; i++)
-        {
-            var time = document.getElementById("allToDoTable").getElementsByClassName("dateCell")[i].id 
-            console.log(time)
-
-            var element = document.getElementById("allToDoTable").getElementsByClassName("dateCell")[i]
-
-            var table = document.getElementById("allToDoTable")
-
-            if(counter == 0)
-            {
-                table.append(element)
-            }else
-            {
-                for(var ii = length - 1; ii < counter; ii++)
-                {
-                    if(document.getElementById("allToDoTable").getElementsByClassName("dateCell")[ii].id > time)
-                    {
-                        table.prepend(element)
-                    }else
-                    {
-                        table.append(element)
-                    }
-                }
-            }
-
-            counter += 1
-        }
+        sortByTime()
     }
 }
 
@@ -497,7 +466,7 @@ function newTask()
     var checkbox = document.createElement("button")
     checkbox.id = ownID
     checkbox.className = "checkboxButton hover"
-    checkbox.innerText = "&#10006;"
+    checkbox.innerText = "X"
     firstCell.append(checkbox)
 
     var secondCell = document.createElement("td")           //Task name/text
@@ -676,6 +645,8 @@ function newTask()
     document.getElementById("chooseTagButton").style.backgroundColor = "#252525"
     document.getElementById("chooseTagButton").innerHTML = "Choose tag"
     document.getElementById("taskTextInput").value = ""
+
+    openPopUp("miniPopUp", "New task created")
 }
 
 function saveTask(taskText, table, id, tagText, date, miliseconds)
@@ -790,6 +761,8 @@ function addTag()
 
         document.getElementById("tagTextInput").value = ""
     }
+
+    openPopUp("miniPopUp", "New tag created")
 }
 
 function importanceFunction(importantCell, id)
@@ -822,6 +795,7 @@ function importanceFunction(importantCell, id)
 
     localStorage.setItem("array", JSON.stringify(toDos))
     localStorage.setItem("importantArray", JSON.stringify(importantArray))
+    location.reload()
 }
 
 function editFunction(element, id)
@@ -1008,4 +982,39 @@ function displayFunc(oldDiv, newDiv)
 {
     document.getElementById(oldDiv).style.display = "none"
     document.getElementById(newDiv).style.display = ""
+}
+
+function openPopUp(element, text)
+{
+    document.getElementById(element).style.display = ""
+    document.getElementById(element + "Text").innerHTML = text
+    document.getElementById(element).style.animation = "fadeIn 2s"
+    
+    setTimeout(function()
+    {
+        document.getElementById(element).style.animation = "fadeOut 2s"
+
+        setTimeout(function()
+        {
+            document.getElementById(element).style.display = "none"
+        },2000)    
+    },3000)
+}
+
+function sortByTime()
+{
+    var bothArrays = toDos.concat(importantArray)
+    
+    bothArrays.sort(function(a, b) { return a.miliseconds - b.miliseconds; })
+
+    console.log(bothArrays)
+
+    var length = document.getElementsByClassName("tagRow").length - 1
+
+    for(var i = length; i >= 0; i--)
+    {
+        document.getElementsByClassName("tagRow")[i].remove()
+    }
+
+    loadData(bothArrays)
 }
