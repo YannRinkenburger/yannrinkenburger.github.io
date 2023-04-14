@@ -3,7 +3,6 @@ var oldBGcolor = "white"
 var color = "white"
 var tagText = ""
 
-var allToDoTable = true
 var sortMenu = false
 var resetBool = false
 var tagIsNew = false
@@ -43,6 +42,19 @@ class tag {
     }
 }
 
+if(localStorage.getItem("table") != null)
+{
+    var allToDoTable = localStorage.getItem("table")
+
+    if(allToDoTable == "true"){ allToDoTable = true }
+    else{ allToDoTable = false }
+}else{
+    var allToDoTable = true
+    localStorage.setItem("table", allToDoTable)
+}
+
+menuNav(allToDoTable)
+
 if(localStorage.getItem("importantArray") != null)
 {
     var array = JSON.parse(localStorage.getItem("importantArray"))
@@ -79,8 +91,6 @@ if(localStorage.getItem("tagArray") != null)
 {
     loadTags()
 }
-
-menuNav(0)
 
 function loadData(array)
 {
@@ -234,7 +244,6 @@ function loadData(array)
                     
                     document.getElementById(id + "edit").style.display = ""
                 }
-                
             }
 
             document.getElementsByClassName(ownID + "Tag")[0].onmouseleave = function()
@@ -282,14 +291,14 @@ function loadData(array)
 
             document.getElementById(ownID + "delete").onclick = function()
             {
-                var index = getIndex(this.id)
+                var id = this.id.replace("delete", "")
+                var index = getIndex(id)
                 toDos.splice(index,1)
+
                 localStorage.setItem("array", JSON.stringify(toDos))
 
                 this.style.backgroundColor = "red"
                 this.style.color = "#1b1c1b"
-
-                var id = this.id.replace("delete", "")
 
                 setTimeout(function()
                 {
@@ -331,9 +340,9 @@ function loadTags()
     }
 }
 
-function menuNav(menuIndex)
+function menuNav(menu)
 {
-    if(menuIndex == 0)              //show all to do´s
+    if(menu == true)              //show all to do´s
     {
         document.getElementById("secondHR").style.display = "none"
         document.getElementById("firstHR").style.display = "inline"
@@ -356,6 +365,8 @@ function menuNav(menuIndex)
 
         allToDoTable = false
     }
+
+    localStorage.setItem("table", allToDoTable)
 }
 
 function sort()
@@ -435,15 +446,7 @@ function sortNow(text, bgColor, color)
 
 function reset()
 {
-    if(resetBool)
-    {
-        for(var i = 0; i < document.getElementsByClassName("tagRow").length; i++)
-        {
-            document.getElementsByClassName("tagRow")[i].style.display = ""
-        }
-        
-        document.getElementById("resetButton").style.color = "#1b1c1b"
-    }
+    location.reload()
 }
 
 function newTask()
@@ -460,180 +463,30 @@ function newTask()
 
     var taskText = document.getElementById("taskTextInput").value
 
-    var newTableRow = document.createElement("tr")
+    const d = new Date()
+    var miliseconds = d.getTime()
+    var day = d.getDate()
+    var month = d.getMonth() + 1
+    var year = d.getFullYear()
 
-    var firstCell = document.createElement("td")         //Checkbox 
-    var checkbox = document.createElement("button")
-    checkbox.id = ownID
-    checkbox.className = "checkboxButton hover"
-    checkbox.innerText = "X"
-    firstCell.append(checkbox)
-
-    var secondCell = document.createElement("td")           //Task name/text
-    secondCell.id = ownID + "text"
-        
-    var text = document.createElement("a")
-    text.innerHTML = taskText
-
-    var editButton = document.createElement("img")
-    editButton.src = "edit.png"
-    editButton.className = "editButton"
-    editButton.id = ownID + "edit"
-
-    secondCell.append(text)
-    secondCell.append(editButton)
-
-    newTableRow.append(firstCell)
-    newTableRow.append(secondCell)
-
-    if(allToDoTable)
-    {
-        var importantCell = document.createElement("td")
-        importantCell.className = "important"
-        importantCell.innerHTML = "!"
-        importantCell.id = ownID + "importance"
-
-        importantCell.onclick = function()
-        {
-            importanceFunction(importantCell, ownID)
-        }
-
-        const d = new Date()
-        var miliseconds = d.getTime()
-        var day = d.getDate()
-        var month = d.getMonth() + 1
-        var year = d.getFullYear()
-
-        var date = day + ". " + month + ". " + year
-
-        var dateCell = document.createElement("td")
-        dateCell.innerHTML = date
-        dateCell.id = miliseconds
-        dateCell.className = "dateCell"
-
-        var voidCell2 = document.createElement("td")
-
-        newTableRow.append(dateCell)
-        newTableRow.append(voidCell2)
-    }else
-    {
-        var importantCell = document.createElement("td")
-        importantCell.innerHTML = "&#10006;"
-        importantCell.className = "deleteDailyTask"
-    }
-
-    var voidCell = document.createElement("td")
-
-    var tagCell = document.createElement("td")            //Tag
+    var date = day + ". " + month + ". " + year
 
     if(tagIsNew)
     {
         tagText = document.getElementById("chooseTagButton").innerHTML
-        tagCell.innerHTML = tagText
 
         createSortTag(tagText, oldBGcolor, color)
         addTagToArray(tagText)
     }else{
         tagText = document.getElementById("chooseTagButton").innerHTML
-        tagCell.innerHTML = tagText 
     }
-
-    newTableRow.className = ownID + "Tag" + " tagRow"
-
-    tagCell.style.backgroundColor = document.getElementById("chooseTagButton").style.backgroundColor
-    tagCell.style.color = document.getElementById("chooseTagButton").style.color
-    tagCell.className = "tag"
-    tagCell.id = ownID + "tag"
-
-    editButton.onclick = function()
-    {
-        var id = this.id.replace("edit", "")
-
-        editFunction(document.getElementById(this.id), id)
-    }
-
-    tagCell.onclick = function()
-    {
-        var id = this.id.replace("tag", "")
-
-        if(importantCell.backgroundColor == "red")
-        {
-            var important = true
-        }else
-        {
-            var important = false
-        }
-
-        changeTag(document.getElementById(this.id), id, important)
-    }
-
-    checkbox.onclick = function()
-    {
-        checkbox.style.border = "1px solid red"
-        checkbox.style.color = "red"
-        checkbox.innerHTML = "&#10006;"
-
-        setTimeout(function()
-        {
-            newTableRow.remove();
-        },300)
-
-        for(var i = 0; i < toDos.length; i++)
-        {
-            if(toDos[i].id == ownID)
-            {
-                var index = i
-            }
-        }
-
-        toDos.splice(index,1)
-        localStorage.setItem("array", JSON.stringify(toDos))
-    }
-
-    newTableRow.append(importantCell)
-    newTableRow.append(voidCell)
-    newTableRow.append(tagCell)
 
     if(allToDoTable)
     {
-        document.getElementById("allToDoTable").append(newTableRow)
         saveTask(taskText, "allToDoTable", ownID, tagText, date, miliseconds)
     }else if(allToDoTable == false)
     {
-        document.getElementById("dailyToDoTable").append(newTableRow)
         saveTask(taskText, "dailyToDoTable", ownID, tagText)
-
-        checkbox.onclick = function()
-        {
-            var index = getIndex(ownID)
-            toDos[index].checked = true
-            localStorage.setItem("array", JSON.stringify(toDos))
-
-            checkbox.innerHTML = "&#10006;"
-            checkbox.style.border = "2px solid grey"
-            checkbox.style.color = "grey"
-            checkbox.style.fontSize = "12px"
-
-            var textElement = document.getElementById(ownID + "text")
-
-            textElement.style.textDecoration = "line-through"
-            textElement.style.color = "grey"
-        }
-
-        importantCell.onclick = function()
-        {
-            var index = getIndex(ownID)
-            toDos.splice(index,1)
-            localStorage.setItem("array", JSON.stringify(toDos))
-
-            importantCell.style.backgroundColor = "red"
-            importantCell.style.color = "#1b1c1b"
-
-            setTimeout(function()
-            {
-                document.getElementsByClassName(ownID + "Tag")[0].remove()
-            },300)
-        }
     }
 
     localStorage.setItem("taskIndex", taskIndex)
@@ -647,6 +500,10 @@ function newTask()
     document.getElementById("taskTextInput").value = ""
 
     openPopUp("miniPopUp", "New task created")
+
+    localStorage.setItem("table", allToDoTable)
+
+    location.reload()
 }
 
 function saveTask(taskText, table, id, tagText, date, miliseconds)
@@ -1005,9 +862,7 @@ function sortByTime()
 {
     var bothArrays = toDos.concat(importantArray)
     
-    bothArrays.sort(function(a, b) { return a.miliseconds - b.miliseconds; })
-
-    console.log(bothArrays)
+    bothArrays.sort(function(a, b) { return b.miliseconds - a.miliseconds; })
 
     var length = document.getElementsByClassName("tagRow").length - 1
 
@@ -1017,4 +872,10 @@ function sortByTime()
     }
 
     loadData(bothArrays)
+
+    document.getElementById("resetButton").style.color = "#a8a8a8"
+    resetBool = true
+
+    document.getElementById("sortMenu").style.display = "none"
+    sortMenu = false
 }

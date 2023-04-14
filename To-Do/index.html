@@ -10,8 +10,8 @@
   <body>
     <table id="toDoTableTop">
       <tr>
-        <th style="width:3%" class="hover" onclick="menuNav(0)">All</th>
-        <th style="width:3%" class="hover" onclick="menuNav(1)">Daily</th>
+        <th style="width:3%" class="hover" onclick="menuNav(true)">All</th>
+        <th style="width:3%" class="hover" onclick="menuNav(false)">Daily</th>
         <th style="width:43%"></th>
         <th style="width:3%; color: #1b1c1b;" class="hover littleText" id="resetButton" onclick="reset()">reset</th>
         <th style="width:3%" class="hover littleText" onclick="sort()" id="sortButton">Sort</th>
@@ -67,7 +67,7 @@
       
       <div class="sortMenuDiv" onclick="sortChoose(1)">
         <a class="icon">&#9728;</a>
-        <a>Time (Beta)</a>
+        <a>Time (latest first)</a>
       </div>
 
       <div id="sortTags" style="display: none;"> 
