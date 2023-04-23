@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <center>
+            <img id="logo" src="bundesliga_logo.png" alt="Logo der Bundesliga" width="200px" onclick="switchLeague(this, 'bl1')">
+        </center>
+    
+        <div id="menu">
+            <button onclick="menu(0)" class="menuButton" style="color: black; background: white;">Ergebnisse</button>
+            <button onclick="menu(1)" class="menuButton">Tabelle</button>
+            <button onclick="menu(2)" class="menuButton">Teams</button>
+            <button onclick="menu(3)" class="menuButton">Statistiken</button>
+        </div>
+    </header>
+
+    <div id="matchDayView" style="display: none; margin: 50px;">
+        <table id="cloneTableMatchDay">
+            <tr>
+                <th style="width: 2%;"></th>
+                <th style="width: 16%;"></th>
+                <th style="width: 2%;"></th>
+            </tr>
+        </table>
+
+        <div id="matchDayMenu">
+            <a onclick="minusMatchDay()"><</a>
+            <a id="matchDayText"></a>
+            <a onclick="plusMatchDay()">></a>
+        </div>
+
+        <div id="matchDayTables" class="flex-container"></div> 
+    </div>
+
+    <center id="leagueTableView" style="display: none;">
+        <table id="leagueTable" style="width: 46%;">
+            <tr>
+                <th style="width: 1%;"></th>
+                <th style="width: 1%;"></th>
+                <th style="width: 2%;"></th>
+                <th style="width: 30%;"></th>
+                <th style="width: 2%;">Sp</th>
+                <th style="width: 2%;">S</th>
+                <th style="width: 2%;">U</th>
+                <th style="width: 2%;">N</th>
+                <th style="width: 2%;">TD</th>
+                <th style="width: 2%;">P</th>
+            </tr>
+        </table>
+    </center>
+
+    <center id="viewStatistics">
+        <table id="goalGetterTable" style="width: 36%; margin: auto;">
+            <tr>
+                <th style="width: 0.75%;"></th>
+                <th style="width: 2%;"></th>
+                <th style="width: 0.5%;"></th>
+                <th style="width: 30%;"></th>
+                <th style="width: 3%;"></th>
+            </tr>
+        </table>
+    </center>
+
+    <center id="allTeams" class="flex-container" style="margin-top: 10px; justify-content: center;"></center>
+    <center id="allMatchesView"></center>
+
+    <p id="loader" style="display: none;"></p>
+
+    <script src="script.js"></script>
+</body>
+</html>
