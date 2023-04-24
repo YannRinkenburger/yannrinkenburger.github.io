@@ -62,8 +62,6 @@ var league = "bl1"
 
 var loading = true
 
-var clickedTeam = null
-
 if(localStorage.getItem("activeLeague") !== null)
 {
     league = localStorage.getItem("activeLeague") 
@@ -180,17 +178,10 @@ function fetchAllMatchesOfTeam(teamName, season)
     setTimeout(viewAllMatchesOfTeam, 1000)
 }
 
-function viewAllMatchesOfTeam(element)
+function viewAllMatchesOfTeam()
 {
     console.log(allMatchesArray)
     document.getElementById("loader").style.display = "none"
-
-    for(var index = 0; index < document.getElementsByClassName("teamDiv").length; index++)
-    {
-        document.getElementsByClassName("teamDiv")[index].style.background = "#303030"
-    }
-
-    clickedTeam.style.background = "#808080"
 
     var div = document.getElementById("allMatchesView")
 
@@ -224,6 +215,8 @@ function viewAllMatchesOfTeam(element)
     }
 
     document.getElementById("allMatchesView").style.display = ""
+
+    loading = false
 }
 
 function createGameDataForAllMatchesView(array, index, matchDay, date)
@@ -671,6 +664,7 @@ function openLeagueTable()
 
         var teamRow = document.createElement("tr")
         teamRow.className = "teamRow"
+        teamRow.id = "team:" + teamName
 
         var placementColor = document.createElement("td")
         
@@ -729,9 +723,37 @@ function openLeagueTable()
         teamRow.append(points)
 
         document.getElementById("leagueTable").append(teamRow)
+
+        document.getElementById("team:" + teamName).onclick = function()
+        {
+            var id = this.id.replace("team:", "")
+
+            menu(2)
+            openAllTeamMatches(id)
+        }
     }
 
     loading = false
+}
+
+function openAllTeamMatches(id)
+{
+    for(var index = 0; index < document.getElementsByClassName("teamDiv").length; index++)
+    {
+        document.getElementsByClassName("teamDiv")[index].style.background = "#303030"
+    }
+
+    document.getElementById(id).style.background = "#808080"
+
+    if(document.getElementById("allMatchesTable") != null)
+    {
+        document.getElementById("allMatchesTable").remove()
+        document.getElementById("loader").style.display = ""
+    }
+
+    loading = true
+
+    fetchAllMatchesOfTeam(id, 2022)
 }
 
 function getColor(index)
@@ -785,78 +807,6 @@ function getColor(index)
     return color
 }
 
-function menu(index)
-{
-    if(!loading)
-    {
-        for(var i = 0; i < document.getElementsByClassName("menuButton").length; i++)
-        {
-            document.getElementsByClassName("menuButton")[i].style.color = "white"
-            document.getElementsByClassName("menuButton")[i].style.background = "none"
-        }
-
-        document.getElementsByClassName("menuButton")[index].style.color = "black"
-        document.getElementsByClassName("menuButton")[index].style.background = "white"
-
-        document.getElementById("matchDayView").style.display = "none"
-        document.getElementById("leagueTableView").style.display = "none"
-        document.getElementById("allMatchesView").style.display = "none"
-        document.getElementById("allTeams").style.display = "none"
-        document.getElementById("viewStatistics").style.display = "none"
-
-        if(index === 0)
-        {
-            loading = true
-
-            if(document.getElementsByClassName("matchDayTables").length === 0)
-            {
-                fetchLastMatchDay()
-            }else
-            {
-                document.getElementById("matchDayView").style.display = ""
-                loading = false
-            }
-        }else if(index === 1)
-        {
-            loading = true
-
-            if(document.getElementsByClassName("teamRow").length === 0)
-            {
-                fetchLeagueTable(2022)
-            }else
-            {
-                document.getElementById("leagueTableView").style.display = ""
-                loading = false
-            }
-        }else if(index === 2)
-        {
-            loading = true
-
-            if(document.getElementsByClassName("teamDiv").length === 0)
-            {
-                fetchTeams(2022)
-            }else
-            {
-                document.getElementById("allTeams").style.display = ""
-                document.getElementById("allMatchesView").style.display = ""
-                loading = false
-            }  
-        }else if(index === 3)
-        {
-            loading = true
-
-            if(document.getElementsByClassName("statisticRow").length === 0)
-            {
-                fetchGoalGetters(2022)
-            }else
-            {
-                document.getElementById("viewStatistics").style.display = ""
-                loading = false
-            }          
-        }
-    }
-}
-
 function showAllTeams()
 {
     document.getElementById("loader").style.display = "none"
@@ -895,11 +845,7 @@ function showAllTeams()
 
         teamDiv.onclick = function()
         {
-            var name = this.id
-
-            clickedTeam = this
-
-            fetchAllMatchesOfTeam(name, 2022)
+            openAllTeamMatches(this.id)
         }
 
         teamDiv.append(teamIconImage)
@@ -990,6 +936,78 @@ function showGoalGetters()
     document.getElementById("viewStatistics").append(table)
 
     loading = false
+}
+
+function menu(index)
+{
+    if(!loading)
+    {
+        for(var i = 0; i < document.getElementsByClassName("menuButton").length; i++)
+        {
+            document.getElementsByClassName("menuButton")[i].style.color = "white"
+            document.getElementsByClassName("menuButton")[i].style.background = "none"
+        }
+
+        document.getElementsByClassName("menuButton")[index].style.color = "black"
+        document.getElementsByClassName("menuButton")[index].style.background = "white"
+
+        document.getElementById("matchDayView").style.display = "none"
+        document.getElementById("leagueTableView").style.display = "none"
+        document.getElementById("allMatchesView").style.display = "none"
+        document.getElementById("allTeams").style.display = "none"
+        document.getElementById("viewStatistics").style.display = "none"
+
+        if(index === 0)
+        {
+            loading = true
+
+            if(document.getElementsByClassName("matchDayTables").length === 0)
+            {
+                fetchLastMatchDay()
+            }else
+            {
+                document.getElementById("matchDayView").style.display = ""
+                loading = false
+            }
+        }else if(index === 1)
+        {
+            loading = true
+
+            if(document.getElementsByClassName("teamRow").length === 0)
+            {
+                fetchLeagueTable(2022)
+            }else
+            {
+                document.getElementById("leagueTableView").style.display = ""
+                loading = false
+            }
+        }else if(index === 2)
+        {
+            loading = true
+
+            if(document.getElementsByClassName("teamDiv").length === 0)
+            {
+                fetchTeams(2022)
+            }else
+            {
+                document.getElementById("allTeams").style.display = ""
+                document.getElementById("allMatchesView").style.display = ""
+                loading = false
+            }  
+        }else if(index === 3)
+        {
+            loading = true
+
+            if(document.getElementsByClassName("statisticRow").length === 0)
+            {
+                fetchGoalGetters(2022)
+            }else
+            {
+                document.getElementById("viewStatistics").style.display = ""
+                loading = false
+            }          
+        }
+    }
 }
 
 function switchLeague(image)

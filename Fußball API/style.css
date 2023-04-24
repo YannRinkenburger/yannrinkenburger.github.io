@@ -179,3 +179,11 @@ header{
     margin-left: 10px;
     margin-bottom: 5px;
 }
+
+#allMatchesTable{
+    justify-content: center;
+}
+
+.teamRow{
+    cursor: pointer;
+}
