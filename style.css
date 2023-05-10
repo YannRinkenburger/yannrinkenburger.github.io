@@ -1,0 +1,105 @@
+html{
+    font-family: Calibri;
+    color: #464e47;
+    margin: 10px;
+    margin-left: 20px;
+    margin-right: 20px;
+    scroll-behavior: smooth;
+}
+
+body{
+    margin: -10px;
+}
+
+header{
+    position: sticky;
+    top: 0;
+    padding: 20px;
+    background: white;
+}
+
+a{
+    text-decoration: none;
+    color: #464e47;
+    font-size: 22px;
+    margin: 10px;
+}
+
+a:hover{
+    color: #568259;
+    text-decoration: underline;
+}
+
+h1{
+    font-size: 50px;
+    margin-bottom: -10px;
+    margin-top: -20px;
+}
+
+h2{
+    text-decoration: underline;
+}
+
+h3{
+    color: #568259;
+}
+
+section{
+    margin-left: 15%;
+    margin-top: 10%;
+    margin-bottom: 30%;
+    padding-top: 180px;
+}
+
+button{
+    width: 400px;
+    font-size: 17px;
+    padding: 10px;
+    background: transparent;
+    border: 2px solid #568259;
+    border-radius: 10px;
+    color: #568259;
+    cursor: pointer;
+}
+
+button:hover{
+    background-color: #568259;
+    color: white;
+}
+
+p{
+    font-size: 20px;
+}
+
+svg{
+    width: 30px;
+}
+
+td{
+    font-size: 20px;
+}
+
+footer{
+    text-align: center;
+    padding-bottom: 20px;
+    margin-top: -200px;
+}
+
+footer p{
+    font-size: 15px;
+}
+
+#contact{
+    text-align: center;
+    margin-left: 0;
+}
+
+.clickableImg{
+    padding: 5px;
+}
+
+.clickableImg:hover{
+    cursor: pointer;
+    background: #c0ddc2;
+    border-radius: 40px;
+}
