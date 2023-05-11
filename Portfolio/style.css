@@ -48,7 +48,7 @@ section{
     margin-left: 15%;
     margin-top: 10%;
     margin-bottom: 30%;
-    padding-top: 180px;
+    padding-top: 120px;
 }
 
 button{
@@ -82,7 +82,7 @@ td{
 footer{
     text-align: center;
     padding-bottom: 20px;
-    margin-top: -200px;
+    margin-top: -300px;
 }
 
 footer p{
@@ -102,4 +102,65 @@ footer p{
     cursor: pointer;
     background: #c0ddc2;
     border-radius: 40px;
+}
+
+#headerName{
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.flex-container{
+    display: flex;
+    flex-wrap: nowrap;
+}
+  
+.flex-container > div{
+    background-color: #f1f1f1;
+    width: 300px;
+    margin: 30px;
+    text-align: center;
+    line-height: 75px;
+    font-size: 30px;
+    border-radius: 20px;
+    padding: 20px;
+    padding-top: 5px;
+}
+
+.flex-bottom{
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: center;
+}
+
+.flex-bottom > div{
+    width: 50%;
+}
+
+.viewButton{
+    width: 140px;
+    padding: 3px;
+    font-size: 17px;
+    background: transparent;
+    border: 2px solid #568259;
+    border-radius: 10px;
+    color: #568259;
+    cursor: pointer;
+    height: 40px;
+    margin-left: 20%;
+    margin-right: 5%;
+    margin-top: 10px;
+}
+
+.flex-container .description{
+    font-size: 18px;
+    text-align: left;
+    margin-left: 10px;
+    margin-top: -20px;
+    line-height: 25px;
+}
+
+.link{
+    text-decoration: underline;
+    font-size: 20px;
+    margin: 0px;
 }
