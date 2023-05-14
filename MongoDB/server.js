@@ -42,7 +42,7 @@ app.get("/signIn.html", function(req, res)
 {
     res.sendFile(__dirname + "/signIn.html")
 
-    app.post("/signIn", bodyParser.json(), async function(req, res)
+    app.post("/signIn.html", bodyParser.json(), async function(req, res)
     {
         var firstname = req.body.firstname
         var lastname = req.body.lastname
@@ -68,7 +68,7 @@ app.get("/logIn.html", function(req, res)
 {
     res.sendFile(__dirname + "/logIn.html")
 
-    app.post("/logIn", bodyParser.json(), async function(req, res)
+    app.post("/logIn.html", bodyParser.json(), async function(req, res)
     {
         var username = req.body.username
         var password = req.body.password
