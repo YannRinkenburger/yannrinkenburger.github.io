@@ -1,0 +1,98 @@
+html{
+    background-color: #252525;
+    color: white;
+    font-family: Arial;
+}
+
+header{
+    background-color: #202020;
+    padding: 20px;
+    margin: -8px;
+    margin-bottom: 20px;
+}
+
+table {
+    width: 95%;
+    margin: auto;
+    border-spacing: 10px;
+}
+
+th{
+    color: #018c71;
+}
+
+td{
+    text-align: center;
+}
+
+.teamName{
+    text-align: left;
+}
+
+select {
+    background-color: #202020;
+    color: #018c71;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    font-weight: bold;
+    border: 2px solid;
+}
+
+option {
+    color: #018c71;
+}
+
+.colorPlaceholder{
+    border-radius: 10px;
+    color: transparent;
+}
+
+.games{
+    outline: thin solid;
+    border-radius: 10px;
+}
+
+.games td{
+    padding: 5px;
+}
+
+.win{
+    color: #0dd70d;
+}
+
+.lose{
+    color: red;
+}
+
+.draw{
+    color: orange;
+}
+
+hr{
+    width: 85%;
+    color: #018c71;
+}
+
+h3{
+    color: #018c71;
+    margin-left: 5%;
+}
+
+.gameDiv{
+    color: #252525;
+    font-weight: bold;
+    margin-left: -10px;
+    margin-right: -10px;
+}
+
+.gameDiv table{
+    width: 80%;
+    background: #018c71;
+    padding-left: 0px;
+    border-radius: 15px;
+    border: 1px solid #018c71;
+    box-shadow: 5px 10px #024a3c;
+    margin-bottom: 15px;
+}

@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="style.css">
+    </head>
+<body>
+    <header>
+        <img src="logo.png" alt="Logo" style="width: 100%">
+
+        <select id="select">
+            <option value="group1" selected>Gruppe 1</option>
+            <option value="group2">Gruppe 2</option>
+            <option value="group3">Gruppe 3</option>
+            <option value="group4">Gruppe 4</option>
+            <option value="roundOf16">Achtelfinale</option>
+            <option value="quarterfinals">Viertelfinale</option>
+            <option value="semifinals">Halbfinale</option>
+            <option value="final">Finale</option>
+        </select>
+    </header>
+
+    <div id="group1">
+        <table>
+            <tr>
+                <th style="width: 1%;"></th>
+                <th style="width: 1%;"></th>
+                <th style="width: 63%;"></th>
+                <th style="width: 10%;">Sp</th>
+                <th style="width: 10%;">TD</th>
+                <th style="width: 10%;">P</th>
+            </tr>
+            <tr>
+                <td><div class="colorPlaceholder" style="background-color: #018c71;">0</div></td>
+                <td>1.</td>
+                <td class="teamName">Team A</td>
+                <td>3</td>
+                <td>5:3</td>
+                <td>6</td>
+            </tr>
+            <tr>
+                <td><div class="colorPlaceholder" style="background-color: #018c71;">0</div></td>
+                <td>2.</td>
+                <td class="teamName">Team B</td>
+                <td>3</td>
+                <td>4:4</td>
+                <td>4</td>
+            </tr>
+            <tr>
+                <td><div class="colorPlaceholder" style="background-color: transparent;">0</div></td>
+                <td>3.</td>
+                <td class="teamName">Team C</td>
+                <td>3</td>
+                <td>3:4</td>
+                <td>4</td>
+            </tr>
+            <tr>
+                <td><div class="colorPlaceholder" style="background-color: transparent;">0</div></td>
+                <td>4.</td>
+                <td class="teamName">Team D</td>
+                <td>3</td>
+                <td>2:5</td>
+                <td>1</td>
+            </tr>
+        </table>
+    
+        <h3>Spiele</h3>
+    
+        <div class="gameDiv">
+            <table>
+                <tr>
+                    <th style="width: 5%;"></th>
+                    <th style="width: 65%;"></th>
+                    <th style="width: 10%;"></th>
+                </tr>
+                <tr>
+                    <td>MO</td>
+                    <td>Team A</td>
+                    <td>1</td>
+                </tr>
+                <tr>
+                    <td>11:00</td>
+                    <td>Team B</td>
+                    <td>2</td>
+                </tr>
+            </table>
+        </div>
+        
+        <hr>
+
+        <div class="gameDiv">
+            <table>
+                <tr>
+                    <th style="width: 5%;"></th>
+                    <th style="width: 65%;"></th>
+                    <th style="width: 10%;"></th>
+                </tr>
+                <tr>
+                    <td>MO</td>
+                    <td>Team C</td>
+                    <td>0</td>
+                </tr>
+                <tr>
+                    <td>11:30</td>
+                    <td>Team D</td>
+                    <td>1</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
