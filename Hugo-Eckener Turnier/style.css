@@ -9,12 +9,33 @@ header{
     padding: 20px;
     margin: -8px;
     margin-bottom: 20px;
+    padding-bottom: 0px;
+}
+
+.menu{
+    text-align: center;
+    margin-top: -10px;
+}
+
+.menu a{
+    font-size: 25px;
+    font-family: Bungee;
+    margin: auto;
+    color: #018c71;
+    text-decoration: none;
+    margin: 5%;
 }
 
 table {
     width: 95%;
     margin: auto;
     border-spacing: 10px;
+    background: #353535;
+    padding-left: 0px;
+    border-radius: 15px;
+    border: 1px solid #353535;
+    box-shadow: 5px 10px #222;
+    margin-bottom: 20px;
 }
 
 th{
@@ -27,21 +48,6 @@ td{
 
 .teamName{
     text-align: left;
-}
-
-select {
-    background-color: #202020;
-    color: #018c71;
-    padding: 10px;
-    border: none;
-    border-radius: 5px;
-    font-size: 16px;
-    font-weight: bold;
-    border: 2px solid;
-}
-
-option {
-    color: #018c71;
 }
 
 .colorPlaceholder{
@@ -77,22 +83,23 @@ hr{
 
 h3{
     color: #018c71;
+    font-family: Bungee;
+    margin: 0px;
     margin-left: 5%;
+    margin-bottom: 2%;
 }
 
 .gameDiv{
-    color: #252525;
+    color: white;
     font-weight: bold;
-    margin-left: -10px;
-    margin-right: -10px;
 }
 
 .gameDiv table{
-    width: 80%;
+    width: 85%;
     background: #018c71;
     padding-left: 0px;
     border-radius: 15px;
     border: 1px solid #018c71;
     box-shadow: 5px 10px #024a3c;
-    margin-bottom: 15px;
+    margin-bottom: 20px;
 }
