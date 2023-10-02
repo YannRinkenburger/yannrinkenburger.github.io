@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Emoji API</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <footer>
+        <div id="emojiPicker" style="display: none;">
+            <div class="search-box">
+                <input type="text" name="title" id="searchEmoji" required placeholder="Search through all..." autocomplete="off" onkeyup="searchEmoji(this.value)">
+            </div>
+
+            <span class="close" onclick="openEmojiDiv()" style="margin-right: 10px; font-size: 35px;">&times;</span>
+
+            <div id="emojiListArea">
+                <p id="infoText"></p>
+                <div id="emojiList"></div>
+            </div>
+
+            <div id="imageList">
+                <div><img class="emojiListImg" src="img/clock.png" alt="Clock" onclick="loadCategorie('recent', 'Recently Used')"></div>
+                <div><img class="emojiListImg" src="img/face.png" alt="Face" onclick="loadCategorie(0, 'Smileys')"></div>
+                <div><img class="emojiListImg" src="img/butterfly.png" alt="Nature" onclick="loadCategorie(1, 'Nature')"></div>
+                <div><img class="emojiListImg" src="img/cup.png" alt="Food" onclick="loadCategorie(2, 'Food')"></div>
+                <div><img class="emojiListImg" src="img/football.png" alt="Sports" onclick="loadCategorie(3, 'Sports')"></div>
+                <div><img class="emojiListImg" src="img/car.png" alt="Travel" onclick="loadCategorie(4, 'Travel')"></div>
+                <div><img class="emojiListImg" src="img/object.png" alt="Objects" onclick="loadCategorie(5, 'Objects')"></div>
+                <div><img class="emojiListImg" src="img/symbols.png" alt="Symbols" onclick="loadCategorie(6, 'Symbols')"></div>
+                <div><img class="emojiListImg" src="img/flag.png" alt="Flags" onclick="loadCategorie(7, 'Flags')"></div>
+            </div>
+        </div>
+
+        <table id="commentTable">
+            <tr>
+                <td style="width: 80%;"><input type="text" id="messageTextInput" placeholder="Write a message" autocomplete="off"></td>
+                <td style="width: 10%;"><img src="img/face.png" alt="Emojis" onclick="openEmojiDiv()"></td>
+                <td style="width: 10%;"><img src="img/send.png" alt="Send"></td>
+            </tr>
+        </table>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

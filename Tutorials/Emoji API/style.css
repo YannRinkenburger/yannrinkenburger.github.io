@@ -1,0 +1,132 @@
+html{
+    font-family: Calibri;
+    color: white;
+    scroll-behavior: smooth;
+    background-color: #121212;
+}
+
+input{
+    background-color: transparent;
+    color: white;
+    border: none;
+    outline: none;
+}
+
+footer{
+    position: fixed;
+    bottom: 20px;
+    left: 0;
+    background-color: #121212;
+    width: 100%;
+}
+
+.close {
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    padding-right: 10px;
+}
+  
+.close:hover{
+    color: #aaa;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+#commentTable{
+    border: 1px solid #e6e6e6;
+    border-radius: 20px;
+    background: #303030;
+    width: 90%;
+    margin: auto;
+}
+
+#commentTable button{
+    background: none;
+    border: none;
+}
+
+#commentTable input{
+    font-size: 16px;
+    width: 95%;
+    margin-left: 10px;
+}
+
+#emojiPicker{
+    background-color: #303030;
+    width: 90%;
+    margin: auto;
+    border-radius: 20px;
+    margin-bottom: 10px;
+    border: 1px solid #e6e6e6;
+}
+
+#emojiListArea{
+    display: flex;
+    width: 95%;
+    flex-wrap: wrap;
+    overflow-y: scroll; 
+    max-height: 160px;
+    min-height: 160px;
+    margin: auto;
+    margin-top: -20px;
+}
+
+#emojiList{
+    display: flex;
+    width: 95%;
+    flex-wrap: wrap;
+    max-height: 160px;
+    min-height: 160px;
+    margin: auto;
+}
+
+#emojiList div{
+    width: 9%;
+    text-align: center;
+    font-size: 25px;
+    margin: 5px;
+    cursor: pointer;
+}
+
+.search-box{
+    border: 1px solid;
+    border-radius: 10px;
+    background: transparent;
+    margin: auto;
+    margin-left: 10px;
+    margin-top: 5px;
+    display: flex;
+    float: left; width: 80%;
+}
+
+.search-box input{
+    font-size: 16px;
+    height: 30px;
+    margin-left: 5px;
+    width: 80%;
+}
+
+#imageList{
+    display: flex;
+    flex-wrap: nowrap;
+    width: 85%;
+    margin: auto;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+#imageList div{
+    width: 12%;
+}
+
+#infoText{
+    text-align: left;
+    margin-left: 20px;
+    margin-bottom: 0px;
+    margin-top: 5px;
+}
+
+.emojiListImg{
+    border-radius: 5px;
+}
