@@ -1,0 +1,56 @@
+html{
+    font-family: Calibri;
+    color: white;
+    scroll-behavior: smooth;
+    background-color: #121212;
+}
+
+.flex-container{
+    display: flex;
+    flex-wrap: wrap;
+}
+
+#calendar{
+    background: #303030;
+    border-radius: 20px;
+    margin-top: 10px;
+    padding: 10px;
+}
+
+.dayDiv{
+    width: 14%;
+    text-align: center;
+}
+
+.dayDiv h3{
+    color: #3eb1be;
+}
+
+.realDayDiv{
+    width: 14%;
+    text-align: center;
+    border-radius: 20px;
+    cursor: pointer;
+}
+
+#browseDivHead{
+    background: #3eb1be;
+    padding: 1px;
+    border-radius: 20px;
+    color: white;
+    border: 1px solid #3eb1be;
+    margin-top: 20px;
+}
+
+.close {
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    padding-right: 10px;
+}
+  
+.close:hover{
+    color: #aaa;
+    text-decoration: none;
+    cursor: pointer;
+}
