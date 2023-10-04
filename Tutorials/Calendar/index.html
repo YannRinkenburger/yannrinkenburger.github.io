@@ -7,30 +7,26 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div id="top" style="margin-top: 10px;">
-        <table style="width: 100%;">
-            <tr>
-                <th style="width: 20%;">
-                    <form action="/monthDown" method="post">
-                        <button style="background: none; border: none;"><img src="img/arrow.png" alt="Arrow" class="rotateimg180"></button>
-                    </form>
-                </th>
-                <th style="width: 60%; font-size: 30px;" id="monthText"></th>
-                <th style="width: 20%;">
-                    <form action="/monthUp" method="post">
-                        <button style="background: none; border: none;"><img src="img/arrow.png" alt="Arrow"></button>
-                    </form>
-                </th>
-            </tr>
-        </table>
+    <div id="calendar">
+        <div id="calendarTop">
+            <table style="width: 100%;">
+                <tr>
+                    <th style="width: 20%;">
+                        <button style="background: none; border: none;"><img src="img/arrow.png" alt="Arrow" class="rotateimg180" style="margin-top: 20px;" onclick="monthDown()"></button>
+                    </th>
+                    <th style="width: 60%; font-size: 30px;" id="monthText"></th>
+                    <th style="width: 20%;">
+                        <button style="background: none; border: none;"><img src="img/arrow.png" alt="Arrow" style="margin-top: 20px;" onclick="monthUp()"></button>
+                    </th>
+                </tr>
+            </table>
+        
+            <p id="yearText"></p>
+        
+            <hr class="boldHr" style="margin-top: 10px;">
+        </div>
 
-        <p id="yearText"></p>
-
-        <hr class="boldHr" style="margin-top: 10px;">
-    </div>
-
-    <div id="main">
-        <div id="calendar" class="flex-container">
+        <div id="calendarContent" class="flex-container">
             <div class="dayDiv"><h3>MO</h3></div>
             <div class="dayDiv"><h3>DI</h3></div>
             <div class="dayDiv"><h3>MI</h3></div>
@@ -41,16 +37,6 @@
 
             <div id="calendarArea" class="flex-container" style="width: 100%;"></div>
         </div>
-
-        <div id="browseDivHead" style="display: none;">
-           <h3 id="browseDivHeader" style="margin-left: 10px;"></h3>
-
-            <div class="close" id="closeCalendarBrowse" style="margin-top: -55px; margin-right: 10px; font-size: 40px; color: white;">
-                <span id="closeCalendarBrowseButton">&times;</span>
-            </div> 
-        </div>
-
-        <div id="browseDiv" class="flex-container"></div>
     </div>
     
     <script src="script.js"></script>

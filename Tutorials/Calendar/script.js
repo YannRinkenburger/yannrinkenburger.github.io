@@ -1,9 +1,9 @@
 var monthLongs = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
 
-loadMonth()
+var month = new Date().getMonth()
+var year = new Date().getFullYear()
 
-var month =  new Date().getMonth()
-var year =  new Date().getFullYear()
+loadMonth()
 
 function loadMonth()
 {
@@ -11,9 +11,9 @@ function loadMonth()
     var todayMonth = new Date().getMonth()
     var todayYear = new Date().getFullYear()
 
-    var daysInMonth = new Date(todayYear, todayMonth + 1, 0).getDate()
+    var daysInMonth = new Date(year, month + 1, 0).getDate()
 
-    var firstDayOfMonth = new Date(todayYear, todayMonth, 1)
+    var firstDayOfMonth = new Date(year, month, 1)
     var firstDayOfWeek = firstDayOfMonth.getDay()
 
     document.getElementById("calendarArea").remove()
@@ -23,10 +23,10 @@ function loadMonth()
     area.className = "flex-container"
     area.style.width = "100%"
 
-    document.getElementById("calendar").append(area)
+    document.getElementById("calendarContent").append(area)
 
-    document.getElementById("monthText").innerHTML = monthLongs[todayMonth]
-    document.getElementById("yearText").innerHTML = todayYear
+    document.getElementById("monthText").innerHTML = monthLongs[month]
+    document.getElementById("yearText").innerHTML = year
 
     if(firstDayOfWeek === 0){
         firstDayOfWeek = 7
@@ -51,30 +51,36 @@ function loadMonth()
 
         if(i + 1 === today && month === todayMonth && year === todayYear)
         {
-            dayText.style.color = "green"
-            dayText.style.fontWeight = "bold"
+            dayText.id = "today"
         }
-
-        var infoPoint = document.createElement("p")
-        infoPoint.innerHTML = "&#x2027;"
-        infoPoint.className = "infoPoint"
 
         dayDiv.append(dayText)
-        dayDiv.append(infoPoint)
         area.append(dayDiv)
     }
+}
 
-    for(var i = 0; i < events.length; i++)
+function monthUp()
+{
+    if(month === 11)
     {
-        var date = events[i].date
-        var day = date.slice(7)
-
-        document.getElementsByClassName("infoPoint")[day - 1].style.color = "#3eb1be"
-
-        document.getElementsByClassName("realDayDiv")[day - 1].onclick = function()
-        {
-            showEventsByDay(this.id, events)
-            this.style.background = "#3eb1be"
-        }
+        year++
+        month = 0
+    }else{
+        month++
     }
+
+    loadMonth()
+}
+
+function monthDown()
+{
+    if(month === 0)
+    {
+        year--
+        month = 11
+    }else{
+        month--
+    }
+
+    loadMonth()
 }
