@@ -139,9 +139,12 @@ function saveEmoji(p_emoji)
 
 function displayRecentEmojis()
 {
-    var recentEmojis = JSON.parse(localStorage.getItem("emojis"))
+    if(localStorage.getItem("emojis") !== null)
+    {
+        var recentEmojis = JSON.parse(localStorage.getItem("emojis"))
 
-    recentEmojis.forEach(emoji => {
-        createEmoji(emoji)
-    })
+        recentEmojis.forEach(emoji => {
+            createEmoji(emoji)
+        })
+    }
 }
