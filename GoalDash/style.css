@@ -1,0 +1,126 @@
+html{
+    color: white;
+    font-family: Calibri;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+}
+
+input{
+    background: transparent;
+    color: white;
+    border: none;
+    outline: none;
+}
+
+button{
+    cursor: pointer;
+}
+
+.container {
+    display: flex;
+    flex-direction: row;
+    height: 100vh;
+}
+
+.left {
+    flex: 60%;
+    background-color: #00002e;
+    padding: 40px;
+    padding-top: 0px;
+    color: #d292ff;
+}
+
+.right {
+    flex: 40%;
+    background-color: black;
+    color: #ffffff;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.section{
+    width: 80%;
+}
+
+.section h1{
+    color: #d292ff;
+    font-family: DM Serif Display;
+    font-size: 60px;
+    margin-bottom: 80px;
+}
+
+.section p{
+    text-align: left;
+    font-size: 18px;
+}
+
+.section span{
+    margin-left: 20px;
+    margin-right: 20px;
+    color: #d292ff;
+}
+
+.logoSpan {
+    font-size: 30px;
+}
+
+.text {
+    margin: 10px;
+}
+
+#footer{
+    margin-top: 15%;
+    color: #d292ff;
+    font-weight: bold;
+}
+
+#footer p{
+    font-size: medium;
+    cursor: pointer;
+}
+
+#mainContent{
+    margin: auto;
+    width: 30%;
+    margin-top: 25%;
+}
+
+#mainContent button{
+    background: #3c46ff;
+    color: white;
+    padding: 10px;
+    width: 100%;
+    border: none;
+    border-radius: 10px;
+    font-size: 20px;
+}
+
+#mainContent button:hover{
+    background-color: #1520ff;
+}
+
+.formInput{
+    border: 2px solid #d292ff;
+    padding: 10px;
+    border-radius: 10px;
+    margin-bottom: 15px;
+}
+
+.formInput h4{
+    height: 2px;
+    font-size: 16px;
+    color: #d292ff;
+    margin-top: 0px;
+}
+
+.error{
+    color: red;
+    font-weight: bold;
+}
