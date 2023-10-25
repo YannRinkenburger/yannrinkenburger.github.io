@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GoalDash ⋙</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="left">
+            <h2>GoalDash <span class="logoSpan">⋙</span></h2>
+
+            <div id="mainContent" style="width: 100%; margin-top: 30px;">
+                <div class="goalDiv">
+                    <h1>Erstelle das erste Ziel</h1>
+
+                    <div class="formInput">
+                        <h4>Name</h4>
+                        <input id="nameInput" type="text" name="username" autocomplete="off" maxlength="30" autofocus>
+                    </div>
+
+                    <div id="createMilestonesDiv" class="milestonesDiv" style="margin-top: 15%;">
+                        <h1>Erstelle die Meilensteine</h1>
+
+                        <div class="milestoneTop">
+                            <div class="milestoneNumber"></div>
+                            <div class="milestoneText" style="text-align: left;">Name</div>
+                            <div class="milestoneDeadline">Deadline</div>
+                            <div class="milestoneStatus">Status</div>
+                        </div>
+
+                        <div class="milestone">
+                            <div class="milestoneNumber">1.</div>
+                            <div class="milestoneText"><input type="text" placeholder="..." maxlength="40"></div>
+                            <div class="milestoneDeadline"><input type="date"></div>
+                            <div class="milestoneStatus"><div class="statusBox noselect" onclick="changeStatus(this)">0</div></div>
+                        </div>
+
+                        <div class="milestone">
+                            <div class="milestoneNumber">2.</div>
+                            <div class="milestoneText"><input type="text" placeholder="..." maxlength="40"></div>
+                            <div class="milestoneDeadline"><input type="date"></div>
+                            <div class="milestoneStatus"><div class="statusBox noselect" onclick="changeStatus(this)">0</div></div>
+                        </div>
+
+                        <div class="milestone">
+                            <div class="milestoneNumber">3.</div>
+                            <div class="milestoneText"><input type="text" placeholder="..." maxlength="40"></div>
+                            <div class="milestoneDeadline"><input type="date"></div>
+                            <div class="milestoneStatus"><div class="statusBox noselect" onclick="changeStatus(this)">0</div></div>
+                        </div>
+                    </div>
+
+                    <button class="milestonesAddButton" onclick="createMilestone()">+</button>
+                </div>
+            </div>
+        </div>
+        <div class="right">
+            
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
