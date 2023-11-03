@@ -11,53 +11,162 @@
         <div class="left">
             <h2>GoalDash <span class="logoSpan">⋙</span></h2>
 
-            <div id="mainContent" style="width: 100%; margin-top: 30px;">
+            <div id="mainContent" style="width: 100%; margin-top: 10px;">
                 <div class="goalDiv">
-                    <h1>Erstelle das erste Ziel</h1>
+                    <div id="firstGoal">
+                        <h1>Erstelle dein erstes Jahresziel</h1>
 
-                    <div class="formInput">
-                        <h4>Name</h4>
-                        <input id="nameInput" type="text" name="username" autocomplete="off" maxlength="30" autofocus>
+                        <div class="formInput">
+                            <h4>Name</h4>
+                            <input id="nameInput" type="text" autocomplete="off" maxlength="30" autofocus>
+                        </div>
+
+                        <div id="createMilestonesDiv1" class="milestonesDiv" style="margin-top: 15%;">
+                            <h1>Erstelle die Meilensteine des Ziels</h1>
+
+                            <div class="milestoneTop">
+                                <div class="milestoneNumber"></div>
+                                <div class="milestoneText" style="text-align: left;">Name</div>
+                                <div class="milestoneDeadline">Deadline</div>
+                                <div class="milestoneStatus">Status</div>
+                            </div>
+
+                            <div class="milestone">
+                                <div class="milestoneNumber">1.</div>
+                                <div class="milestoneText"><input type="text" class="goal1text" placeholder="..." maxlength="40"></div>
+                                <div class="milestoneDeadline"><input type="date" class="goal1date"></div>
+                                <div class="milestoneStatus"><div class="statusBox noselect" onclick="changeStatus(this)" style="background: gray;">0</div></div>
+                            </div>
+
+                            <div class="milestone">
+                                <div class="milestoneNumber">2.</div>
+                                <div class="milestoneText"><input type="text" class="goal1text" placeholder="..." maxlength="40"></div>
+                                <div class="milestoneDeadline"><input type="date" class="goal1date"></div>
+                                <div class="milestoneStatus"><div class="statusBox noselect" onclick="changeStatus(this)" style="background: gray;">0</div></div>
+                            </div>
+
+                            <div class="milestone">
+                                <div class="milestoneNumber">3.</div>
+                                <div class="milestoneText"><input type="text" class="goal1text" placeholder="..." maxlength="40"></div>
+                                <div class="milestoneDeadline"><input type="date" class="goal1date"></div>
+                                <div class="milestoneStatus"><div class="statusBox noselect" onclick="changeStatus(this)" style="background: gray;">0</div></div>
+                            </div>
+                        </div>
+
+                        <button class="milestonesAddButton" onclick="createMilestone(document.getElementById('createMilestonesDiv1'), 1)">+</button>
                     </div>
 
-                    <div id="createMilestonesDiv" class="milestonesDiv" style="margin-top: 15%;">
-                        <h1>Erstelle die Meilensteine</h1>
+                    <button class="finishGoalCreationButton" onclick="finishGoalCreation(1)" style="margin-top: 10%;">Next Goal</button>
+                </div>
 
-                        <div class="milestoneTop">
-                            <div class="milestoneNumber"></div>
-                            <div class="milestoneText" style="text-align: left;">Name</div>
-                            <div class="milestoneDeadline">Deadline</div>
-                            <div class="milestoneStatus">Status</div>
+                <div class="goalDiv" style="display: none;">
+                    <div id="secondGoal">
+                        <h1>Erstelle dein zweites Jahresziel</h1>
+
+                        <div class="formInput">
+                            <h4>Name</h4>
+                            <input id="nameInput" type="text" autocomplete="off" maxlength="30">
                         </div>
 
-                        <div class="milestone">
-                            <div class="milestoneNumber">1.</div>
-                            <div class="milestoneText"><input type="text" placeholder="..." maxlength="40"></div>
-                            <div class="milestoneDeadline"><input type="date"></div>
-                            <div class="milestoneStatus"><div class="statusBox noselect" onclick="changeStatus(this)">0</div></div>
+                        <div id="createMilestonesDiv2" class="milestonesDiv" style="margin-top: 15%;">
+                            <h1>Erstelle die Meilensteine des Ziels</h1>
+
+                            <div class="milestoneTop">
+                                <div class="milestoneNumber"></div>
+                                <div class="milestoneText" style="text-align: left;">Name</div>
+                                <div class="milestoneDeadline">Deadline</div>
+                                <div class="milestoneStatus">Status</div>
+                            </div>
+
+                            <div class="milestone">
+                                <div class="milestoneNumber">1.</div>
+                                <div class="milestoneText"><input type="text" class="goal2text" placeholder="..." maxlength="40"></div>
+                                <div class="milestoneDeadline"><input type="date" class="goal2date"></div>
+                                <div class="milestoneStatus"><div class="statusBox noselect" onclick="changeStatus(this)" style="background: gray;">0</div></div>
+                            </div>
+
+                            <div class="milestone">
+                                <div class="milestoneNumber">2.</div>
+                                <div class="milestoneText"><input type="text" class="goal2text" placeholder="..." maxlength="40"></div>
+                                <div class="milestoneDeadline"><input type="date" class="goal2date"></div>
+                                <div class="milestoneStatus"><div class="statusBox noselect" onclick="changeStatus(this)" style="background: gray;">0</div></div>
+                            </div>
+
+                            <div class="milestone">
+                                <div class="milestoneNumber">3.</div>
+                                <div class="milestoneText"><input type="text" class="goal2text" placeholder="..." maxlength="40"></div>
+                                <div class="milestoneDeadline"><input type="date" class="goal2date"></div>
+                                <div class="milestoneStatus"><div class="statusBox noselect" onclick="changeStatus(this)" style="background: gray;">0</div></div>
+                            </div>
                         </div>
 
-                        <div class="milestone">
-                            <div class="milestoneNumber">2.</div>
-                            <div class="milestoneText"><input type="text" placeholder="..." maxlength="40"></div>
-                            <div class="milestoneDeadline"><input type="date"></div>
-                            <div class="milestoneStatus"><div class="statusBox noselect" onclick="changeStatus(this)">0</div></div>
-                        </div>
-
-                        <div class="milestone">
-                            <div class="milestoneNumber">3.</div>
-                            <div class="milestoneText"><input type="text" placeholder="..." maxlength="40"></div>
-                            <div class="milestoneDeadline"><input type="date"></div>
-                            <div class="milestoneStatus"><div class="statusBox noselect" onclick="changeStatus(this)">0</div></div>
-                        </div>
+                        <button class="milestonesAddButton" onclick="createMilestone(document.getElementById('createMilestonesDiv2'), 2)">+</button>
                     </div>
 
-                    <button class="milestonesAddButton" onclick="createMilestone()">+</button>
+                    <button class="finishGoalCreationButton" onclick="finishGoalCreation(2)" style="margin-top: 10%;">Next Goal</button>
+                    <button class="finishGoalCreationButton secondButton" onclick="backGoalCreation(3)" style="margin-top: 2%;">Back</button>
+                </div>
+
+                <div class="goalDiv" style="display: none;">
+                    <div id="thirdGoal">
+                        <h1>Erstelle dein drittes Jahresziel</h1>
+
+                        <div class="formInput">
+                            <h4>Name</h4>
+                            <input id="nameInput" type="text" autocomplete="off" maxlength="30">
+                        </div>
+
+                        <div id="createMilestonesDiv3" class="milestonesDiv" style="margin-top: 15%;">
+                            <h1>Erstelle die Meilensteine des Ziels</h1>
+
+                            <div class="milestoneTop">
+                                <div class="milestoneNumber"></div>
+                                <div class="milestoneText" style="text-align: left;">Name</div>
+                                <div class="milestoneDeadline">Deadline</div>
+                                <div class="milestoneStatus">Status</div>
+                            </div>
+
+                            <div class="milestone">
+                                <div class="milestoneNumber">1.</div>
+                                <div class="milestoneText"><input type="text" class="goal3text" placeholder="..." maxlength="40"></div>
+                                <div class="milestoneDeadline"><input type="date" class="goal3date"></div>
+                                <div class="milestoneStatus"><div class="statusBox noselect" onclick="changeStatus(this)" style="background: gray;">0</div></div>
+                            </div>
+
+                            <div class="milestone">
+                                <div class="milestoneNumber">2.</div>
+                                <div class="milestoneText"><input type="text" class="goal3text" placeholder="..." maxlength="40"></div>
+                                <div class="milestoneDeadline"><input type="date" class="goal3date"></div>
+                                <div class="milestoneStatus"><div class="statusBox noselect" onclick="changeStatus(this)" style="background: gray;">0</div></div>
+                            </div>
+
+                            <div class="milestone">
+                                <div class="milestoneNumber">3.</div>
+                                <div class="milestoneText"><input type="text" class="goal3text" placeholder="..." maxlength="40"></div>
+                                <div class="milestoneDeadline"><input type="date" class="goal3date"></div>
+                                <div class="milestoneStatus"><div class="statusBox noselect" onclick="changeStatus(this)" style="background: gray;">0</div></div>
+                            </div>
+                        </div>
+
+                        <button class="milestonesAddButton" onclick="createMilestone(document.getElementById('createMilestonesDiv3'), 3)">+</button>
+                    </div>
+
+                    <button class="finishGoalCreationButton" onclick="finishGoalCreation(3)" style="margin-top: 10%;">Finish & Open Dashboard</button>
+                    <button class="finishGoalCreationButton secondButton" onclick="backGoalCreation(3)" style="margin-top: 2%;">Back</button>
                 </div>
             </div>
         </div>
         <div class="right">
-            
+            <div id="zielsetzung" class="section">
+                <h1>Zielsetzung</h1>
+                <p>Entscheide selbst wer du nach diesem Jahr seien möchtest!</p>
+                <p>Sei dir bewusst, wie viel du in einem Jahr ändern kannst, und wie wichtig dabei eine klare Planung ist.</p>
+                <p>Erstelle dazu nun erstmal 3 Jahresziele mit jeweils mindestens 3 Meilensteine. Dieses Konzept basiert auf den OKR Framework. Später musst du dann noch einzelne Projekte erstellen, um deine Meilensteine herunterzubrechen, aber dazu später mehr.</p>
+                <div id="footer">
+                    <p onclick="openLink('https://mooncamp.com/de/okr/')"><span>&#10148;</span>Learn more about the OKR Framework</p>
+                    <p onclick="openLink('https://www.mediaevent.de/javascript/local-storage.html')"><span>&#10148;</span>Learn more about your data</p>
+                </div>
+            </div>  
         </div>
     </div>
 

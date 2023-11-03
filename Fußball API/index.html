@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Fußball Bundesliga</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -21,12 +21,12 @@
         </div>
     </header>
 
-    <div id="matchDayView" style="display: none; margin: 50px;">
+    <div id="matchDayView" style="display: none;">
         <table id="cloneTableMatchDay">
             <tr>
-                <th style="width: 2%;"></th>
-                <th style="width: 16%;"></th>
-                <th style="width: 2%;"></th>
+                <th class="cloneTableMatchDay1"></th>
+                <th id="cloneTableMatchDay2"></th>
+                <th class="cloneTableMatchDay1"></th>
             </tr>
         </table>
 
@@ -40,16 +40,16 @@
     </div>
 
     <center id="leagueTableView" style="display: none;">
-        <table id="leagueTable" style="width: 46%;">
+        <table id="leagueTable">
             <tr>
                 <th style="width: 1%;"></th>
                 <th style="width: 1%;"></th>
                 <th style="width: 2%;"></th>
                 <th style="width: 30%;"></th>
                 <th style="width: 2%;">Sp</th>
-                <th style="width: 2%;">S</th>
-                <th style="width: 2%;">U</th>
-                <th style="width: 2%;">N</th>
+                <th style="width: 2%;" id="removeTableTh1">S</th>
+                <th style="width: 2%;" id="removeTableTh2">U</th>
+                <th style="width: 2%;" id="removeTableTh3">N</th>
                 <th style="width: 2%;">TD</th>
                 <th style="width: 2%;">P</th>
             </tr>
@@ -57,7 +57,7 @@
     </center>
 
     <center id="viewStatistics">
-        <table id="goalGetterTable" style="width: 36%; margin: auto;">
+        <table id="goalGetterTable">
             <tr>
                 <th style="width: 0.75%;"></th>
                 <th style="width: 2%;"></th>

@@ -17,15 +17,15 @@
 
                     <div class="formInput">
                         <h4>Name</h4>
-                        <input id="nameInput" type="text" name="username" autocomplete="off" maxlength="10">
+                        <input id="nameInput" type="text" autocomplete="off" maxlength="10">
                     </div>
     
                     <div class="formInput">
                         <h4>Passwort (optional)</h4>
-                        <input id="passwordInput" type="password" name="password" autocomplete="off" maxlength="10">
+                        <input id="passwordInput1" type="password" autocomplete="off" maxlength="10">
                     </div>
     
-                    <button>Next</button>
+                    <button onclick="start()">Next</button>
                 </div>
                 
                 <div id="alreadyUserContent" style="display: none;">
@@ -33,7 +33,7 @@
 
                     <div class="formInput">
                         <h4>Passwort</h4>
-                        <input id="passwordInput" type="password" name="password" autocomplete="off" maxlength="10">
+                        <input id="passwordInput2" type="password" autocomplete="off" maxlength="10">
                     </div>
 
                     <p class="error" id="loginError"></p>

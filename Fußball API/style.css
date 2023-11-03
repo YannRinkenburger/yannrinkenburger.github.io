@@ -9,7 +9,6 @@ header{
     padding: 30px;
     margin-top: -20px;
     margin-left: -10px;
-    width: 97.8%;
 }
 
 .verticalHR{
@@ -101,7 +100,7 @@ header{
 
 .placementColor{
     background: #252525;
-    color: #252525;
+    color: transparent;
     border-radius: 10px;
 }
 
@@ -186,4 +185,86 @@ header{
 
 .teamRow{
     cursor: pointer;
+}
+
+#matchDayView{
+    margin: 50px;
+}
+
+.cloneTableMatchDay1{
+    width: 2%;
+}
+
+#cloneTableMatchDay2{
+    width: 16%;
+}
+
+#leagueTable{
+    width: 46%;
+}
+
+#goalGetterTable{
+    width: 36%; 
+    margin: auto;
+}
+
+@media only screen and (max-width: 600px) {
+    body{
+        margin: 0;
+    }
+
+    header{
+        margin-left: 0px;
+    }
+
+    .flex-container > table {
+        width: 100%;
+        padding: 10px;
+    }
+
+    .flex-container > div {
+        width: 100%;
+        padding: 10px;
+    }
+
+    .gameDiv table{
+        width: 90%;
+        margin: auto;
+    }
+
+    #matchDayView{
+        margin: 20px;
+    }
+
+    .cloneTableMatchDay1{
+        width: 10%;
+    }
+    
+    #cloneTableMatchDay2{
+        width: 80%;
+    }
+
+    #goalGetterTable{
+        width: 90%;
+    }
+
+    #leagueTable{
+        width: 90%;
+    }
+
+    #menu button{
+        margin-top: 10px;
+    }
+
+    .viewMatchDiv{
+        width: auto;
+    }
+
+    #viewMatchTable{
+        width: 100%;
+    }
+
+    #viewMatchTable th {
+        width: 33%;
+    }
 }

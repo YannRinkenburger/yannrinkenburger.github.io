@@ -1,6 +1,13 @@
 const dayNames = ["Sonntag", "Montag", "Dienstag", "Mittwoch", "Donnerstag", "Freitag", "Samstag"]
 const monthNames = ["Januar","Februar","März","April","Mai","Juni","Juli","August","September","Oktober","November","Dezember"]
 
+if(window.innerWidth < 600)
+{
+    document.getElementById("removeTableTh1").remove()
+    document.getElementById("removeTableTh2").remove()
+    document.getElementById("removeTableTh3").remove()
+}
+
 const shortNames = [
     //1. Bundesliga
 
@@ -21,13 +28,14 @@ const shortNames = [
     {id: 129, shortName: "BOC"},
     {id: 16, shortName: "VFB"},
     {id: 9, shortName: "S04"},
-    {id: 54, shortName: "BSC"},
+    {id: 199, shortName: "HDH"},
+    {id: 118, shortName: "SVD"},
 
     //2. Bundesliga
 
-    {id: 118, shortName: "SVD"},
+    {id: 9, shortName: "S04"},
+    {id: 54, shortName: "BSC"},
     {id: 100, shortName: "HSV"},
-    {id: 199, shortName: "HDH"},
     {id: 185, shortName: "F95"},
     {id: 98, shortName: "STP"},
     {id: 31, shortName: "SCP"},
@@ -39,10 +47,10 @@ const shortNames = [
     {id: 74, shortName: "EBS"},
     {id: 78, shortName: "FCM"},
     {id: 79, shortName: "FCN"},
-    {id: 83, shortName: "DSC"},
-    {id: 181, shortName: "REG"},
+    {id: 36, shortName: "OSN"},
+    {id: 174, shortName: "WIE"},
     {id: 102, shortName: "FCH"},
-    {id: 119, shortName: "SVS"}
+    {id: 198, shortName: "ELV"}
 ]
 
 var dataArray
@@ -61,6 +69,8 @@ var matchCounter = 0
 var league = "bl1"
 
 var loading = true
+
+var year = new Date().getFullYear()
 
 if(localStorage.getItem("activeLeague") !== null)
 {
@@ -109,7 +119,7 @@ function setLastMatchDay()
 
         document.getElementById("matchDayText").innerHTML = lastMatchDay + ". Spieltag"
 
-        fetchMatchDay(lastMatchDay, 2022)
+        fetchMatchDay(lastMatchDay, year)
     }
 }
 
@@ -527,14 +537,27 @@ function viewMatchData(goalArray, id, logoTeam1, logoTeam2, index, goalsHomeTeam
 
     var flexBox = document.createElement("div")
     flexBox.className = "flex-container center"
+    
+    if(window.innerWidth > 600)
+    {
+        var goalTableTeam1 = document.createElement("div")
+        goalTableTeam1.style.width = "35%"
+        goalTableTeam1.style.textAlign = "left"
 
-    var goalTableTeam1 = document.createElement("div")
-    goalTableTeam1.style.width = "35%"
-    goalTableTeam1.style.textAlign = "left"
+        var goalTableTeam2 = document.createElement("div")
+        goalTableTeam2.style.width = "35%"
+        goalTableTeam2.style.textAlign = "right"
+    }else{
+        var goalTableTeam1 = document.createElement("div")
+        goalTableTeam1.style.width = "45%"
+        goalTableTeam1.style.textAlign = "left"
+        goalTableTeam1.style.marginLeft = "-20px"
 
-    var goalTableTeam2 = document.createElement("div")
-    goalTableTeam2.style.width = "35%"
-    goalTableTeam2.style.textAlign = "right"
+        var goalTableTeam2 = document.createElement("div")
+        goalTableTeam2.style.width = "45%"
+        goalTableTeam2.style.textAlign = "right"
+        goalTableTeam2.style.marginRight = "-20px"
+    }
     
     var lastScoreTeam1 = 0
     var lastScoreTeam2 = 0
@@ -641,7 +664,15 @@ function viewMatchData(goalArray, id, logoTeam1, logoTeam2, index, goalsHomeTeam
     
     viewMatchDiv.append(table)
     viewMatchDiv.append(flexBox)
-    document.getElementById(id).parentNode.insertBefore(viewMatchDiv, document.getElementById(id).nextSibling)
+
+    //document.getElementById(index).parentNode.insertBefore(viewMatchDiv, document.getElementById(index).nextSibling)
+
+    if(window.innerWidth > 600)
+    {
+        document.getElementById(id).parentNode.insertBefore(viewMatchDiv, document.getElementById(id).nextSibling)
+    }else{
+        document.getElementById(index).parentNode.insertBefore(viewMatchDiv, document.getElementById(index).nextSibling)
+    }
 }
 
 function openLeagueTable()
@@ -696,15 +727,6 @@ function openLeagueTable()
         var games = document.createElement("td")
         games.innerHTML = totalGames
 
-        var wins = document.createElement("td")
-        wins.innerHTML = gamesWon
-
-        var draws = document.createElement("td")
-        draws.innerHTML = gamesDraw
-
-        var losts = document.createElement("td")
-        losts.innerHTML = gamesLost
-
         var goalDifference = document.createElement("td")
         goalDifference.innerHTML = goalDiff
 
@@ -716,9 +738,23 @@ function openLeagueTable()
         teamRow.append(icon)
         teamRow.append(name)
         teamRow.append(games)
-        teamRow.append(wins)
-        teamRow.append(draws)
-        teamRow.append(losts)
+
+        if(window.innerWidth > 600)
+        {
+            var wins = document.createElement("td")
+            wins.innerHTML = gamesWon
+
+            var draws = document.createElement("td")
+            draws.innerHTML = gamesDraw
+
+            var losts = document.createElement("td")
+            losts.innerHTML = gamesLost
+
+            teamRow.append(wins)
+            teamRow.append(draws)
+            teamRow.append(losts)
+        }
+
         teamRow.append(goalDifference)
         teamRow.append(points)
 
@@ -753,7 +789,7 @@ function openAllTeamMatches(id)
 
     loading = true
 
-    fetchAllMatchesOfTeam(id, 2022)
+    fetchAllMatchesOfTeam(id, year)
 }
 
 function getColor(index)
@@ -975,7 +1011,7 @@ function menu(index)
 
             if(document.getElementsByClassName("teamRow").length === 0)
             {
-                fetchLeagueTable(2022)
+                fetchLeagueTable(year)
             }else
             {
                 document.getElementById("leagueTableView").style.display = ""
@@ -987,7 +1023,7 @@ function menu(index)
 
             if(document.getElementsByClassName("teamDiv").length === 0)
             {
-                fetchTeams(2022)
+                fetchTeams(year)
             }else
             {
                 document.getElementById("allTeams").style.display = ""
@@ -1000,7 +1036,7 @@ function menu(index)
 
             if(document.getElementsByClassName("statisticRow").length === 0)
             {
-                fetchGoalGetters(2022)
+                fetchGoalGetters(year)
             }else
             {
                 document.getElementById("viewStatistics").style.display = ""
@@ -1043,7 +1079,7 @@ function minusMatchDay()
 
         loading = true
 
-        fetchMatchDay(lastMatchDay, 2022)
+        fetchMatchDay(lastMatchDay, year)
     }
 }
 
@@ -1059,7 +1095,7 @@ function plusMatchDay()
 
         loading = true
 
-        fetchMatchDay(lastMatchDay, 2022)
+        fetchMatchDay(lastMatchDay, year)
     }
 }
 
