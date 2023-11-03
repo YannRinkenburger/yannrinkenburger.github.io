@@ -255,8 +255,8 @@ function createGameDataForAllMatchesView(array, index, matchDay, date)
 
     if(matchIsFinished)
     {
-        var goalsHomeTeam = game.matchResults[0].pointsTeam1
-        var goalsAwayTeam = game.matchResults[0].pointsTeam2
+        var goalsHomeTeam = game.matchResults[1].pointsTeam1
+        var goalsAwayTeam = game.matchResults[1].pointsTeam2
     }
 
     const gameTime = new Date(game.matchDateTime)
@@ -391,8 +391,8 @@ function createGameData(element, array, table, i)
 
     if(matchIsFinished)
     {
-        var goalsHomeTeam = array[i].matchResults[0].pointsTeam1
-        var goalsAwayTeam = array[i].matchResults[0].pointsTeam2
+        var goalsHomeTeam = array[i].matchResults[1].pointsTeam1
+        var goalsAwayTeam = array[i].matchResults[1].pointsTeam2
 
         matchCounter += 1
     }
@@ -422,8 +422,8 @@ function createGameData(element, array, table, i)
                 var logoTeam1 = matchArray.team1.teamIconUrl 
                 var logoTeam2 = matchArray.team2.teamIconUrl 
 
-                var goalsHomeTeam = matchArray.matchResults[0].pointsTeam1
-                var goalsAwayTeam = matchArray.matchResults[0].pointsTeam2
+                var goalsHomeTeam = matchArray.matchResults[1].pointsTeam1
+                var goalsAwayTeam = matchArray.matchResults[1].pointsTeam2
 
                 viewMatchData(goalArray, table.id, logoTeam1, logoTeam2, index, goalsHomeTeam, goalsAwayTeam)
             }else
