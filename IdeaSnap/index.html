@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div id="homeScreen" style="margin-left: 5%; margin-right: 5%;">
+    <div id="homeScreen" style="margin-left: 2%; margin-right: 2%;">
         <h2>All Ideas</h2>
 
         <div class="search-box" style="border: 1px solid; margin-top: -5px;">
@@ -18,32 +18,12 @@
         <h2 style="margin-top: 75px;">Category</h2>
         <p class="headlineOption" onclick="openCategoryView()">View All</p>
 
-        <div class="categoryHolderDiv flex-container" id="categoryHolder">
-            <div style="border: 2px solid #22d060;">
-                <div>💸</div>
-                <p style="color: #22d060;">Money</p>
-            </div>
-
-            <div style="border: 2px solid #e29457;">
-                <div>🧑‍🍳</div>
-                <p style="color: #e29457;">Cooking</p>
-            </div>
-
-            <div style="border: 2px solid #c0b7eb;">
-                <div>⚽</div>
-                <p style="color: #c0b7eb;">Sport</p>
-            </div>
-
-            <div style="border: 2px solid #406fd2;">
-                <div><span id="test">🌍</span></div>
-                <p style="color: #406fd2;">Travel</p>
-            </div>
-        </div>
+        <div class="categoryHolderDiv flex-container" id="categoryHolder"></div>
 
         <div id="ideaHolder" style="margin-top: 20px;"></div>
     </div>
 
-    <div id="createNewIdea" style="margin-left: 5%; margin-right: 5%; display: none;">
+    <div id="createNewIdea" style="margin-left: 2%; margin-right: 2%; display: none;">
         <h1 style="color: #ffd962; text-align: center;">New💡</h1>
 
         <h3>Title</h3>
@@ -75,7 +55,7 @@
         <textarea id="contentTextarea" cols="30" rows="8" placeholder="Idea content..."></textarea>
     </div>
 
-    <div id="viewIdea" style="margin-left: 5%; margin-right: 5%; display: none;">
+    <div id="viewIdea" style="margin-left: 2%; margin-right: 2%; display: none;">
         <h1 style="color: #ffd962; text-align: center;">Your💡</h1>
 
         <h3>Title</h3>
@@ -107,7 +87,7 @@
         <textarea id="contentTextareaIdea" cols="30" rows="8" placeholder="Idea content..."></textarea>
     </div>
 
-    <div id="createNewCategory" style="margin-left: 5%; margin-right: 5%; display: none;">
+    <div id="createNewCategory" style="margin-left: 2%; margin-right: 2%; display: none;">
         <h1 style="color: #5aa8f5; text-align: center;">New🔠</h1>
 
         <h3>Name</h3>
@@ -123,7 +103,7 @@
         </div>
     </div>
 
-    <div id="categoryOverview" style="margin-left: 5%; margin-right: 5%; display: none;">
+    <div id="categoryOverview" style="margin-left: 2%; margin-right: 2%; display: none;">
         <h1 style="color: #5aa8f5; text-align: center;">All🔠</h1>
 
         <p style="color: gray;text-align: center;">Click on a category to view ideas assigned to it</p>
@@ -131,7 +111,7 @@
         <div class="categoryHolderDiv flex-container" id="categoryHolderOverview" style="margin-top: 15px;"></div>
     </div>
 
-    <div id="categoryView" style="margin-left: 5%; margin-right: 5%; display: none;">
+    <div id="categoryView" style="margin-left: 2%; margin-right: 2%; display: none;">
         <h1 style="text-align: center;" id="categoryViewHeadline"></h1>
 
         <div class="flex-container" style="float: right; font-size: 20px; margin-top: -20px;">

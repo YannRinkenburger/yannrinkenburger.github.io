@@ -1026,6 +1026,34 @@ function loadHomeScreen()
     {
         createIdeaDiv(ideas[i], "ideaHolder")
     }
+
+    while(document.getElementsByClassName("categoryInOverview").length > 0)
+    {
+        document.getElementsByClassName("categoryInOverview")[0].remove()
+    }
+
+    if(allCategories.length < 5)
+    {
+        for(var i = 0; i < allCategories.length; i++)
+        {
+            createCategoryForOverview(allCategories[i], "categoryHolder")
+        }
+    }else{
+        var randomNumbers = []
+
+        for(var i = 0; i < 4; i++)
+        {
+            var random = Math.floor((Math.random() * allCategories.length))
+
+            while(randomNumbers.includes(random))
+            {
+                random = Math.floor((Math.random() * allCategories.length))
+            }
+
+            createCategoryForOverview(allCategories[random], "categoryHolder")
+            randomNumbers.append(random)
+        }
+    }
 }
 
 function createIdeaDiv(p_idea, p_area)
@@ -1268,7 +1296,7 @@ function openCategoryView()
 
     for(var i = 0; i < allCategories.length; i++)
     {
-        createCategoryForOverview(allCategories[i])
+        createCategoryForOverview(allCategories[i], "categoryHolderOverview")
     }
 }
 
@@ -1278,9 +1306,11 @@ function closeCategoryOverview()
     document.getElementById("ideaButton").style.display = ""
     document.getElementById("categoryOverview").style.display = "none"
     document.getElementById("overviewCategoryFooter").style.display = "none"
+
+    loadHomeScreen()
 }
 
-function createCategoryForOverview(p_category)
+function createCategoryForOverview(p_category, p_area)
 {
     var name = p_category.name
     var emoji = p_category.emoji
@@ -1305,7 +1335,7 @@ function createCategoryForOverview(p_category)
         openCategory(p_category)
     }
 
-    document.getElementById("categoryHolderOverview").append(div)
+    document.getElementById(p_area).append(div)
 }
 
 function openCategory(p_category)
