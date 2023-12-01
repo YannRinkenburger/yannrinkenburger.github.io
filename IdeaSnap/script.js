@@ -1361,7 +1361,7 @@ function searchIdea(p_value)
 
         if(ideas[i].title.includes(p_value))
         {
-            createIdeaDiv(ideas[i])
+            createIdeaDiv(ideas[i], "ideaHolder")
         }
     }
 }
