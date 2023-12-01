@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IdeaSnap</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="homeScreen" style="margin-left: 5%; margin-right: 5%;">
+        <h2>All Ideas</h2>
+
+        <div class="search-box" style="border: 1px solid; margin-top: -5px;">
+            <img src="img/search.png" alt="Suche" width="30px">
+            <input type="text" name="title" placeholder="Search by name..." autocomplete="off" onkeyup="searchIdea(this.value)">
+        </div>
+
+        <h2 style="margin-top: 75px;">Category</h2>
+        <p class="headlineOption" onclick="openCategoryView()">View All</p>
+
+        <div class="categoryHolderDiv flex-container" id="categoryHolder">
+            <div style="border: 2px solid #22d060;">
+                <div>💸</div>
+                <p style="color: #22d060;">Money</p>
+            </div>
+
+            <div style="border: 2px solid #e29457;">
+                <div>🧑‍🍳</div>
+                <p style="color: #e29457;">Cooking</p>
+            </div>
+
+            <div style="border: 2px solid #c0b7eb;">
+                <div>⚽</div>
+                <p style="color: #c0b7eb;">Sport</p>
+            </div>
+
+            <div style="border: 2px solid #406fd2;">
+                <div><span id="test">🌍</span></div>
+                <p style="color: #406fd2;">Travel</p>
+            </div>
+        </div>
+
+        <div id="ideaHolder" style="margin-top: 20px;"></div>
+    </div>
+
+    <div id="createNewIdea" style="margin-left: 5%; margin-right: 5%; display: none;">
+        <h1 style="color: #ffd962; text-align: center;">New💡</h1>
+
+        <h3>Title</h3>
+
+        <div class="search-box" style="margin-top: -10px; float: left; border: none; background: #262626; border-radius: 5px;">
+            <input type="text" id="title" placeholder="New idea title..." autocomplete="off">
+        </div>
+
+        <h3 style="margin-top: 70px;">Categories</h3>
+        <p class="headlineOption" onclick="createNewCategory()">+ New</p>
+
+        <div class="categoriesIdea" id="createNewIdeaCategories" style="text-align: center; margin-top: -20px;"></div>
+
+        <h3 style="margin-top: 30px;">Priority</h3>
+
+        <div class="categoriesIdea" style="text-align: center; margin-top: -10px;">
+            <table style="width: 100%; border-collapse: separate; border-spacing: 5px;">
+                <tr>
+                    <td class="priorityTD noselect" onclick="addPriority(this)" style="border: 2px solid #ffd962;">☁️</td>
+                    <td class="priorityTD noselect" onclick="addPriority(this)">️🧭</td>
+                    <td class="priorityTD noselect" onclick="addPriority(this)">️🚀️</td>
+                    <td class="priorityTD noselect" onclick="addPriority(this)">🔥</td>
+                </tr>
+            </table>
+        </div>
+
+        <h3 style="margin-top: 30px;">Content</h3>
+
+        <textarea id="contentTextarea" cols="30" rows="8" placeholder="Idea content..."></textarea>
+    </div>
+
+    <div id="viewIdea" style="margin-left: 5%; margin-right: 5%; display: none;">
+        <h1 style="color: #ffd962; text-align: center;">Your💡</h1>
+
+        <h3>Title</h3>
+
+        <div class="search-box" style="margin-top: -10px; float: left; border: none; background: #262626; border-radius: 5px;">
+            <input type="text" id="ideaTitle" placeholder="New idea title..." autocomplete="off">
+        </div>
+
+        <h3 style="margin-top: 70px;">Categories</h3>
+        <p class="headlineOption" onclick="createNewCategory()">+ New</p>
+
+        <div class="categoriesIdea" id="createNewIdeaCategories" style="text-align: center; margin-top: -20px;"></div>
+
+        <h3 style="margin-top: 30px;">Priority</h3>
+
+        <div class="categoriesIdea" style="text-align: center; margin-top: -10px;">
+            <table style="width: 100%; border-collapse: separate; border-spacing: 5px;">
+                <tr>
+                    <td class="priorityTDIdea noselect" onclick="addPriority(this)">☁️</td>
+                    <td class="priorityTDIdea noselect" onclick="addPriority(this)">️🧭</td>
+                    <td class="priorityTDIdea noselect" onclick="addPriority(this)">️🚀️</td>
+                    <td class="priorityTDIdea noselect" onclick="addPriority(this)">🔥</td>
+                </tr>
+            </table>
+        </div>
+
+        <h3 style="margin-top: 30px;">Content</h3>
+
+        <textarea id="contentTextareaIdea" cols="30" rows="8" placeholder="Idea content..."></textarea>
+    </div>
+
+    <div id="createNewCategory" style="margin-left: 5%; margin-right: 5%; display: none;">
+        <h1 style="color: #5aa8f5; text-align: center;">New🔠</h1>
+
+        <h3>Name</h3>
+
+        <div class="search-box" style="margin-top: -10px; float: left; border: none; background: #262626; border-radius: 5px;">
+            <input type="text" id="nameCategory" placeholder="New category name..." autocomplete="off">
+        </div>
+
+        <h3 style="margin-top: 70px;">Emoji</h3>
+
+        <div class="search-box" style="margin-top: -10px; float: left; border: none; background: #262626; border-radius: 5px;">
+            <input type="text" id="emojiCategory" placeholder="New category emoji..." autocomplete="off" maxlength="2">
+        </div>
+    </div>
+
+    <div id="categoryOverview" style="margin-left: 5%; margin-right: 5%; display: none;">
+        <h1 style="color: #5aa8f5; text-align: center;">All🔠</h1>
+
+        <p style="color: gray;text-align: center;">Click on a category to view ideas assigned to it</p>
+
+        <div class="categoryHolderDiv flex-container" id="categoryHolderOverview" style="margin-top: 15px;"></div>
+    </div>
+
+    <div id="categoryView" style="margin-left: 5%; margin-right: 5%; display: none;">
+        <h1 style="text-align: center;" id="categoryViewHeadline"></h1>
+
+        <div class="flex-container" style="float: right; font-size: 20px; margin-top: -20px;">
+            <p style="margin-right: 20px;">✏️</p>
+            <p>❌</p> 
+        </div>
+        
+        <div id="ideaHolderCategory" style="margin-top: 80px;"></div>
+    </div>
+
+    <footer id="footer">
+        <p id="ideaButton" onclick="newIdea()">💡</p>
+
+        <div id="viewIdeaFooter" style="display: none;">
+            <button onclick="saveIdea()">Save</button>
+            <button style="background: transparent; color: red; border: 1px solid red;" onclick="closeIdea()">Cancel</button>
+        </div>
+
+        <div id="createNewIdeaFooter" style="display: none;">
+            <button onclick="saveNewIdea()">Save</button>
+            <button style="background: transparent; color: red; border: 1px solid red;" onclick="closeNewIdea()">Cancel</button>
+        </div>
+
+        <div id="createNewCategoryFooter" style="display: none;">
+            <button onclick="saveNewCategory()">Save</button>
+            <button style="background: transparent; color: red; border: 1px solid red;" onclick="closeNewCategory()">Cancel</button>
+        </div>
+
+        <div id="overviewCategoryFooter" style="display: none;">
+            <button style="background: transparent; color: gray; border: 1px solid gray;" onclick="closeCategoryOverview()">Go Back</button>
+        </div>
+
+        <div id="viewCategoryFooter" style="display: none;">
+            <button style="background: transparent; color: gray; border: 1px solid gray;" onclick="closeCategory()">Go Back</button>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

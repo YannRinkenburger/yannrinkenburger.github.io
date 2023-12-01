@@ -6,8 +6,130 @@
     <title>GoalDash ⋙</title>
     <link rel="stylesheet" href="style.css">
 </head>
-<body>
-    <div class="container">
+<body onload="startDashboard()">
+    <div class="dashboard">
+        <div class="container">
+            <div class="sidenav">
+                <div id="logoSidenav">
+                    <h2>GoalDash <span class="logoSpan">⋙</span></h2>
+                </div>
+    
+                <div class="sidenavoption" style="color: #ffcb83;">
+                    <img src="img/dashboard.png" alt="Dashboard">
+                    <div>Dashboard</div>
+                </div>
+                
+                <div class="sidenavoption">
+                    <img src="img/goals.png" alt="Goals">
+                    <div>Zielsetzung</div>
+                </div>
+
+                <div class="sidenavoption">
+                    <img src="img/calendar.png" alt="Calendar">
+                    <div>Kalendar</div>
+                </div>
+
+                <div class="sidenavoption">
+                    <img src="img/time.png" alt="Time">
+                    <div>Zeiterfassung</div>
+                </div>
+
+                <div class="sidenavoption">
+                    <img src="img/settings.png" alt="Settings">
+                    <div>Einstellungen</div>
+                </div>
+
+                <div class="sidenavoption">
+                    <button class="blueButton">Abmelden</button>
+                </div>
+            </div>
+    
+            <div class="main">
+                <div class="mainContentDashboard">
+                    <div class="top">
+                        <div id="timeText"></div>
+                        <div id="timeDiv">
+                            <div id="timerDiv" style="display: none; margin-right: 10px;"> 
+                                <label id="hours">00</label>
+                                <label id="colon">:</label>
+                                <label id="minutes">00</label>
+                                <label id="colon">:</label>
+                                <label id="seconds">00</label>
+                            </div>
+
+                            <div class="statusBox noselect" onclick="changeRedButton(this)" style="background: gray; margin-right: 30px; padding: 5px;"></div>
+                            
+                            <div id="time"></div>
+                        </div>
+                    </div>
+
+                    <div class="weeklyGoalOverview">
+                        <div class="goalwidgets">
+                            <div class="weeklyGoalOverviewHeadline">
+                                <a class="weeklyGoalOverviewHeadlineText">Tagesziele</a>
+                                <a class="weeklyGoalOverviewHeadlineLink">View all</a>
+                            </div>
+        
+                            <div class="weeklyGoalOverviewTable">
+                                <div class="weeklyGoalOverviewRow">
+                                    <div class="star">&#9733;</div>
+                                    <div class="weeklyGoalOverviewRowText">Tutorial aufnehmen</div>
+                                    <div class="statusBox noselect weeklyGoalOverviewRowStatus" onclick="changeStatus(this)" style="background: gray;"></div>
+                                </div>
+                            </div>
+
+                            <div class="weeklyGoalOverviewHeadline">
+                                <a class="weeklyGoalOverviewHeadlineText">Wochenziele</a>
+                                <a class="weeklyGoalOverviewHeadlineLink">View all</a>
+                            </div>
+        
+                            <div class="weeklyGoalOverviewTable">
+                                <div class="weeklyGoalOverviewRow">
+                                    <div class="star" style="color: white;">&#9734;</div>
+                                    <div class="weeklyGoalOverviewRowText">Tutorial aufnehmen</div>
+                                    <div class="statusBox noselect weeklyGoalOverviewRowStatus" onclick="changeStatus(this)" style="background: gray;"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div id="calendar">
+                            <div id="calendarTop">
+                                <table style="width: 100%;">
+                                    <tr>
+                                        <th style="width: 20%;">
+                                            <button style="background: none; border: none;"><img src="img/arrow.png" alt="Arrow" class="rotateimg180" style="margin-top: 20px;" onclick="monthDown()"></button>
+                                        </th>
+                                        <th style="width: 60%; font-size: 30px;" id="monthText"></th>
+                                        <th style="width: 20%;">
+                                            <button style="background: none; border: none;"><img src="img/arrow.png" alt="Arrow" style="margin-top: 20px;" onclick="monthUp()"></button>
+                                        </th>
+                                    </tr>
+                                </table>
+                            
+                                <p id="yearText"></p>
+                            
+                                <hr class="boldHr" style="margin-top: 10px; color: white;">
+                            </div>
+                    
+                            <div id="calendarContent" class="flex-container">
+                                <div class="dayDiv"><h3>MO</h3></div>
+                                <div class="dayDiv"><h3>DI</h3></div>
+                                <div class="dayDiv"><h3>MI</h3></div>
+                                <div class="dayDiv"><h3>DO</h3></div>
+                                <div class="dayDiv"><h3>FR</h3></div>
+                                <div class="dayDiv"><h3>SA</h3></div>
+                                <div class="dayDiv"><h3>SO</h3></div>
+                    
+                                <div id="calendarArea" class="flex-container" style="width: 100%;"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container" style="display: none;">
         <div class="left">
             <h2>GoalDash <span class="logoSpan">⋙</span></h2>
 

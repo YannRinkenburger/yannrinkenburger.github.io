@@ -123,6 +123,11 @@ function displayCategorie(i)
 
 function saveEmoji(p_emoji)
 {
+    if(localStorage.getItem("emojis") === null)
+    {
+        localStorage.setItem("emojis", JSON.stringify([]))
+    }
+
     var recentEmojis = JSON.parse(localStorage.getItem("emojis"))
     
     if(recentEmojis.some(e => e.slug === p_emoji.slug))
