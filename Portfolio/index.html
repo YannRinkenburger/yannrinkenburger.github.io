@@ -7,149 +7,90 @@
   <link rel="stylesheet" href="style.css">
 </head>
     <body>
-        <!-- Navigation Bar -->
-        <header id="header">
-            <div>
-               <h2 id="headerName" onclick="window.location.href = '#home'">Yann Rinkenburger</h2>
+        <header>
+            <div id="menu">
+                <a onclick="openHome()" style="margin-left: -5px; position: absolute; cursor: pointer;">Home</a> 
+          
+                <a style="float: right; margin-left: 10px; border-radius: 30px;" id="modeToggle" onclick="changeMode()">
+                    <img id="imgToggle" width="25px" style="margin-top: 3px; cursor: pointer;">
+                </a>
+                <a style="float: right; cursor: pointer;" onclick="openAbout()">About</a>
             </div>
             
-            <div style="float: right; margin-top: -45px;">
-                <a href="#home" onclick="document.getElementById('home').style.marginTop = '0px'">Home</a>
-                <a href="#about">About</a>
-                <a href="#projects">Projects</a>
-                <a href="#contact">Contact</a>
-            </div>
+            <hr>
         </header>
 
-        <section id="home">
-            <h3>Hi! I am</h3>
-            <h1>Yann Rinkenburger.</h1>
-            <p>I am a programmer who loves to build software using code.</p>
+        <div id="content">
+            <div id="home">
+                <h1>Hey! I'm Yann, a dual student living near the Lake of Constance, in Germany. I'm currently studying business information technology at <a id="sapSpan" href="https://www.sap.com" target="_blank">SAP</a>. ✌️</h1>
+        
+                <a class="aboutLink" style="cursor: pointer;" onclick="openAbout()">More about me</a>
 
-            <table>
-                <tr>
-                    <td><button onclick="window.location.href = '#about'">Get in touch.</button></td>
-                    <td><img class="clickableImg" src="img/github.png" alt="GitHub" width="50px" style="margin-right: 50px;" onclick="window.open('https://github.com/YannRinkenburger', '_blank')"></td>
-                </tr>
-            </table>
-        </section>
+                <h2>Selected Work</h2>
 
-        <section id="about">
-            <h2>About</h2>
+                <div id="work">
+                    <div id="leftColum" class="colum">
+                        <div class="workCard">
+                            <img src="img/fussballAPI.png" alt="Preview of project">
+                            <h3>Bundesliga API</h3>
+                            <p class="workInfo">Creating a football website with an API</p>
+                        </div>
 
-            <p>Hello there! My name is Yann Rinkenburger, and I'm a 18-year-old programmer. I enjoy creating apps and websites that can express my creativity through building software.</p>
-            <p>During my free time I'm also playing football and tennis.</p> 
-
-            <h2>Languages</h2>
-
-            <table style="width: 60%; margin-left: 20px;">
-                <tr>
-                    <th style="width: 10%;"></th>
-                    <th style="width: 20%;"></th>
-                    <th style="width: 30%;"></th>
-                </tr>
-
-                <tr>
-                    <td><img src="img/javascript.png" alt="JavaScript"></td>
-                    <td>JavaScript</td>
-                    <td>Good</td>
-                </tr>
-
-                <tr>
-                    <td><img src="img/html.png" alt="HTML5"></td>
-                    <td>HTML5</td>
-                    <td>Good</td>
-                </tr>
-
-                <tr>
-                    <td><img src="img/css.png" alt="CSS"></td>
-                    <td>CSS</td>
-                    <td>Medium</td>
-                </tr>
-
-                <tr>
-                    <td><img src="img/python.png" alt="Python"></td>
-                    <td>Python</td>
-                    <td>Medium</td>
-                </tr>
-            </table>
-        </section>
-
-        <section id="projects">
-            <h2>Projects</h2>
-
-            <div class="flex-container">
-                <div>
-                    <div class="headline">To-Do App</div>
-
-                    <div class="description">
-                        <p>
-                            This application should give you an overview of your upcoming tasks. 
-                            You can create them on your own.
-                            You can decide whether you want to display this task daily or once.
-                            In addition, the tasks can be sorted by their given tag or by the time they were created.
-                            The data is saved locally in the browser.
-                        </p>
+                        <div class="workCard">
+                            <img src="img/None1.png" alt="Preview of project">
+                            <h3>None</h3>
+                            <p class="workInfo">Nothing to see here yet. Sorry</p>
+                        </div>
                     </div>
 
-                    <div class="flex-bottom">
-                        <button class="viewButton" onclick="window.open('https://yannrinkenburger.github.io/To-Do/', '_blank')">view now</button>
-                        <img class="clickableImg" src="img/github.png" alt="GitHub" width="50px" style="margin-right: 50px;" onclick="window.open('https://github.com/YannRinkenburger/yannrinkenburger.github.io/tree/main/To-Do', '_blank')">
-                    </div>
-                </div>
+                    <div id="rightColum" class="colum">
+                        <div class="workCard">
+                            <img src="img/None2.png" alt="Preview of project">
+                            <h3>None</h3>
+                            <p class="workInfo">Nothing to see here yet. Sorry</p>
+                        </div>
 
-                <div>
-                    <div class="headline">Football Bundesliga API</div>
-
-                    <div class="description">
-                        <p>
-                            This application works with the free api of 
-                            <a class="link" href="https://www.openligadb.de/" target="_blank">OpenLigaDB</a>.
-                            The website is an overview of the first two German professional soccer leagues.
-                            Among other things, you can look at the results of the matchdays, call up the table or display all the matches of a specific team.
-                        </p>
-                    </div>
-
-                    <div class="flex-bottom">
-                        <button class="viewButton" onclick="window.open('https://yannrinkenburger.github.io/Fu%C3%9Fball%20API/', '_blank')">view now</button>
-                        <img class="clickableImg" src="img/github.png" alt="GitHub" width="50px" style="margin-right: 50px;" onclick="window.open('https://github.com/YannRinkenburger/yannrinkenburger.github.io/tree/main/Fu%C3%9Fball%20API', '_blank')">
-                    </div>
-                </div>
-
-                <div>
-                    <div class="headline">Portfolio Website</div>
-
-                    <div class="description">
-                        <p>
-                            This is the current page you are on.
-                            I have created this with only html and css.
-                            It will be updated constantly.
-                        </p>
-                    </div>
-
-                    <div class="flex-bottom">
-                        <button class="viewButton" onclick="window.open('https://yannrinkenburger.github.io/Portfolio/', '_blank')">view now</button>
-                        <img class="clickableImg" src="img/github.png" alt="GitHub" width="50px" style="margin-right: 50px;" onclick="window.open('https://github.com/YannRinkenburger/yannrinkenburger.github.io/tree/main/Portfolio', '_blank')">
+                        <div class="workCard">
+                            <img src="img/None3.png" alt="Preview of project">
+                            <h3>None</h3>
+                            <p class="workInfo">Nothing to see here yet. Sorry</p>
+                        </div>
                     </div>
                 </div>
             </div>
-        </section>
 
-        <section id="contact">
-            <h2>Contact</h2>
+            <div id="about">
+                <h1>Hey, I'm <span style="font-weight: bold;">Yann</span> 👋</h1>
 
-            <p>
-                I'm always on the lookout for new technologies and improving my work or advance my projects. <br>
-                My inbox is open to anyone who wants to chat regarding any products, ideas, or just to chat.
-            </p>
+                <p style="font-size: 18px;">a dual student living near the Lake of Constance, in Germany. I'm currently studying business information technology at SAP. 
+                    My hobbies include playing football and tennis and reading books (especially crime novels). I also enjoy programming and love pasta.
+                    I also like staying organized, thats why my best friend is Notion.    
+                </p>
 
-            <img class="clickableImg" src="img/github.png" alt="GitHub" width="50px" style="margin-right: 50px;" onclick="window.open('https://github.com/YannRinkenburger', '_blank')">
-            <img class="clickableImg" src="img/email.png" alt="E-Mail" onclick="location.href='mailto:yrinkenburger@gmail.com'">
-        </section>
+                <a class="aboutLink" style="margin-top: 30px; cursor: pointer;" onclick="openHome()">Back Home</a>
+
+                <h1 style="margin-top: 80px;">What I'm Doing <span style="font-weight: bold;">Now</span> 🧘</h1>
+                <p style="margin-top: -20px;"><i>Last updated on 22.12.2023</i></p>
+
+                <h2 style="color: var(--highlight); margin-top: 30px;">Abitur</h2>
+                <p style="margin-left: 20px; margin-top: -15px;">&#x27A4; In a few months I will finish school, so I'm putting my full focus on the upcoming final exams.</p>
+            </div>
+        </div>
+
+        <hr id="footerHr">
 
         <footer>
-            <p>© 2023 Yann Rinkenburger. All Rights Reserved.</p> 
-            <p>Made with ❤️ by Yann Rinkenburger</p> 
+            <a style="color: rgb(143, 143, 143);">© 2023 Yann Rinkenburger. All Rights Reserved. Design by </a> 
+            <a href="https://jemma.lol/" style="color: rgb(143, 143, 143); text-decoration: none;">Jemma Kwak.</a>
+            
+            <h2 style="color: var(--main); margin-top: 20px;">Get in touch</h2>
+
+            <div id="links">
+                <a href="https://github.com/YannRinkenburger/yannrinkenburger.github.io" target="_blank">GitHub</a>
+                <a href="mailto:yrinkenburger@gmail.com" target="_blank">E-Mail</a>
+            </div>
         </footer>
+
+        <script src="script.js"></script>
     </body>
 </html>
