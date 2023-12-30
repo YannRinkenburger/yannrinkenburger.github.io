@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PicPerDay</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <img src="img/logo.png" alt="Logo" style="margin: auto; display: block;">
+
+        <div id="menu">
+            <a onclick="openHome()" style="margin-left: -5px; position: absolute; cursor: pointer;">Home</a> 
+
+            <a style="float: right; cursor: pointer;" onclick="openData()">Your Data</a>
+        </div>
+        
+        <hr>
+    </header>
+
+    <div id="home">
+        <h1>
+            <a>Capture</a> daily a snapshot of your life. Seamlessly take pictures throughout the day,
+            and easily <a>download</a> the latest one at day's end. <a>Done</a>.
+        </h1>
+    
+        <a class="aboutLink" style="cursor: pointer;" onclick="openData()">More about your data</a>
+
+        <p style="margin-top: 20%;">&#8595; click to capture the moment &#8595;</p>
+
+        <label for="cameraInput"><img src="img/big_logo.png" alt="Logo" style="margin: auto; display: block;"></label>
+        <input type="file" id="cameraInput" onchange="saveImage()">
+
+        <button style="display: none;" id="openImageViewButton" onclick="openImageView()">Open todays image</button>
+    </div>
+
+    <div id="data" style="display: none;">
+        <h1>
+            Your data is only stored in your browsers  <a>local storage</a>. With that a website can store small pieces of information on <a>your computer</a>. 
+            It helps the website remember your preferences, like your chosen language or items in a shopping cart, even after you close your browser. 
+        </h1>
+
+        <a class="aboutLink" style="margin-top: 30px; cursor: pointer;"  href="https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage?retiredLocale=de" target="_blank">Learn more about the local storage</a>
+        <br><br>
+        <a class="aboutLink" style="margin-top: 30px; cursor: pointer;" onclick="openHome()">Back Home</a>
+    </div>
+
+    <div id="imageView" style="display: none;">
+        <div class="imageDiv">
+            <img src="" id="imgPlaceholder">
+        </div>
+
+        <div class="flexContainer">
+            <button onclick="openHome()" id="backHomeButton">Back Home</button>   
+            <button onclick="downloadImage()" id="downloadButton"><img src="img/download.png" alt="Download"></button>
+            <button onclick="deleteImage()" id="deleteButton"><img src="img/delete.png" alt="Delete"></button>
+        </div>
+    </div>
+    
+    <footer>
+        <p>© 2023 PicPerDay by <a href="https://yannrinkenburger.github.io/Portfolio/" target="_blank">Yann Rinkenburger</a>. All Rights Reserved.</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
