@@ -70,7 +70,7 @@ var league = "bl1"
 
 var loading = true
 
-var year = new Date().getFullYear()
+var year = 2023
 
 if(localStorage.getItem("activeLeague") !== null)
 {
