@@ -116,7 +116,6 @@ h1 a:hover{
 footer{
     margin-top: auto;
     position: absolute;
-    bottom: 1%;
     left: 5%;
     right: 5%;
 }
@@ -212,4 +211,46 @@ button:hover{
     #backHomeButton{
         width: 70%;
     }
+}
+
+.video {
+	position: relative;
+	padding: 0.5rem;
+    margin: auto;
+    width: 90%;
+	background-color: blue;
+	border-radius: 1rem;
+}
+.video video {
+	width: 100%;
+	border-radius: 1rem;
+	overflow: hidden;
+	aspect-ratio: 5/3.8;
+	vertical-align: bottom;
+}
+.video .line {
+	position: absolute;
+	top: 0;
+	left: 0;
+	z-index: 100;
+	background-color: blue;
+	width: 110%;
+	height: 0.5rem;
+	border-radius: 1rem;
+	opacity: 0;
+	transform: translate(-1rem, 0);
+	&.animate {
+		opacity: 1;
+		animation: move infinite ease-in-out 1s alternate;
+	}
+}
+
+
+@keyframes move {
+	0% {
+		top: 10%;
+	}
+	100% {
+		top: 90%;
+	}
 }

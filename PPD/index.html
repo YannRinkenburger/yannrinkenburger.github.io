@@ -27,10 +27,12 @@
     
         <a class="aboutLink" style="cursor: pointer;" onclick="openData()">More about your data</a>
 
-        <p style="margin-top: 20%;">&#8595; click to capture the moment &#8595;</p>
+        <p style="margin-top: 20%;">&#8595; scan your product here &#8595;</p>
 
-        <label for="cameraInput"><img src="img/big_logo.png" alt="Logo" style="margin: auto; display: block;"></label>
-        <input type="file" id="cameraInput" onchange="saveImage()">
+        <div class="video">
+            <div class="line animate"></div>
+            <video autoplay="true" id="video-preview"></video>
+        </div>
 
         <button style="display: none;" id="openImageViewButton" onclick="openImageView()">Open todays image</button>
     </div>

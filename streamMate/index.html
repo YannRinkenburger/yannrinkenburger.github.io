@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>streamMate</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="slideStyle.css">
+    <link rel="icon" type="image/png" href="img/miniLogo.png">
+  </head>
+  <body>  
+    <header>
+      <div id="menu">
+        <div class="leftNav">
+          <img src="img/logo.png" alt="Logo" style="margin-top: -10px; margin-right: 30px;">
+          <a href="">Movies</a>
+          <a href="">Series</a>
+        </div>
+
+        <div class="middleNav">
+          <input type="text" placeholder="Search" required>
+        </div>
+
+        <div class="rightNav" style="float: right;">
+
+        </div>
+      </div>
+    </header>
+
+    <div class="content">
+      <div class="slideshow-container">
+        <div id="bigCard"></div>
+
+        <div class="slideshow-points">
+          <span class="dot" onclick="currentSlide(1)"></span> 
+          <span class="dot" onclick="currentSlide(2)"></span> 
+          <span class="dot" onclick="currentSlide(3)"></span> 
+          <span class="dot" onclick="currentSlide(4)"></span>
+          <span class="dot" onclick="currentSlide(5)"></span>
+          <a class="prev" onclick="plusSlides(-1)">❮</a>
+          <a class="next" onclick="plusSlides(1)">❯</a>
+        </div>
+      </div>
+      <br>
+
+      <div id="cards" style="margin-top: 10%;"></div>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>
