@@ -23,7 +23,7 @@ if (!('BarcodeDetector' in window)) {
 	console.log('no BarcodeDetector support');
 } else {
 	const barcodeDetector = new BarcodeDetector({
-		formats: ['qr_code'],
+		formats: ["upc_a", "upc_e", "itf", "ean_8"],
 	});
 	let interval = undefined;
 	let found = false;
