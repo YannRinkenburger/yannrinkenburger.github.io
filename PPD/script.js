@@ -162,6 +162,7 @@ if (!('BarcodeDetector' in window)) {
 			const barcodes = await barcodeDetector.detect(videoPreview);
 			if (barcodes.length > 0) {
 				console.log(barcodes[0].rawValue);
+                document.getElementById("testText").innerHTML = barcodes[0].rawValue
 				found = true;
 			}
 		} else {
