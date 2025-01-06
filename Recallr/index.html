@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Recallr</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+    <body>
+        <header>
+            <div id="homeMenu" class="menu flex-container" style="display: none;">
+                <img src="img/flame.png" alt="Flame">
+                <div><p style="margin-top: -2px; text-align: left;">0</p></div>
+
+                <img src="img/settings_white.png" alt="Settings" style="margin-left: auto;">
+            </div>
+            
+            <div id="deckViewMenu" class="menu flex-container">
+                <img src="img/arrow_left_white.png" alt="Back arrow" onclick="openPage('deckView', 'home')">
+                <div><p style="margin-top: -2px;">Deckname</p></div>
+
+                <img src="img/menu_white.png" alt="Menu" style="margin-left: auto;">
+            </div>
+
+            <hr>
+        </header>
+
+        <div id="content">
+            <div id="home" style="display: none;">
+                <div class="flex-container">
+                    <div>
+                        <h2>2 Decks</h2>
+                    </div>
+                    
+                    <div style="margin-left: auto;">
+                        <button onclick="openModal(document.getElementById('newDeckModal'))">+</button>
+                    </div>
+                </div>
+                
+                <div id="deckHolder container">
+                    <div class="flex-container draggable">
+                        <div class="dragDeck">
+                            <img src="img/icons8-drag-handle-30.png" alt="">
+                        </div>
+
+                        <div class="deck flex-container">
+                            <div>
+                                <h3>Logik und Algebra</h3>
+                                <p class="cardCounter">Karten für heute: 13</p>
+                            </div>
+    
+                            <div class="deckArrow">
+                                <h2>&#10095;</h2>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="flex-container draggable">
+                        <div class="dragDeck">
+                            <img src="img/icons8-drag-handle-30.png" alt="">
+                        </div>
+
+                        <div class="deck flex-container">
+                            <div>
+                                <h3>Logik </h3>
+                                <p class="cardCounter">Karten für heute: 13</p>
+                            </div>
+    
+                            <div class="deckArrow">
+                                <h2>&#10095;</h2>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="deckView">
+                <div class="flex-container">
+                    <div class="donutChart">
+                        <div id="donut"></div>
+                        <h2 class="chartCounter">25</h2>
+                    </div>
+
+                    <div class="chartInfo">
+                        <div class="flex-container">
+                            <div class="chartInfoDiv">
+                                <h2 class="colorPlaceholder" style="background-color: red;">0</h2>
+                                <h2 class="colorCounter">12</h2>
+                                <h2 class="colorText">Cards in Discover-Box</h2>
+                            </div>
+                        </div>
+
+                        <div class="flex-container">
+                            <div class="chartInfoDiv">
+                                <h2 class="colorPlaceholder" style="background-color: yellow;">0</h2>
+                                <h2 class="colorCounter">5</h2>
+                                <h2 class="colorText">Cards in Practice-Box</h2>
+                            </div>
+                        </div>
+
+                        <div class="flex-container">
+                            <div class="chartInfoDiv">
+                                <h2 class="colorPlaceholder" style="background-color: green;">0</h2>
+                                <h2 class="colorCounter">8</h2>
+                                <h2 class="colorText"> Cards in Perfect-Box</h2>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="flex-container">
+                    <button class="newButton" style="margin-top: 60px; width: 48%;">Learn 6 cards now</button>
+                    <button class="newButton" style="margin-top: 60px; width: 48%; margin-left: 4%;">Repeat all cards</button>
+                </div>
+
+                <button class="deleteButton">Start blurting session</button>
+
+                <div class="cardArea" style="margin-top: 40px;"> 
+                    <div class="flex-container">
+                        <h2>Karten im Deck (25)</h2>
+
+                        <img id="resetCardListIcon" src="img/reset.png" alt="Reset" onclick="resetCardList()">
+
+                        <img id="searchIcon" src="img/search.png" alt="Search" onclick="toggleSearchCardBar()">
+
+                        <input id="searchCard" type="text" placeholder="Cardtext" style="display: none;">
+                    </div>
+
+                    <div class="progress-bar">
+                        <div class="progress-one"></div>
+                        <div class="progress-two"></div>
+                        <div class="progress-three"></div>
+                    </div>
+
+                    <div id="cardList">
+                        <div class="card">
+                            <div class="flex-container">
+                                <img src="img/clock.png" alt="Clock">
+                                <p class="clockText">In 23 Tagen</p>
+                                <img src="img/menu_white.png" alt="Menu" style="margin-left: auto;">
+                            </div>
+
+                            <p>Ordnungsrelation</p>
+                            <p class="grayText">Relation die reflexiv, transitiv und antisymmetrisch ist</p>
+                            <img src="img/image_white.png" alt="Image">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="newDeckModal" class="modal">
+                <div class="modal-content">
+                    <h2 class="modalHeadline">Neues Deck</h2>
+                        
+                    <h2 class="close" onclick="closeModal(document.getElementById('newDeckModal'))">&times;</h2>
+
+                    <hr>
+                    
+                    <div class="modalText">
+                        <input type="text" placeholder="Deckname">
+
+                        <button class="newButton">Neues Deck erstellen</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <script src="script.js"></script>
+    </body>
+</html>
