@@ -4,14 +4,21 @@ document.addEventListener("DOMContentLoaded", function () {
     let painting = false;
 
     canvas.width = window.innerWidth * 0.8;
-        canvas.height = window.innerHeight * 0.62;
+    canvas.height = window.innerHeight * 0.62;
 
+    let history = [];
+    
     // Setze die Zeichenfarbe und -breite
     ctx.strokeStyle = "black";
     ctx.lineWidth = 3;
     ctx.lineCap = "round";
 
+    function saveState() {
+        history.push(canvas.toDataURL());
+    }
+
     function startPosition(e) {
+        saveState();
         painting = true;
         draw(e);
     }
@@ -50,4 +57,26 @@ document.addEventListener("DOMContentLoaded", function () {
     canvas.addEventListener("touchstart", startPosition);
     canvas.addEventListener("touchend", endPosition);
     canvas.addEventListener("touchmove", draw);
+
+    // Funktion zum Löschen des Canvas
+    document.getElementById("clearCanvas").addEventListener("click", function () {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        history = [];
+    });
+
+    // Funktion zum Rückgängigmachen der letzten Änderung
+    document.getElementById("undoCanvas").addEventListener("click", function () {
+        if (history.length > 0) {
+            let img = new Image();
+            img.src = history.pop();
+            img.onload = function () {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                ctx.drawImage(img, 0, 0);
+            };
+        }
+    });
+
+    document.getElementById("stroke").addEventListener('change', e => {
+        ctx.strokeStyle = e.target.value;
+    });
 });
