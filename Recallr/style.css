@@ -153,23 +153,6 @@ button{
     margin-bottom: 50%;
 }
 
-.dragDeck{
-    width: 4%;
-}
-
-.dragDeck img{
-    margin-top: 110%;
-    cursor: pointer;
-}
-
-.draggable{
-    cursor: pointer;
-}
-
-.draggable.dragging {
-    opacity: .5;
-}
-
 .modal {
     z-index: 100;
     left: 0;
@@ -329,19 +312,16 @@ button{
     border-radius: 20px;
 }
   
-.progress-one {
+#progress-one {
     background-color: red;
-    width: 48%;
 }
   
-.progress-two {
+#progress-two {
     background-color: yellow;
-    width: 20%;
 }
   
-.progress-three {
+#progress-three {
     background-color: green;
-    width: 32%;
 }
 
 .progress-bar div{
@@ -367,7 +347,7 @@ button{
 #searchIcon{
     height: 30px;
     width: 30px;
-    margin-right: 10px;
+    margin-right: 20px;
 }
 
 #resetCardListIcon{
@@ -401,4 +381,30 @@ button{
     color: var(--gray);
     margin-top: -8px;
     margin-bottom: 8px;
+}
+
+.starHolder{
+    width: 3%;
+}
+
+.starHolder p{
+    height: 0px;
+    font-size: 40px;
+    color: var(--gray);
+}
+
+.inputText{
+    height: 0px;
+    margin-bottom: 34px;
+    margin-left: 10px;
+    font-size: 20px;
+    color: var(--gray);
+}
+
+#canvas{
+    margin: auto;
+    width: 60%;
+    display: block;
+    background: white;
+    border-radius: 10px;
 }

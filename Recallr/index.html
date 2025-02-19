@@ -17,9 +17,18 @@
             
             <div id="deckViewMenu" class="menu flex-container">
                 <img src="img/arrow_left_white.png" alt="Back arrow" onclick="openPage('deckView', 'home')">
-                <div><p style="margin-top: -2px;">Deckname</p></div>
+                <div><p style="margin-top: -2px;" id="deckname">Deckname</p></div>
 
                 <img src="img/menu_white.png" alt="Menu" style="margin-left: auto;">
+            </div>
+
+            <div id="cardCreationMenu" class="menu flex-container" style="display: none;">
+                <img src="img/arrow_left_white.png" alt="Back arrow" onclick="openPage('deckView', 'home')">
+                <div><p style="margin-top: -2px;" id="deckname">Create Card</p></div>
+
+                <div style="margin-top: -5px;">
+                    <button onclick="">+</button>
+                </div>
             </div>
 
             <hr>
@@ -28,7 +37,7 @@
         <div id="content">
             <div id="home" style="display: none;">
                 <div class="flex-container">
-                    <div>
+                    <div style="margin-left: 3%;">
                         <h2>2 Decks</h2>
                     </div>
                     
@@ -37,40 +46,8 @@
                     </div>
                 </div>
                 
-                <div id="deckHolder container">
-                    <div class="flex-container draggable">
-                        <div class="dragDeck">
-                            <img src="img/icons8-drag-handle-30.png" alt="">
-                        </div>
-
-                        <div class="deck flex-container">
-                            <div>
-                                <h3>Logik und Algebra</h3>
-                                <p class="cardCounter">Karten für heute: 13</p>
-                            </div>
-    
-                            <div class="deckArrow">
-                                <h2>&#10095;</h2>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="flex-container draggable">
-                        <div class="dragDeck">
-                            <img src="img/icons8-drag-handle-30.png" alt="">
-                        </div>
-
-                        <div class="deck flex-container">
-                            <div>
-                                <h3>Logik </h3>
-                                <p class="cardCounter">Karten für heute: 13</p>
-                            </div>
-    
-                            <div class="deckArrow">
-                                <h2>&#10095;</h2>
-                            </div>
-                        </div>
-                    </div>
+                <div id="deckContainer">
+                    <div id="deckHolder"></div>
                 </div>
             </div>
 
@@ -78,14 +55,14 @@
                 <div class="flex-container">
                     <div class="donutChart">
                         <div id="donut"></div>
-                        <h2 class="chartCounter">25</h2>
+                        <h2 class="chartCounter" id="deckChartCounter">25</h2>
                     </div>
 
                     <div class="chartInfo">
                         <div class="flex-container">
                             <div class="chartInfoDiv">
                                 <h2 class="colorPlaceholder" style="background-color: red;">0</h2>
-                                <h2 class="colorCounter">12</h2>
+                                <h2 class="colorCounter" id="deckDiscoverCounter">12</h2>
                                 <h2 class="colorText">Cards in Discover-Box</h2>
                             </div>
                         </div>
@@ -93,7 +70,7 @@
                         <div class="flex-container">
                             <div class="chartInfoDiv">
                                 <h2 class="colorPlaceholder" style="background-color: yellow;">0</h2>
-                                <h2 class="colorCounter">5</h2>
+                                <h2 class="colorCounter" id="deckPracticeCounter">5</h2>
                                 <h2 class="colorText">Cards in Practice-Box</h2>
                             </div>
                         </div>
@@ -101,7 +78,7 @@
                         <div class="flex-container">
                             <div class="chartInfoDiv">
                                 <h2 class="colorPlaceholder" style="background-color: green;">0</h2>
-                                <h2 class="colorCounter">8</h2>
+                                <h2 class="colorCounter" id="deckPerfectCounter">8</h2>
                                 <h2 class="colorText"> Cards in Perfect-Box</h2>
                             </div>
                         </div>
@@ -117,23 +94,27 @@
 
                 <div class="cardArea" style="margin-top: 40px;"> 
                     <div class="flex-container">
-                        <h2>Karten im Deck (25)</h2>
+                        <h2 id="cardsInDeckText">Cards in Deck (0)</h2>
 
                         <img id="resetCardListIcon" src="img/reset.png" alt="Reset" onclick="resetCardList()">
 
                         <img id="searchIcon" src="img/search.png" alt="Search" onclick="toggleSearchCardBar()">
 
                         <input id="searchCard" type="text" placeholder="Cardtext" style="display: none;">
+
+                        <div style="margin-top: -5px;">
+                            <button onclick="openPage('deckView', 'cardCreation')">+</button>
+                        </div>
                     </div>
 
                     <div class="progress-bar">
-                        <div class="progress-one"></div>
-                        <div class="progress-two"></div>
-                        <div class="progress-three"></div>
+                        <div id="progress-one"></div>
+                        <div id="progress-two"></div>
+                        <div id="progress-three"></div>
                     </div>
 
                     <div id="cardList">
-                        <div class="card">
+                        <div class="card" onclick="openCardView()">
                             <div class="flex-container">
                                 <img src="img/clock.png" alt="Clock">
                                 <p class="clockText">In 23 Tagen</p>
@@ -148,23 +129,85 @@
                 </div>
             </div>
 
+            <div id="cardCreation" style="display: none;">
+                <p class="inputText" style="margin-top: -20px;">Term</p>
+                <input type="text" placeholder="Term" id="termInput">
+                <button style="display: block; margin: auto; margin-top: 20px; width: 30%; padding: 14px;" class="newButton" onclick="openModal(document.getElementById('imgCreationModal'))">Add Picture</button>
+                <img src="" id="termImg">
+
+                <p class="inputText">Definition</p>
+                <input type="text" placeholder="Definition" id="definitionInput">
+                <button style="display: block; margin: auto; margin-top: 20px; width: 30%; padding: 14px;" class="newButton" onclick="openModal(document.getElementById('imgCreationModal'))">Add Picture</button>
+                <img src="" id="definitionImg">
+            </div>
+
             <div id="newDeckModal" class="modal">
                 <div class="modal-content">
-                    <h2 class="modalHeadline">Neues Deck</h2>
+                    <h2 class="modalHeadline">New Deck</h2>
                         
                     <h2 class="close" onclick="closeModal(document.getElementById('newDeckModal'))">&times;</h2>
 
                     <hr>
                     
                     <div class="modalText">
-                        <input type="text" placeholder="Deckname">
+                        <input type="text" placeholder="Name" id="deckNameInput">
 
-                        <button class="newButton">Neues Deck erstellen</button>
+                        <button class="newButton" onclick="createDeck()">Create New Deck</button>
+                    </div>
+                </div>
+            </div>
+
+            <div id="cardViewModal" class="modal" style="display: none;">
+                <div class="modal-content">
+                    <h2 class="modalHeadline">Card</h2>
+                        
+                    <h2 class="close" onclick="closeModal(document.getElementById('cardViewModal'))">&times;</h2>
+
+                    <hr>
+                    
+                    <div class="modalText">
+                        <p class="inputText" style="margin-top: -20px;">Term</p>
+                        <input type="text" placeholder="Term">
+
+                        <p class="inputText">Definition</p>
+                        <input type="text" placeholder="Definition">
+
+                        <img src="" id="cardImageHolder" style="display: none;">
+ 
+                        <div class="flex-container">
+                            <button class="newButton" style="width: 48%;">Save Card</button>
+                            <button class="newButton" style="width: 48%; margin-left: 4%; background: none; border: 1px solid red; color: red;">!!! Delete Card !!!</button> 
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="imgCreationModal" class="modal" style="display: none;">
+                <div class="modal-content">
+                    <h2 class="modalHeadline">Card</h2>
+                        
+                    <h2 class="close" onclick="closeModal(document.getElementById('cardViewModal'))">&times;</h2>
+
+                    <hr>
+
+                    <canvas id="canvas" width="320" height="160">
+                        Get a better browser, bro.
+                    </canvas>
+
+                    <div id="toolbar">
+
+                    </div>
+
+                    <div class="modalText">
+                        
+                        <div class="flex-container">
+                            <button class="newButton">Create Image</button>
                     </div>
                 </div>
             </div>
         </div>
 
         <script src="script.js"></script>
+        <script src="canvas.js"></script>
     </body>
 </html>
