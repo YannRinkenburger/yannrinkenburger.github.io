@@ -13,6 +13,17 @@ document.addEventListener("DOMContentLoaded", function () {
     ctx.lineWidth = 3;
     ctx.lineCap = "round";
 
+    function loadCanvas() {
+        const savedImage = localStorage.getItem("canvasData");
+        if (savedImage) {
+            const img = new Image();
+            img.src = savedImage;
+            img.onload = () => ctx.drawImage(img, 0, 0);
+        }
+    }
+
+    window.onload = loadCanvas;
+
     function saveState() {
         history.push(canvas.toDataURL());
     }
@@ -79,4 +90,8 @@ document.addEventListener("DOMContentLoaded", function () {
     document.getElementById("stroke").addEventListener('change', e => {
         ctx.strokeStyle = e.target.value;
     });
+
+    function saveCanvas() {
+        localStorage.setItem("canvasData", canvas.toDataURL());
+    }
 });

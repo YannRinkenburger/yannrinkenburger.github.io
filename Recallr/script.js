@@ -6,6 +6,8 @@ var deckId = 0
 var cardArray = []
 var deckArray = []
 
+var deckInUse
+
 if(localStorage.getItem("cardId") != null)
 {
     cardId = localStorage.getItem("cardId")
@@ -27,11 +29,12 @@ if(localStorage.getItem("deckArray") != null)
     loadDecks()
 }
 
-function Card(id, term, definition, img) {
+function Card(id, term, definition, termImg, definitionImg) {
     this.id = id;
     this.term = term;
     this.definition = definition;
-    this.img = img;
+    this.termImg = termImg;
+    this.definitionImg = definitionImg;
 }
 
 function Deck(id, name) {
@@ -41,10 +44,6 @@ function Deck(id, name) {
     this.practiceBox = [];
     this.perfectBox = [];
     this.is_liked = false;
-}
-
-Deck.prototype.addCardToDiscoverBox = function(card){
-    this.discoverBox.push(card)
 }
 
 function openModal(modal)
@@ -83,6 +82,7 @@ function createDeck(){
 
     var newDeck = new Deck(deckId, $("deckNameInput").value)
     deckArray.push(newDeck)
+    deckId += 1
 
     saveDecks()
     loadDecks()
@@ -92,6 +92,7 @@ function createDeck(){
 
 function saveDecks(){
     localStorage.setItem("deckArray", JSON.stringify(deckArray))
+    localStorage.setItem("deckId", deckId)
     loadDecks()
 }
 
@@ -164,12 +165,13 @@ function openDeckView(deck){
     $("cardsInDeckText").innerHTML = `Cards in Deck (${cardCounter})`
 
     var cardPercDiscover = deck.discoverBox.length / cardCounter
+    console.log(cardPercDiscover)
     var cardPercPractice = deck.practiceBox.length / cardCounter 
     var cardPercPerfect = deck.perfectBox.length / cardCounter
 
-    $("progress-one").style.width = `(${cardPercDiscover * 100})%`
-    $("progress-two").style.width = `(${cardPercPractice * 100})%`
-    $("progress-three").style.width = `(${cardPercPerfect * 100})%`
+    $("progress-one").style.width = `${cardPercDiscover * 100}%`
+    $("progress-two").style.width = `${cardPercPractice * 100}%`
+    $("progress-three").style.width = `${cardPercPerfect * 100}%`
 
     $("donut").style.background = `conic-gradient(
       red 0deg ${cardPercDiscover * 360}deg,
@@ -186,6 +188,8 @@ function openDeckView(deck){
             red 0deg 360deg
         )`
     }
+
+    deckInUse = deck
 }
 
 function toggleStar(id){
@@ -204,4 +208,36 @@ function openCardView()
     openModal($("cardViewModal"))
 
 
+}
+
+function createImage(index, button){
+    openModal($('imgCreationModal'))
+    button.style.display = "none"
+
+    $("saveImageButton").onclick = function(){
+        var url = $("canvas").toDataURL()
+
+        var img
+        if(index === 0){
+            img = $("termImg")
+        }else{
+            img = $("definitionImg")
+        }
+
+        img.src = url
+        img.style.display = "block"
+
+        closeModal($('imgCreationModal'))
+    }
+}
+
+function createCard(){
+    var newCard = new Card(cardId, $("termInput").value, $("definitionInput").value, $("termImg").src, $("termImg").src)
+    cardId += 1
+
+    deckInUse.discoverBox.push(newCard)
+
+    saveDecks()
+    openPage('cardCreation', 'deckView')
+    openDeckView(deckInUse)
 }

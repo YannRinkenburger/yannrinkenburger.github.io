@@ -23,11 +23,11 @@
             </div>
 
             <div id="cardCreationMenu" class="menu flex-container" style="display: none;">
-                <img src="img/arrow_left_white.png" alt="Back arrow" onclick="openPage('deckView', 'home')">
+                <img src="img/arrow_left_white.png" alt="Back arrow" onclick="openPage('cardCreation', 'deckView')">
                 <div><p style="margin-top: -2px;" id="deckname">Create Card</p></div>
 
                 <div style="margin-top: -5px;">
-                    <button onclick="">+</button>
+                    <button onclick="createCard()">+</button>
                 </div>
             </div>
 
@@ -132,13 +132,13 @@
             <div id="cardCreation" style="display: none;">
                 <p class="inputText" style="margin-top: -20px;">Term</p>
                 <input type="text" placeholder="Term" id="termInput">
-                <button style="display: block; margin: auto; margin-top: 20px; width: 30%; padding: 14px;" class="newButton" onclick="openModal(document.getElementById('imgCreationModal'))">Add Picture</button>
-                <img src="" id="termImg">
+                <button style="display: block; margin: auto; margin-top: 20px; width: 30%; padding: 14px;" class="newButton" onclick="createImage(0, this)">Add Image</button>
+                <img id="termImg" class="cardImage">
 
                 <p class="inputText">Definition</p>
                 <input type="text" placeholder="Definition" id="definitionInput">
-                <button style="display: block; margin: auto; margin-top: 20px; width: 30%; padding: 14px;" class="newButton" onclick="openModal(document.getElementById('imgCreationModal'))">Add Picture</button>
-                <img src="" id="definitionImg">
+                <button style="display: block; margin: auto; margin-top: 20px; width: 30%; padding: 14px;" class="newButton" onclick="createImage(1, this)">Add Image</button>
+                <img id="definitionImg" class="cardImage">
             </div>
 
             <div id="newDeckModal" class="modal">
@@ -183,10 +183,10 @@
             </div>
 
             <div id="imgCreationModal" class="modal" style="display: none;">
-                <div class="modal-content">
-                    <h2 class="modalHeadline">Card</h2>
+                <div class="modal-content" style="height: 98%; border-radius: 0px;">
+                    <h2 class="modalHeadline">Image</h2>
                         
-                    <h2 class="close" onclick="closeModal(document.getElementById('cardViewModal'))">&times;</h2>
+                    <h2 class="close" onclick="closeModal(document.getElementById('imgCreationModal'))">&times;</h2>
 
                     <hr>
 
@@ -200,14 +200,10 @@
 
                     <input id="stroke" name='stroke' type="color">
 
-                    <div id="toolbar">
-
-                    </div>
-
                     <div class="modalText">
-                        
                         <div class="flex-container">
-                            <button class="newButton">Create Image</button>
+                            <button class="newButton" id="saveImageButton">Save Image</button>
+                        </div>
                     </div>
                 </div>
             </div>
