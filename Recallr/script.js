@@ -165,7 +165,6 @@ function openDeckView(deck){
     $("cardsInDeckText").innerHTML = `Cards in Deck (${cardCounter})`
 
     var cardPercDiscover = deck.discoverBox.length / cardCounter
-    console.log(cardPercDiscover)
     var cardPercPractice = deck.practiceBox.length / cardCounter 
     var cardPercPerfect = deck.perfectBox.length / cardCounter
 
@@ -190,6 +189,8 @@ function openDeckView(deck){
     }
 
     deckInUse = deck
+
+    loadCards()
 }
 
 function toggleStar(id){
@@ -240,4 +241,73 @@ function createCard(){
     saveDecks()
     openPage('cardCreation', 'deckView')
     openDeckView(deckInUse)
+}
+
+function loadCards(){
+    $("cardHolder").remove()
+
+    var newCardHolder = document.createElement("div")
+    newCardHolder.id = "cardHolder"
+
+    $("cardList").append(newCardHolder)
+
+    deckInUse.discoverBox.forEach(card => {
+        createCard(card)
+        console.log(card)
+    })
+
+    deckInUse.practiceBox.forEach(card => {
+        createCard(card)
+    })
+
+    deckInUse.perfectBox.forEach(card => {
+        createCard(card)
+    })
+}
+
+function createCard(card) {
+    let cardDiv = document.createElement("div");
+    cardDiv.className = "card";
+    cardDiv.onclick = openCardView;
+    
+    let flexContainer = document.createElement("div");
+    flexContainer.className = "flex-container";
+    
+    let clockImg = document.createElement("img");
+    clockImg.src = "img/clock.png";
+    clockImg.alt = "Clock";
+    
+    let clockText = document.createElement("p");
+    clockText.className = "clockText";
+    clockText.textContent = "In 23 Tagen";
+    
+    let menuImg = document.createElement("img");
+    menuImg.src = "img/menu_white.png";
+    menuImg.alt = "Menu";
+    menuImg.style.marginLeft = "auto";
+    
+    flexContainer.appendChild(clockImg);
+    flexContainer.appendChild(clockText);
+    flexContainer.appendChild(menuImg);
+    
+    let term = document.createElement("p");
+    term.textContent = card.term;
+    
+    let definition = document.createElement("p");
+    definition.className = "grayText";
+    definition.textContent = card.definition;
+    let image = document.createElement("img");
+    image.src = "img/image_white.png";
+    image.alt = "Image";
+
+    if(!(card.termImg !== "" || card.definitionImg !== "")){
+        image.style.display = "none"
+    }
+    
+    cardDiv.appendChild(flexContainer);
+    cardDiv.appendChild(term);
+    cardDiv.appendChild(definition);
+    cardDiv.appendChild(image);
+    
+    document.getElementById("cardContainer").appendChild(cardDiv);
 }
