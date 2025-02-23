@@ -8,14 +8,14 @@
 </head>
     <body>
         <header>
-            <div id="homeMenu" class="menu flex-container" style="display: none;">
+            <div id="homeMenu" class="menu flex-container">
                 <img src="img/flame.png" alt="Flame">
                 <div><p style="margin-top: -2px; text-align: left;">0</p></div>
 
                 <img src="img/settings_white.png" alt="Settings" style="margin-left: auto;">
             </div>
             
-            <div id="deckViewMenu" class="menu flex-container">
+            <div id="deckViewMenu" class="menu flex-container" style="display: none;">
                 <img src="img/arrow_left_white.png" alt="Back arrow" onclick="openPage('deckView', 'home')">
                 <div><p style="margin-top: -2px;" id="deckname">Deckname</p></div>
 
@@ -26,16 +26,26 @@
                 <img src="img/arrow_left_white.png" alt="Back arrow" onclick="openPage('cardCreation', 'deckView')">
                 <div><p style="margin-top: -2px;" id="deckname">Create Card</p></div>
 
-                <div style="margin-top: -5px;">
-                    <button onclick="createCard()">+</button>
+                <button onclick="createNewCard()">+</button>
+            </div>
+
+            <div id="cardLearningMenu" class="menu flex-container" style="display: none;">
+                <img src="img/arrow_left_white.png" alt="Back arrow" id="goBackLearningButton1">
+                <div>
+                    <div id="learningCounterDiv">
+                        <a style="margin-top: -2px;" id="cardsLearned">0</a>
+                        <a style="margin-top: -2px; color: var(--gray);" id="cardsToLearn">/ 23</a>
+                    </div>
                 </div>
+
+                <img src="img/menu_white.png" alt="Menu" style="margin-left: auto;">
             </div>
 
             <hr>
         </header>
 
         <div id="content">
-            <div id="home" style="display: none;">
+            <div id="home">
                 <div class="flex-container">
                     <div style="margin-left: 3%;">
                         <h2>2 Decks</h2>
@@ -51,7 +61,7 @@
                 </div>
             </div>
 
-            <div id="deckView">
+            <div id="deckView" style="display: none;">
                 <div class="flex-container">
                     <div class="donutChart">
                         <div id="donut"></div>
@@ -61,7 +71,7 @@
                     <div class="chartInfo">
                         <div class="flex-container">
                             <div class="chartInfoDiv">
-                                <h2 class="colorPlaceholder" style="background-color: red;">0</h2>
+                                <h2 class="colorPlaceholder" style="background-color: var(--red);">0</h2>
                                 <h2 class="colorCounter" id="deckDiscoverCounter">12</h2>
                                 <h2 class="colorText">Cards in Discover-Box</h2>
                             </div>
@@ -69,7 +79,7 @@
 
                         <div class="flex-container">
                             <div class="chartInfoDiv">
-                                <h2 class="colorPlaceholder" style="background-color: yellow;">0</h2>
+                                <h2 class="colorPlaceholder" style="background-color: var(--orange);">0</h2>
                                 <h2 class="colorCounter" id="deckPracticeCounter">5</h2>
                                 <h2 class="colorText">Cards in Practice-Box</h2>
                             </div>
@@ -77,7 +87,7 @@
 
                         <div class="flex-container">
                             <div class="chartInfoDiv">
-                                <h2 class="colorPlaceholder" style="background-color: green;">0</h2>
+                                <h2 class="colorPlaceholder" style="background-color: var(--green);">0</h2>
                                 <h2 class="colorCounter" id="deckPerfectCounter">8</h2>
                                 <h2 class="colorText"> Cards in Perfect-Box</h2>
                             </div>
@@ -87,7 +97,7 @@
                 
                 <div class="flex-container">
                     <button class="newButton" style="margin-top: 60px; width: 48%;">Learn 6 cards now</button>
-                    <button class="newButton" style="margin-top: 60px; width: 48%; margin-left: 4%;">Repeat all cards</button>
+                    <button class="newButton" style="margin-top: 60px; width: 48%; margin-left: 4%;" onclick="repeatAllCards()">Repeat all cards</button>
                 </div>
 
                 <button class="deleteButton">Start blurting session</button>
@@ -114,17 +124,19 @@
                     </div>
 
                     <div id="cardList">
-                        <div class="card" onclick="openCardView()">
-                            <div class="flex-container">
-                                <img src="img/clock.png" alt="Clock">
-                                <p class="clockText">In 23 Tagen</p>
-                                <img src="img/menu_white.png" alt="Menu" style="margin-left: auto;">
-                            </div>
+                        <div id="cardHolder">
+                            <div class="card" onclick="openCardView()">
+                                <div class="flex-container cardHeader">
+                                    <p class="clockText">0</p>
+                                    <p class="clockText">&#9734;</p>
+                                </div>
 
-                            <p>Ordnungsrelation</p>
-                            <p class="grayText">Relation die reflexiv, transitiv und antisymmetrisch ist</p>
-                            <img src="img/image_white.png" alt="Image">
+                                <p>Ordnungsrelation</p>
+                                <p class="grayText">Relation die reflexiv, transitiv und antisymmetrisch ist</p>
+                                <img src="img/image_white.png" alt="Image">
+                            </div>
                         </div>
+                       
                     </div>
                 </div>
             </div>
@@ -139,6 +151,35 @@
                 <input type="text" placeholder="Definition" id="definitionInput">
                 <button style="display: block; margin: auto; margin-top: 20px; width: 30%; padding: 14px;" class="newButton" onclick="createImage(1, this)">Add Image</button>
                 <img id="definitionImg" class="cardImage">
+            </div>
+
+            <div id="cardLearning" style="display: none;">
+                <div class="progress-bar" id="cardLearningProgress">
+                    <div id="progress-bar-filler" style="background-color: green;"></div>
+                </div>                      
+
+                <div class="card" id="cardToLearn" onclick="revealCard()">
+                    <p id="cardToLearnTerm">Term</p>
+                    <img src="" id="cardToLearnTermImg">
+
+                    <div id="definitionDiv">
+                        <hr>
+                        <p id="cardToLearnDefinition">Definition</p>
+                        <img src="" id="cardToLearnDefinitionImg">
+                    </div>
+                </div>
+
+                <div class="flex-container cardLearningButtons" id="cardLearningButtons">
+                    <button class="newButton" onclick="moveCardToDiscover()" style="background-color: #351f21; color: var(--red);">Discover</button>
+                    <button class="newButton" onclick="moveCardToPractice()" style="background-color: #403721; color: var(--orange);">Practice</button>
+                    <button class="newButton" onclick="moveCardToPerfect()" style="background-color: #2b361a; color: var(--green);">Perfect</button>
+                </div>
+
+                <div id="cardLearningEnd" style="display: none;">
+                    <h1 class="stars">★★★</h1>
+                    <h1 style="width: 100%; text-align: center;">Nice, you repeated all cards!</h1>
+                    <button class="newButton" id="goBackLearningButton">Go back</button>
+                </div>
             </div>
 
             <div id="newDeckModal" class="modal">
