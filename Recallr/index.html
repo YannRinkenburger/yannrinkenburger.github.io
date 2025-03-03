@@ -9,36 +9,45 @@
     <body>
         <header>
             <div id="homeMenu" class="menu flex-container">
-                <img src="img/flame.png" alt="Flame">
-                <div><p style="margin-top: -2px; text-align: left;">0</p></div>
+                <p style="text-align: left;" id="streakCounter">🔥 0</p>
 
-                <img src="img/settings_white.png" alt="Settings" style="margin-left: auto;">
+                <p style="text-align: right;">⚙️</p>
             </div>
             
             <div id="deckViewMenu" class="menu flex-container" style="display: none;">
-                <img src="img/arrow_left_white.png" alt="Back arrow" onclick="openPage('deckView', 'home')">
-                <div><p style="margin-top: -2px;" id="deckname">Deckname</p></div>
+                <p style="text-align: left;" onclick="openPage('deckView', 'home')">&#8592;</p>
+                <div><p style="margin-top: -2px; width: max-content;" id="deckname">Deckname</p></div>
 
-                <img src="img/menu_white.png" alt="Menu" style="margin-left: auto;">
+                <p style="text-align: right;" onclick="openModal($('editDeckModal')), editDeck()">✏️</p>
             </div>
 
             <div id="cardCreationMenu" class="menu flex-container" style="display: none;">
-                <img src="img/arrow_left_white.png" alt="Back arrow" onclick="openPage('cardCreation', 'deckView')">
-                <div><p style="margin-top: -2px;" id="deckname">Create Card</p></div>
+                <p style="text-align: left;" onclick="openPage('cardCreation', 'deckView')">&#8592;</p>
+                <p style="margin-top: -2px;">Create Card</p>
 
-                <button onclick="createNewCard()">+</button>
+                <p style="text-align: right;"><button onclick="createNewCard()" id="createNewCardButton">+</button></p>
             </div>
 
             <div id="cardLearningMenu" class="menu flex-container" style="display: none;">
-                <img src="img/arrow_left_white.png" alt="Back arrow" id="goBackLearningButton1">
-                <div>
+                <p style="text-align: left;" id="goBackLearningButton1">&#8592;</p>
+                <div style="width: 100%; margin-bottom: -10px;">
                     <div id="learningCounterDiv">
                         <a style="margin-top: -2px;" id="cardsLearned">0</a>
                         <a style="margin-top: -2px; color: var(--gray);" id="cardsToLearn">/ 23</a>
                     </div>
                 </div>
 
-                <img src="img/menu_white.png" alt="Menu" style="margin-left: auto;">
+                <p style="text-align: right;"></p>
+            </div>
+
+            <div id="cardEditMenu" class="menu flex-container" style="display: none;">
+                <p style="text-align: left;" onclick="openPage('cardEdit', 'deckView')">&#8592;</p>
+                <p style="margin-top: -2px;">Edit Card</p>
+
+                <p style="text-align: right;">
+                    <button onclick="deleteCard()" style="background-color: var(--red); border: none; margin-right: 16px;" id="deleteCardButton">&#10005;</button>
+                    <button onclick="saveCard()" style="background-color: var(--green); border: none;" id="saveCardButton">&#10003;</button>
+                </p>
             </div>
 
             <hr>
@@ -47,9 +56,7 @@
         <div id="content">
             <div id="home">
                 <div class="flex-container">
-                    <div style="margin-left: 3%;">
-                        <h2>2 Decks</h2>
-                    </div>
+                    <h2 id="deckCounter">0 Decks</h2>
                     
                     <div style="margin-left: auto;">
                         <button onclick="openModal(document.getElementById('newDeckModal'))">+</button>
@@ -70,7 +77,7 @@
 
                     <div class="chartInfo">
                         <div class="flex-container">
-                            <div class="chartInfoDiv">
+                            <div class="chartInfoDiv" onclick="repeatCardsByBox(0)">
                                 <h2 class="colorPlaceholder" style="background-color: var(--red);">0</h2>
                                 <h2 class="colorCounter" id="deckDiscoverCounter">12</h2>
                                 <h2 class="colorText">Cards in Discover-Box</h2>
@@ -78,7 +85,7 @@
                         </div>
 
                         <div class="flex-container">
-                            <div class="chartInfoDiv">
+                            <div class="chartInfoDiv" onclick="repeatCardsByBox(1)">
                                 <h2 class="colorPlaceholder" style="background-color: var(--orange);">0</h2>
                                 <h2 class="colorCounter" id="deckPracticeCounter">5</h2>
                                 <h2 class="colorText">Cards in Practice-Box</h2>
@@ -86,7 +93,7 @@
                         </div>
 
                         <div class="flex-container">
-                            <div class="chartInfoDiv">
+                            <div class="chartInfoDiv" onclick="repeatCardsByBox(2)">
                                 <h2 class="colorPlaceholder" style="background-color: var(--green);">0</h2>
                                 <h2 class="colorCounter" id="deckPerfectCounter">8</h2>
                                 <h2 class="colorText"> Cards in Perfect-Box</h2>
@@ -95,24 +102,14 @@
                     </div>
                 </div>
                 
-                <div class="flex-container">
-                    <button class="newButton" style="margin-top: 60px; width: 48%;">Learn 6 cards now</button>
-                    <button class="newButton" style="margin-top: 60px; width: 48%; margin-left: 4%;" onclick="repeatAllCards()">Repeat all cards</button>
-                </div>
-
-                <button class="deleteButton">Start blurting session</button>
+                <button class="newButton" style="margin-top: 60px;" onclick="repeatAllCards()">Repeat all cards</button>
+                <button class="deleteButton" style="margin-top: 20px;" onclick="repeatMarkedCards()">Repeat marked cards</button>
 
                 <div class="cardArea" style="margin-top: 40px;"> 
                     <div class="flex-container">
                         <h2 id="cardsInDeckText">Cards in Deck (0)</h2>
 
-                        <img id="resetCardListIcon" src="img/reset.png" alt="Reset" onclick="resetCardList()">
-
-                        <img id="searchIcon" src="img/search.png" alt="Search" onclick="toggleSearchCardBar()">
-
-                        <input id="searchCard" type="text" placeholder="Cardtext" style="display: none;">
-
-                        <div style="margin-top: -5px;">
+                        <div style="margin-top: -5px; margin-left: auto;">
                             <button onclick="openPage('deckView', 'cardCreation')">+</button>
                         </div>
                     </div>
@@ -124,19 +121,7 @@
                     </div>
 
                     <div id="cardList">
-                        <div id="cardHolder">
-                            <div class="card" onclick="openCardView()">
-                                <div class="flex-container cardHeader">
-                                    <p class="clockText">0</p>
-                                    <p class="clockText">&#9734;</p>
-                                </div>
-
-                                <p>Ordnungsrelation</p>
-                                <p class="grayText">Relation die reflexiv, transitiv und antisymmetrisch ist</p>
-                                <img src="img/image_white.png" alt="Image">
-                            </div>
-                        </div>
-                       
+                        <div id="cardHolder"></div>
                     </div>
                 </div>
             </div>
@@ -144,13 +129,49 @@
             <div id="cardCreation" style="display: none;">
                 <p class="inputText" style="margin-top: -20px;">Term</p>
                 <input type="text" placeholder="Term" id="termInput">
-                <button style="display: block; margin: auto; margin-top: 20px; width: 30%; padding: 14px;" class="newButton" onclick="createImage(0, this)">Add Image</button>
+
+                <button style="display: block; margin: auto; margin-top: 20px; width: 30%; padding: 14px;" class="newButton" onclick="createImage(0, this)" id="addTermImgButton">Add Image</button>
                 <img id="termImg" class="cardImage">
+
+                <div class="flex-container" style="width: 70%; margin: auto; display: none;" id="termImgActions">
+                    <button class="newButton" style="width: 48%;" onclick="editImage(0, $('addTermImgButton'), $('termImg'))">Edit Image</button>
+                    <button class="newButton" style="width: 48%; margin-left: 4%; background: none; border: 1px solid red; color: red;" onclick="removeImage(0)">!!! Delete Image !!!</button> 
+                </div>
 
                 <p class="inputText">Definition</p>
                 <input type="text" placeholder="Definition" id="definitionInput">
-                <button style="display: block; margin: auto; margin-top: 20px; width: 30%; padding: 14px;" class="newButton" onclick="createImage(1, this)">Add Image</button>
+
+                <button style="display: block; margin: auto; margin-top: 20px; width: 30%; padding: 14px;" class="newButton" onclick="createImage(1, this)" id="addDefinitionImgButton">Add Image</button>
                 <img id="definitionImg" class="cardImage">
+
+                <div class="flex-container" style="width: 70%; margin: auto; display: none;" id="definitionImgActions">
+                    <button class="newButton" style="width: 48%;" onclick="editImage(1, $('addDefinitionImgButton'), $('definitionImg'))">Edit Image</button>
+                    <button class="newButton" style="width: 48%; margin-left: 4%; background: none; border: 1px solid red; color: red;" onclick="removeImage(1)">!!! Delete Image !!!</button> 
+                </div>
+            </div>
+
+            <div id="cardEdit" style="display: none;">
+                <p class="inputText" style="margin-top: -20px;">Term</p>
+                <input type="text" placeholder="Term" id="termTextEdit">
+
+                <button style="display: block; margin: auto; margin-top: 20px; width: 30%; padding: 14px;" class="newButton" onclick="createImage(0, this)" id="addTermImgButtonEdit">Add Image</button>
+                <img id="termImgEdit" class="cardImage">
+
+                <div class="flex-container" style="width: 70%; margin: auto; display: none;" id="termImgActionsEdit">
+                    <button class="newButton" style="width: 48%;" onclick="editImage(0, $('addTermImgButtonEdit'), $('termImgEdit'))">Edit Image</button>
+                    <button class="newButton" style="width: 48%; margin-left: 4%; background: none; border: 1px solid red; color: red;" onclick="removeImageEdit(0)">!!! Delete Image !!!</button> 
+                </div>
+
+                <p class="inputText">Definition</p>
+                <input type="text" placeholder="Definition" id="definitionTextEdit">
+
+                <button style="display: block; margin: auto; margin-top: 20px; width: 30%; padding: 14px;" class="newButton" onclick="createImage(1, this)" id="addDefinitionImgButtonEdit">Add Image</button>
+                <img id="definitionImgEdit" class="cardImage">
+
+                <div class="flex-container" style="width: 70%; margin: auto; display: none;" id="definitionImgActionsEdit">
+                    <button class="newButton" style="width: 48%;" onclick="editImage(1, $('addDefinitionImgButtonEdit'), $('definitionImgEdit'))">Edit Image</button>
+                    <button class="newButton" style="width: 48%; margin-left: 4%; background: none; border: 1px solid red; color: red;" onclick="removeImageEdit(1)">!!! Delete Image !!!</button> 
+                </div>
             </div>
 
             <div id="cardLearning" style="display: none;">
@@ -192,33 +213,27 @@
                     
                     <div class="modalText">
                         <input type="text" placeholder="Name" id="deckNameInput">
+                        <input type="date" id="dateInput">
 
                         <button class="newButton" onclick="createDeck()">Create New Deck</button>
                     </div>
                 </div>
             </div>
 
-            <div id="cardViewModal" class="modal" style="display: none;">
+            <div id="editDeckModal" class="modal">
                 <div class="modal-content">
-                    <h2 class="modalHeadline">Card</h2>
+                    <h2 class="modalHeadline">Edit Deck</h2>
                         
-                    <h2 class="close" onclick="closeModal(document.getElementById('cardViewModal'))">&times;</h2>
+                    <h2 class="close" onclick="closeModal(document.getElementById('editDeckModal'))">&times;</h2>
 
                     <hr>
                     
                     <div class="modalText">
-                        <p class="inputText" style="margin-top: -20px;">Term</p>
-                        <input type="text" placeholder="Term">
+                        <input type="text" placeholder="Name" id="deckNameInputEdit">
+                        <input type="date" id="dateInputEdit">
 
-                        <p class="inputText">Definition</p>
-                        <input type="text" placeholder="Definition">
-
-                        <img src="" id="cardImageHolder" style="display: none;">
- 
-                        <div class="flex-container">
-                            <button class="newButton" style="width: 48%;">Save Card</button>
-                            <button class="newButton" style="width: 48%; margin-left: 4%; background: none; border: 1px solid red; color: red;">!!! Delete Card !!!</button> 
-                        </div>
+                        <button class="newButton" onclick="saveDeck()">Save Deck</button>
+                        <button class="newButton" style="background: none; border: 1px solid red; color: red;" onclick="deleteDeck()">!!! Delete Deck !!!</button>
                     </div>
                 </div>
             </div>

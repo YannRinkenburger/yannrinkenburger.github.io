@@ -12,14 +12,20 @@ var cardInUse
 var learningArray = []
 var learningIndex = 0
 
+var streakCounter = 0
+const today = new Date()
+const year = today.getFullYear()
+const month = today.getMonth() + 1
+const day = today.getDate()
+
 if(localStorage.getItem("cardId") != null)
 {
-    cardId = localStorage.getItem("cardId")
+    cardId = parseInt(localStorage.getItem("cardId"))
 }
 
 if(localStorage.getItem("deckId") != null)
 {
-    deckId = localStorage.getItem("deckId")
+    deckId = parseInt(localStorage.getItem("deckId"))
 }
 
 if(localStorage.getItem("cardArray") != null)
@@ -33,6 +39,33 @@ if(localStorage.getItem("deckArray") != null)
     loadDecks()
 }
 
+if(localStorage.getItem("streakCounter") != null){
+    streakCounter = parseInt(localStorage.getItem("streakCounter"))
+}else{
+    localStorage.setItem("streakCounter", streakCounter)
+}
+
+if(localStorage.getItem("lastDay") != null){
+    var lastDay = new Date(localStorage.getItem("lastDay"))
+    
+    if(datediff(today, lastDay) === 1){
+        streakCounter += 1
+    }else{
+        streakCounter = 0
+    }
+
+    localStorage.setItem("streakCounter", streakCounter)
+    $("streakCounter").innerHTML = "🔥 " + streakCounter
+}else{
+    localStorage.setItem("lastDay", new Date())
+}
+
+function datediff(date1, date2) {        
+    var Difference_In_Time = date2.getTime() - date1.getTime()
+
+    return Math.round(Difference_In_Time / (1000 * 3600 * 24))
+}
+
 function Card(id, term, definition, termImg, definitionImg) {
     this.id = id;
     this.term = term;
@@ -43,11 +76,12 @@ function Card(id, term, definition, termImg, definitionImg) {
     this.is_liked = false;
 }
 
-function Deck(id, name) {
+function Deck(id, name, date) {
     this.id = id;
     this.name = name;
     this.cards = [];
     this.is_liked = false;
+    this.date = date
 }
 
 function openModal(modal)
@@ -84,7 +118,7 @@ function toggleSearchCardBar(){
 function createDeck(){
     closeModal($("newDeckModal"))
 
-    var newDeck = new Deck(deckId, $("deckNameInput").value)
+    var newDeck = new Deck(deckId, $("deckNameInput").value, $("dateInput").value)
     deckArray.push(newDeck)
     deckId += 1
 
@@ -102,6 +136,12 @@ function saveDecks(){
 }
 
 function loadDecks() {
+    if(deckArray.length === 1){
+        $("deckCounter").innerHTML = deckArray.length + " Deck"
+    }else{
+        $("deckCounter").innerHTML = deckArray.length + " Decks"
+    }
+
     $("deckHolder").remove()
 
     var newDeckHolder = document.createElement("div")
@@ -110,81 +150,112 @@ function loadDecks() {
     $("deckContainer").append(newDeckHolder)
 
     deckArray.forEach(deck => {
-        var deckDiv = document.createElement("div");
-        deckDiv.className = "flex-container";
-
-        var starHolder = document.createElement("div");
-        starHolder.className = "starHolder";
-        var star = document.createElement("p");
-        
-        if(deck.is_liked === true){
-            star.style.color = "var(--gold)";
-            star.innerHTML = "&#9733;";
-        }else{
-            star.style.color = "var(--gray)";
-            star.innerHTML = "&#9734;";
-        }
-
-        starHolder.appendChild(star);
-
-        var deckContent = document.createElement("div");
-        deckContent.className = "deck flex-container";
-
-        var deckInfo = document.createElement("div");
-        var deckTitle = document.createElement("h3");
-        deckTitle.textContent = deck.name;
-
-        var flexContainerDiv = document.createElement("div")
-        flexContainerDiv.className = "flex-container"
-        flexContainerDiv.style.marginTop = "6px"
-
-        var counter = document.createElement("button")
-        counter.innerHTML = deck.cards.length
-        counter.className = "boxCounters"
-        counter.style.background = "rgb(62, 62, 62)"
-        counter.style.color = "var(--gray)"
-
-        var discoverBoxCounter = document.createElement("button")
-        discoverBoxCounter.innerHTML = countCardsInBox(0, deck)
-        discoverBoxCounter.className = "boxCounters"
-        discoverBoxCounter.style.background = "#351f21"
-        discoverBoxCounter.style.color = "var(--red)"
-
-        var practiceBoxCounter = document.createElement("button")
-        practiceBoxCounter.innerHTML = countCardsInBox(1, deck)
-        practiceBoxCounter.className = "boxCounters"
-        practiceBoxCounter.style.background = "#403721"
-        practiceBoxCounter.style.color = "var(--orange)"
-
-        var perfectBoxCounter = document.createElement("button")
-        perfectBoxCounter.innerHTML = countCardsInBox(2, deck)
-        perfectBoxCounter.className = "boxCounters"
-        perfectBoxCounter.style.background = "#2b361a"
-        perfectBoxCounter.style.color = "var(--green)"
-
-        flexContainerDiv.append(discoverBoxCounter)
-        flexContainerDiv.append(practiceBoxCounter)
-        flexContainerDiv.append(perfectBoxCounter)
-        flexContainerDiv.append(counter)
-
-        deckInfo.appendChild(deckTitle);
-        deckInfo.appendChild(flexContainerDiv);
-
-        var deckArrow = document.createElement("div");
-        deckArrow.className = "deckArrow";
-        deckArrow.innerHTML = "<h2>&#10095;</h2>";
-
-        deckContent.appendChild(deckInfo);
-        deckContent.appendChild(deckArrow);
-
-        deckDiv.appendChild(starHolder);
-        deckDiv.appendChild(deckContent);
-
-        deckContent.onclick = function(){openDeckView(deck)}
-        starHolder.onclick = function(){toggleStar(deck.id)}
-
-        document.getElementById("deckHolder").appendChild(deckDiv);
+        createDeckDiv(deck)
     });
+}
+
+function createDeckDiv(deck){
+    var deckDiv = document.createElement("div");
+    deckDiv.className = "flex-container";
+
+    var starHolder = document.createElement("div");
+    starHolder.className = "starHolder";
+    var star = document.createElement("p");
+        
+    if(deck.is_liked === true){
+        star.style.color = "var(--gold)";
+        star.innerHTML = "&#9733;";
+    }else{
+        star.style.color = "var(--gray)";
+        star.innerHTML = "&#9734;";
+    }
+
+    starHolder.appendChild(star);
+
+    var deckContent = document.createElement("div");
+    deckContent.className = "deck flex-container";
+
+    var deckInfo = document.createElement("div");
+    var deckTitle = document.createElement("h3");
+    deckTitle.textContent = deck.name;
+
+    var flexContainerDiv = document.createElement("div")
+    flexContainerDiv.className = "flex-container deckCounters"
+    flexContainerDiv.style.marginTop = "6px"
+
+    var counter = document.createElement("button")
+    counter.innerHTML = deck.cards.length
+    counter.className = "boxCounters"
+    counter.style.background = "rgb(62, 62, 62)"
+    counter.style.color = "var(--gray)"
+
+    var discoverBoxCounter = document.createElement("button")
+    discoverBoxCounter.innerHTML = countCardsInBox(0, deck)
+    discoverBoxCounter.className = "boxCounters"
+    discoverBoxCounter.style.background = "#351f21"
+    discoverBoxCounter.style.color = "var(--red)"
+
+    var practiceBoxCounter = document.createElement("button")
+    practiceBoxCounter.innerHTML = countCardsInBox(1, deck)
+    practiceBoxCounter.className = "boxCounters"
+    practiceBoxCounter.style.background = "#403721"
+    practiceBoxCounter.style.color = "var(--orange)"
+
+    var perfectBoxCounter = document.createElement("button")
+    perfectBoxCounter.innerHTML = countCardsInBox(2, deck)
+    perfectBoxCounter.className = "boxCounters"
+    perfectBoxCounter.style.background = "#2b361a"
+    perfectBoxCounter.style.color = "var(--green)"
+
+    var timeText = document.createElement("button")
+    timeText.innerHTML = new Date(deck.date).getDate() + "." + (new Date(deck.date).getMonth() + 1) + "." + new Date(deck.date).getFullYear()
+    timeText.className = "boxCounters"
+    timeText.style.background = "rgb(62, 62, 62)"
+    timeText.style.color = "var(--gray)"
+    timeText.style.marginLeft = "30px"
+    
+    var daysToGo = datediff(today, new Date(deck.date))
+
+    var color = "var(--green)"
+    var background = "#2b361a"
+    if(daysToGo <= 7){
+        color = "var(--orange)"
+        background = "#403721"
+    }else if(daysToGo <= 3){
+        color = "var(--red)"
+        background = "#351f21"
+    }
+
+    var timeTextCounter = document.createElement("button")
+    timeTextCounter.innerHTML = "in " + daysToGo + " Tag(en)"
+    timeTextCounter.className = "boxCounters"
+    timeTextCounter.style.background = background
+    timeTextCounter.style.color = color
+
+    flexContainerDiv.append(discoverBoxCounter)
+    flexContainerDiv.append(practiceBoxCounter)
+    flexContainerDiv.append(perfectBoxCounter)
+    flexContainerDiv.append(counter)
+    flexContainerDiv.append(timeText)
+    flexContainerDiv.append(timeTextCounter)
+
+    deckInfo.appendChild(deckTitle);
+    deckInfo.appendChild(flexContainerDiv);
+
+    var deckArrow = document.createElement("div");
+    deckArrow.className = "deckArrow";
+    deckArrow.innerHTML = "<h2>&#10095;</h2>";
+
+    deckContent.appendChild(deckInfo);
+    deckContent.appendChild(deckArrow);
+
+    deckDiv.appendChild(starHolder);
+    deckDiv.appendChild(deckContent);
+
+    deckContent.onclick = function(){openDeckView(deck)}
+    starHolder.onclick = function(){toggleStar(deck.id)}
+
+    document.getElementById("deckHolder").appendChild(deckDiv);
 }
 
 function openDeckView(deck){
@@ -255,11 +326,39 @@ function toggleCardStar(id){
     loadCards()
 }
 
-function openCardView()
+function openEditCardView(card)
 {
-    openModal($("cardViewModal"))
+    openPage("deckView", "cardEdit")
 
+    $("termTextEdit").value = card.term
+    $("definitionTextEdit").value = card.definition
 
+    if(card.termImg !== ""){
+        $("termImgEdit").src = card.termImg
+        $("termImgEdit").style.display = "block"
+        $("termImgActionsEdit").style.display = ""
+        $("addTermImgButtonEdit").style.display = "none"
+    }else{
+        $("termImgEdit").src = ""
+        $("termImgEdit").style.display = "none"
+        $("termImgActionsEdit").style.display = "none"
+        $("addTermImgButtonEdit").style.display = "block"
+    }
+
+    if(card.definitionImg !== ""){
+        $("definitionImgEdit").src = card.definitionImg
+        $("definitionImgEdit").style.display = "block"
+        $("definitionImgActionsEdit").style.display = ""
+        $("addDefinitionImgButtonEdit").style.display = "none"
+    }else{
+        $("definitionImgEdit").src = ""
+        $("definitionImgEdit").style.display = "none"
+        $("definitionImgActionsEdit").style.display = "none"
+        $("addDefinitionImgButtonEdit").style.display = "block"
+    }
+
+    $("deleteCardButton").onclick = function(){deleteCard(card.id)}
+    $("saveCardButton").onclick = function(){saveCard(card.id)}
 }
 
 function createImage(index, button){
@@ -269,10 +368,22 @@ function createImage(index, button){
         var url = $("canvas").toDataURL()
 
         var img
-        if(index === 0){
-            img = $("termImg")
+        if($("cardEdit").style.display === "none"){
+            if(index === 0){
+                img = $("termImg")
+                $("termImgActions").style.display = ""
+            }else{
+                img = $("definitionImg")
+                $("definitionImgActions").style.display = ""
+            }
         }else{
-            img = $("definitionImg")
+            if(index === 0){
+                img = $("termImgEdit")
+                $("termImgActionsEdit").style.display = ""
+            }else{
+                img = $("definitionImgEdit")
+                $("definitionImgActionsEdit").style.display = ""
+            }
         }
 
         img.src = url
@@ -284,15 +395,97 @@ function createImage(index, button){
     }
 }
 
-function createNewCard(){
-    var newCard = new Card(cardId, $("termInput").value, $("definitionInput").value, $("termImg").src, $("termImg").src)
-    cardId += 1
+function removeImage(index){
+    if(index === 0){
+        $("termImg").src = ""
+        $("termImg").style.display = "none"
+        $("termImgActions").style.display = "none"
+        $("addTermImgButton").style.display = "block"
+    }else{
+        $("definitionImg").src = ""
+        $("definitionImg").style.display = "none"
+        $("definitionImgActions").style.display = "none"
+        $("addDefinitionImgButton").style.display = "block"
+    }
+}
 
-    deckInUse.cards.push(newCard)
+function removeImageEdit(index){
+    if(index === 0){
+        $("termImgEdit").src = ""
+        $("termImgEdit").style.display = "none"
+        $("termImgActionsEdit").style.display = "none"
+        $("addTermImgButtonEdit").style.display = "block"
+    }else{
+        $("definitionImgEdit").src = ""
+        $("definitionImgEdit").style.display = "none"
+        $("definitionImgActionsEdit").style.display = "none"
+        $("addDefinitionImgButtonEdit").style.display = "block"
+    }
+}
+
+function editImage(index, button, source){
+    createImage(index, button)
+
+    var canvas = $("canvas")
+    var context = canvas.getContext('2d');
+
+    var img = new Image();
+    img.src = source.src;
+    img.onload = function(){
+        context.drawImage(img, 0, 0);
+    }
+}
+
+function createNewCard(){
+    if($("termInput").value !== "" && $("definitionInput").value !== ""){
+        var newCard = new Card(cardId, $("termInput").value, $("definitionInput").value, $("termImg").src, $("definitionImg").src)
+        cardId += 1
+
+        if(!$("termImg").src.startsWith("data")){
+            newCard.termImg = ""
+        }
+
+        if(!$("definitionImg").src.startsWith("data")){
+            newCard.definitionImg = ""
+        }
+
+        deckInUse.cards.push(newCard)
+
+        saveDecks()
+        openPage('cardCreation', 'deckView')
+
+        openDeckView(deckInUse)
+    }
+}
+
+function saveCard(id){
+    if($("termTextEdit").value !== "" && $("definitionTextEdit").value !== ""){
+        var newCard = new Card(cardId, $("termTextEdit").value, $("definitionTextEdit").value, $("termImgEdit").src, $("definitionImgEdit").src)
+        cardId += 1
+
+        if(!$("termImgEdit").src.startsWith("data")){
+            newCard.termImg = ""
+        }
+
+        if(!$("definitionImgEdit").src.startsWith("data")){
+            newCard.definitionImg = ""
+        }
+
+        deckInUse.cards.push(newCard)
+
+        saveDecks()
+    }
+
+    deleteCard(id)
+}
+
+function deleteCard(id){
+    var index = deckInUse.cards.findIndex(card => card.id === id)
+    deckInUse.cards.splice(index, 1)
 
     saveDecks()
-    openPage('cardCreation', 'deckView')
     openDeckView(deckInUse)
+    openPage('cardEdit', 'deckView')
 }
 
 function loadCards(){
@@ -304,19 +497,19 @@ function loadCards(){
     $("cardList").append(newCardHolder)
 
     getCardsByBox(0, deckInUse).forEach(card => {
-        createCard(card, "var(--red)")
+        createCard(card, "var(--red)", newCardHolder)
     })
 
     getCardsByBox(1, deckInUse).forEach(card => {
-        createCard(card, "var(--orange)")
+        createCard(card, "var(--orange)", newCardHolder)
     })
 
     getCardsByBox(2, deckInUse).forEach(card => {
-        createCard(card, "var(--green)")
+        createCard(card, "var(--green)", newCardHolder)
     })
 }
 
-function createCard(card, color) {
+function createCard(card, color, cardHolder) {
     let cardDiv = document.createElement("div");
     cardDiv.className = "card";
     
@@ -342,35 +535,31 @@ function createCard(card, color) {
 
     let editText = document.createElement("p");
     editText.className = "star edit";
-    editText.innerHTML = "&#9998;"
+    editText.innerHTML = "✏️"
     
     flexContainer.appendChild(editText);
     flexContainer.appendChild(boxColor);
     flexContainer.append(starText)
     
     let term = document.createElement("p");
-    term.textContent = card.term;
+    if(card.termImg !== "" ){
+        term.textContent = "📷 " + card.term;
+    }else{term.textContent = card.term;}
     
     let definition = document.createElement("p");
     definition.className = "grayText";
-    definition.textContent = card.definition;
-    let image = document.createElement("img");
-    image.src = "img/image_white.png";
-    image.alt = "Image";
-
-    if(!(card.termImg !== "" || card.definitionImg !== "")){
-        image.style.display = "none"
-    }
+    if(card.definitionImg !== "" ){
+        definition.textContent = "📷 " + card.definition;
+    }else{definition.textContent = card.definition;}
     
     cardDiv.appendChild(flexContainer);
     cardDiv.appendChild(term);
     cardDiv.appendChild(definition);
-    cardDiv.appendChild(image);
     
-    document.getElementById("cardHolder").appendChild(cardDiv);
+    cardHolder.appendChild(cardDiv);
 
     starText.onclick = function(){toggleCardStar(card.id)}
-    editText.onclick = function(){openCardView()}
+    editText.onclick = function(){openEditCardView(card)}
 }
 
 function revealCard(){
@@ -378,21 +567,45 @@ function revealCard(){
     $("cardLearningButtons").style.display = ""
 }
 
-function repeatAllCards(){
+function openCardLearning(array){
     openPage('deckView', 'cardLearning')
 
     $("cardsLearned").innerHTML = "0"
-    $("cardsToLearn").innerHTML = "/ " + deckInUse.cards.length
+    $("cardsToLearn").innerHTML = "/ " + array.length
     $("progress-bar-filler").style.width = "0%"
     $("definitionDiv").style.display = "none"
     $("cardLearningButtons").style.display = "none"
 
-    learningArray = deckInUse.cards
+    learningArray = []
+    array.forEach(card => {
+        learningArray.push(card)
+    })
     shuffle(learningArray)
-
     learningIndex = 0
 
     loadNextLearningCard()
+}
+
+function repeatAllCards(){
+    openCardLearning(deckInUse.cards)
+}
+
+function repeatMarkedCards(){
+    var markedCards = []
+
+    deckInUse.cards.forEach((card) => {
+        if(card.is_liked === true){
+            markedCards.push(card)
+        }
+    })
+
+    openCardLearning(markedCards)
+}
+
+function repeatCardsByBox(box){
+    var cards = getCardsByBox(box, deckInUse)
+
+    openCardLearning(cards)
 }
 
 function loadNextLearningCard(){
@@ -432,21 +645,24 @@ function loadNextLearningCard(){
 }
 
 function moveCardToDiscover(){
-    deckInUse.cards[learningIndex].box = 0
+    var index = deckInUse.cards.findIndex(card => card.id === learningArray[learningIndex].id)
+    deckInUse.cards[index].box = 0
 
     learningIndex += 1
     loadNextLearningCard()
 }
 
 function moveCardToPractice(){
-    deckInUse.cards[learningIndex].box = 1
+    var index = deckInUse.cards.findIndex(card => card.id === learningArray[learningIndex].id)
+    deckInUse.cards[index].box = 1
 
     learningIndex += 1
     loadNextLearningCard()
 }
 
 function moveCardToPerfect(){
-    deckInUse.cards[learningIndex].box = 2
+    var index = deckInUse.cards.findIndex(card => card.id === learningArray[learningIndex].id)
+    deckInUse.cards[index].box = 2
 
     learningIndex += 1
     loadNextLearningCard()
@@ -485,4 +701,29 @@ function shuffle(array){
   
       [array[currentIndex], array[randomIndex]] = [array[randomIndex], array[currentIndex]];
     }
+}
+
+function editDeck(){
+    $("deckNameInputEdit").value = deckInUse.name
+    $("dateInputEdit").value = deckInUse.date
+}
+
+function saveDeck(){
+    deckInUse.name = $("deckNameInputEdit").value 
+    deckInUse.date = $("dateInputEdit").value
+
+    saveDecks()
+
+    closeModal($("editDeckModal"))
+    $("deckname").innerHTML = deckInUse.name
+}
+
+function deleteDeck(){
+    var index = deckArray.findIndex(deck => deck.id === deckInUse.id)
+
+    deckArray.splice(index, 1)
+
+    saveDecks()
+    openPage('deckView', 'home')
+    closeModal($("editDeckModal"))
 }

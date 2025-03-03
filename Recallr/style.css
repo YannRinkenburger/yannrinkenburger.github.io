@@ -34,6 +34,18 @@ input[type=text]{
     font-size: 20px;
 } 
 
+input[type=date]{
+    margin-top: 16px;
+    background-color: var(--hr);
+    border: none;
+    outline: none;
+    color: var(--main);
+    border-radius: 10px;
+    width: 97%;
+    padding: 1.5%;
+    font-size: 20px;
+} 
+
 textarea{
     width: 100%;
     background-color: transparent;
@@ -76,16 +88,16 @@ header{
     padding-bottom: 10px;
 }
 
-.menu div{
+.menu p{
     text-decoration: none;
     font-size: 26px;
     font-weight: 600;
     color: var(--main);
     margin-left: 5px;
     width: 100%;
-    margin-right: 5px;
     text-align: center;
-    height: 30px;
+    height: 0px;
+    margin-top: -2px;
 }
 
 hr{
@@ -381,12 +393,13 @@ button{
 }
 
 .starHolder{
-    width: 3%;
+    width: 4%;
 }
 
 .starHolder p{
     height: 0px;
-    font-size: 40px;
+    margin-top: 40px;
+    font-size: 30px;
     color: var(--gray);
 }
 
@@ -419,8 +432,9 @@ button{
     width: fit-content;
     margin: auto;
     padding: 10px;
-    padding-top: 2px;
+    margin-top: -12px;
     border-radius: 10px;
+    font-size: 26px;
 }
 
 #cardToLearn p{
@@ -458,7 +472,7 @@ button{
 }
 
 .boxCounters{
-    margin-right: 4%;
+    margin-right: 12px;
     font-size: 16px;
     border: none;
 }
@@ -471,12 +485,13 @@ button{
 
 .cardHeader .boxColor{
     margin-left: 16px;
-    height: 21px;
-    width: 21px;
+    height: 26px;
+    width: 26px;
     text-align: center;
     background: var(--red);
     color: var(--red);
     border-radius: 20px;
+    margin-top: 10px;
 }
 
 .cardHeader .star{
@@ -489,7 +504,7 @@ button{
 .cardHeader .edit{
     color: var(--gray);
     font-size: 30px;
-    margin-top: 6px;
+    margin-top: 4px;
     margin-left: auto;
 }
 
@@ -507,4 +522,11 @@ button{
     font-size: 40px;
     margin-bottom: -20px;
     margin-top: 15%;
+}
+
+.deckCounters div{
+    font-size: 18px;
+    margin-top: 3px;
+    color: var(--gray);
+    margin-right: 20px;
 }
