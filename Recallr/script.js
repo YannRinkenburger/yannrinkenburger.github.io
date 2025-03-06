@@ -1,8 +1,5 @@
 var $ = function( id ) { return document.getElementById( id ) }
 
-var cardId = 0
-var deckId = 0
-
 var cardArray = []
 var deckArray = []
 
@@ -13,20 +10,10 @@ var learningArray = []
 var learningIndex = 0
 
 var streakCounter = 0
-const today = new Date()
-const year = today.getFullYear()
-const month = today.getMonth() + 1
-const day = today.getDate()
-
-if(localStorage.getItem("cardId") != null)
-{
-    cardId = parseInt(localStorage.getItem("cardId"))
-}
-
-if(localStorage.getItem("deckId") != null)
-{
-    deckId = parseInt(localStorage.getItem("deckId"))
-}
+const today = new Date().setHours(0,0,0,0)
+const year = new Date(today).getFullYear()
+const month = new Date(today).getMonth() + 1
+const day = new Date(today).getDate()
 
 if(localStorage.getItem("cardArray") != null)
 {
@@ -46,21 +33,25 @@ if(localStorage.getItem("streakCounter") != null){
 }
 
 if(localStorage.getItem("lastDay") != null){
-    var lastDay = new Date(localStorage.getItem("lastDay"))
-    
-    if(datediff(today, lastDay) === 1){
+    var lastDayItem = new Date(localStorage.getItem("lastDay"))
+    var lastDay = new Date(lastDayItem.setHours(0,0,0,0))
+
+    if(datediff(lastDay, new Date(today)) === 1){
         streakCounter += 1
     }else{
-        streakCounter = 0
+        if(lastDay !== new Date(today)){
+            streakCounter = 0
+        }
     }
 
+    localStorage.setItem("lastDay", new Date(today))
     localStorage.setItem("streakCounter", streakCounter)
     $("streakCounter").innerHTML = "🔥 " + streakCounter
 }else{
     localStorage.setItem("lastDay", new Date())
 }
 
-function datediff(date1, date2) {        
+function datediff(date1, date2) { 
     var Difference_In_Time = date2.getTime() - date1.getTime()
 
     return Math.round(Difference_In_Time / (1000 * 3600 * 24))
@@ -118,9 +109,8 @@ function toggleSearchCardBar(){
 function createDeck(){
     closeModal($("newDeckModal"))
 
-    var newDeck = new Deck(deckId, $("deckNameInput").value, $("dateInput").value)
+    var newDeck = new Deck(crypto.randomUUID(), $("deckNameInput").value, $("dateInput").value)
     deckArray.push(newDeck)
-    deckId += 1
 
     saveDecks()
     loadDecks()
@@ -130,8 +120,6 @@ function createDeck(){
 
 function saveDecks(){
     localStorage.setItem("deckArray", JSON.stringify(deckArray))
-    localStorage.setItem("deckId", deckId)
-    localStorage.setItem("cardId", cardId)
     loadDecks()
 }
 
@@ -149,9 +137,24 @@ function loadDecks() {
 
     $("deckContainer").append(newDeckHolder)
 
-    deckArray.forEach(deck => {
+    var markedDecks = []
+    var restDecks = []
+
+    deckArray.forEach((deck) => {
+        if(deck.is_liked === true){
+            markedDecks.push(deck)
+        }else{
+            restDecks.push(deck)
+        }
+    })
+
+    markedDecks.forEach(deck => {
         createDeckDiv(deck)
-    });
+    })
+
+    restDecks.forEach(deck => {
+        createDeckDiv(deck)
+    })
 }
 
 function createDeckDiv(deck){
@@ -214,16 +217,16 @@ function createDeckDiv(deck){
     timeText.style.color = "var(--gray)"
     timeText.style.marginLeft = "30px"
     
-    var daysToGo = datediff(today, new Date(deck.date))
+    var daysToGo = datediff(new Date(today), new Date(deck.date))
 
     var color = "var(--green)"
     var background = "#2b361a"
-    if(daysToGo <= 7){
-        color = "var(--orange)"
-        background = "#403721"
-    }else if(daysToGo <= 3){
+    if(daysToGo <= 3){
         color = "var(--red)"
         background = "#351f21"
+    }else if(daysToGo <= 7){
+        color = "var(--orange)"
+        background = "#403721"
     }
 
     var timeTextCounter = document.createElement("button")
@@ -438,8 +441,7 @@ function editImage(index, button, source){
 
 function createNewCard(){
     if($("termInput").value !== "" && $("definitionInput").value !== ""){
-        var newCard = new Card(cardId, $("termInput").value, $("definitionInput").value, $("termImg").src, $("definitionImg").src)
-        cardId += 1
+        var newCard = new Card(crypto.randomUUID(), $("termInput").value, $("definitionInput").value, $("termImg").src, $("definitionImg").src)
 
         if(!$("termImg").src.startsWith("data")){
             newCard.termImg = ""
@@ -460,8 +462,7 @@ function createNewCard(){
 
 function saveCard(id){
     if($("termTextEdit").value !== "" && $("definitionTextEdit").value !== ""){
-        var newCard = new Card(cardId, $("termTextEdit").value, $("definitionTextEdit").value, $("termImgEdit").src, $("definitionImgEdit").src)
-        cardId += 1
+        var newCard = new Card(crypto.randomUUID(), $("termTextEdit").value, $("definitionTextEdit").value, $("termImgEdit").src, $("definitionImgEdit").src)
 
         if(!$("termImgEdit").src.startsWith("data")){
             newCard.termImg = ""
@@ -726,4 +727,81 @@ function deleteDeck(){
     saveDecks()
     openPage('deckView', 'home')
     closeModal($("editDeckModal"))
+}
+
+function download(content, fileName, contentType) {
+    var a = document.createElement("a");
+    var file = new Blob([content], {type: contentType});
+    a.href = URL.createObjectURL(file);
+    a.download = fileName;
+    a.click();
+}
+
+function downloadAllData(){
+    download(JSON.stringify(deckArray), 'allData.json', 'text/plain')
+}
+
+function uploadAllData(){
+    var files = document.getElementById('selectFiles').files;
+    if (files.length <= 0) {
+        return;
+    }
+    
+    var fr = new FileReader();
+    fr.onload = function(e) { 
+        var result = JSON.parse(e.target.result);
+        deckArray = result
+        saveDecks()
+    } 
+
+    fr.readAsText(files.item(0));
+
+    closeModal($("uploadDataModal"))
+}
+
+function openDownloadDeckModal(){
+    var elements = document.getElementsByClassName("options")
+
+    while(elements.length > 0){
+        elements[0].remove()
+    }
+
+    openModal($('downloadDeckModal'))
+
+    deckArray.forEach(deck => {
+        var option = document.createElement("option")
+        option.innerHTML = deck.name
+        option.value = deck.id
+        option.className = "options"
+
+        $("selectDeck").append(option)
+    });
+}
+
+function downloadDeckData(){
+    var index = deckArray.findIndex(deck => deck.id === $("selectDeck").value)
+
+    var deckToDownload = [deckArray[index]]
+
+    download(JSON.stringify(deckToDownload), deckArray[index].name + '.json', 'text/plain')
+
+    closeModal($('downloadDeckModal'))
+}
+
+function uploadDeckData(){
+    var files = document.getElementById('selectDeckFile').files;
+    if (files.length <= 0) {
+        return;
+    }
+
+    var fr = new FileReader();
+    fr.onload = function(e) { 
+        var result = JSON.parse(e.target.result);
+        deckArray.push(result[0])
+        saveDecks()
+    } 
+
+    fr.readAsText(files.item(0));
+
+    closeModal($("uploadDeckModal"))
 }

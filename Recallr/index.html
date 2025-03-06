@@ -11,7 +11,16 @@
             <div id="homeMenu" class="menu flex-container">
                 <p style="text-align: left;" id="streakCounter">🔥 0</p>
 
-                <p style="text-align: right;">⚙️</p>
+                <p style="text-align: right;" onclick="openPage('home', 'settings')">⚙️</p>
+            </div>
+
+            <div id="settingsMenu" class="menu flex-container" style="display: none;">
+                <p style="text-align: left;" onclick="openPage('settings', 'home')">&#8592;</p>
+                <div><p style="margin-top: -2px; width: max-content;">Settings</p></div>
+
+                <p style="float: right; text-align: right; border-radius: 30px;" id="modeToggle" onclick="changeMode()">
+                    <img id="imgToggle" width="25px" style="margin-top: 3px; cursor: pointer;">
+                </p>
             </div>
             
             <div id="deckViewMenu" class="menu flex-container" style="display: none;">
@@ -66,6 +75,16 @@
                 <div id="deckContainer">
                     <div id="deckHolder"></div>
                 </div>
+            </div>
+
+            <div id="settings" style="display: none;">
+                <div class="flex-container">
+                    <button class="newButton" style="margin-top: 10px; width: 48%; margin-right: 2%;" onclick="openDownloadDeckModal()">Download deck data</button>
+                    <button class="deleteButton" style="margin-top: 10px; width: 48%; margin-left: 2%;" onclick="openModal(document.getElementById('uploadDeckModal'))">Upload deck data</button>
+                </div>
+
+                <button class="newButton" style="margin-top: 60px;" onclick="downloadAllData()">Download all data</button>
+                <button class="deleteButton" style="margin-top: 20px;" onclick="openModal(document.getElementById('uploadDataModal'))">Upload all data</button>
             </div>
 
             <div id="deckView" style="display: none;">
@@ -263,9 +282,66 @@
                     </div>
                 </div>
             </div>
+
+            <div id="uploadDataModal" class="modal" style="display: none;">
+                <div class="modal-content">
+                    <h2 class="modalHeadline">Upload Data</h2>
+                        
+                    <h2 class="close" onclick="closeModal(document.getElementById('uploadDataModal'))">&times;</h2>
+
+                    <hr>
+
+                    <input type="file" id="selectFiles" value="Import" />
+
+                    <div class="modalText">
+                        <div class="flex-container">
+                            <button class="newButton" onclick="uploadAllData()">Upload Data</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="downloadDeckModal" class="modal" style="display: none;">
+                <div class="modal-content">
+                    <h2 class="modalHeadline">Download Deck Data</h2>
+                        
+                    <h2 class="close" onclick="closeModal(document.getElementById('downloadDeckModal'))">&times;</h2>
+
+                    <hr>
+
+                    <select id="selectDeck">
+                        <option value="" selected disabled hidden>Choose deck</option>
+                    </select>
+
+                    <div class="modalText">
+                        <div class="flex-container">
+                            <button class="newButton" onclick="downloadDeckData()">Download Deck Data</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="uploadDeckModal" class="modal" style="display: none;">
+                <div class="modal-content">
+                    <h2 class="modalHeadline">Upload Deck Data</h2>
+                        
+                    <h2 class="close" onclick="closeModal(document.getElementById('uploadDeckModal'))">&times;</h2>
+
+                    <hr>
+
+                    <input type="file" id="selectDeckFile" value="Import" />
+
+                    <div class="modalText">
+                        <div class="flex-container">
+                            <button class="newButton" onclick="uploadDeckData()">Upload Deck Data</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
 
         <script src="script.js"></script>
         <script src="canvas.js"></script>
+        <script src="change_theme.js"></script>
     </body>
 </html>

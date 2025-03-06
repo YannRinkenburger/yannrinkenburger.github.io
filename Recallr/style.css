@@ -3,9 +3,7 @@
     --forground: #282828;
     --main: white;
     --highlight: #5588ff;
-    --hover: #333333;
     --hr: #454545;
-    --h2: white;
     --gray: #919191;
     --gold: #FCC419; 
     --red: #f7263b;
@@ -119,7 +117,7 @@ h1{
 }
 
 h2{
-    color: var(--h2);
+    color: var(--main);
     font-size: 30px;
     font-weight: 600;
     margin: 0px;
@@ -529,4 +527,24 @@ button{
     margin-top: 3px;
     color: var(--gray);
     margin-right: 20px;
+}
+
+select{
+    background: none;
+    color: var(--main);
+    border: 1px solid var(--hr);
+    font-size: 24px;
+    margin-left: 5%;
+    padding: 5px;
+    border-radius: 10px;
+}
+
+input[type=file]{
+    background: none;
+    color: var(--main);
+    border: 1px solid var(--hr);
+    font-size: 24px;
+    margin-left: 5%;
+    padding: 5px;
+    border-radius: 10px;
 }
