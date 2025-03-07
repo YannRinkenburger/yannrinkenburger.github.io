@@ -39,7 +39,7 @@ if(localStorage.getItem("lastDay") != null){
     if(datediff(lastDay, new Date(today)) === 1){
         streakCounter += 1
     }else{
-        if(lastDay !== new Date(today)){
+        if(datediff(lastDay, new Date(today)) !== 0){
             streakCounter = 0
         }
     }
